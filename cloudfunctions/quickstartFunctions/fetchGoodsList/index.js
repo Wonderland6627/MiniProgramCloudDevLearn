@@ -7,6 +7,6 @@ exports.main = async (event, context) => {
     .limit(0)
     .get();
   return {
-    dataList: result.data,
+    dataList: result?.data,
   };
 }; 
