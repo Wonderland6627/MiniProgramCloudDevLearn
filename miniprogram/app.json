@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/nbstudy/login/index",
     "pages/index/index",
     "pages/goods-list/index",
     "pages/examples/index",
@@ -21,7 +22,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "NBStudy",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
@@ -34,7 +35,7 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "快速开始",
+        "text": "主页",
         "iconPath": "images/icons/home.png",
         "selectedIconPath": "images/icons/home-active.png"
       },
