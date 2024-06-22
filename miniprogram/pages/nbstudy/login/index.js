@@ -5,14 +5,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-    angle: 0
+    angle: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.fetchStoresList();
+  },
 
+  async fetchStoresList() {
+    this.setData({ isLoading: true});
+    const res = await wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: { type: 'fetchStoresList' },
+    });
+    const storesList = res?.result?.dataList || [];
+    this.setData({
+      isLoading: false,
+      storesList
+    });
   },
 
   /**

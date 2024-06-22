@@ -1,5 +1,8 @@
 <!--pages/nbstudy/login/index.wxml-->
 <view class="container">
+  <view wx:for="{{storesList}}" wx:key="_id">
+    <view>{{item.storeName}}</view>
+  </view>
   <view class="content">
     <view class="content-wave" style="transform: rotateZ({{angle}}deg)">
       <image class="logo" src="../../../resources/static/imgs/app_icon.png"></image>
