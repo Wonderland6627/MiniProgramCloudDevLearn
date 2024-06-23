@@ -3,6 +3,8 @@
     "i-panel": "../../../components/panel/index",
     "i-input": "../../../components/input/index",
     "i-button": "../../../components/button/index",
-    "i-message": "../../../components/message/index"
-  }
+    "i-message": "../../../components/message/index",
+    "i-input-with-title": "../../../components/inputWithTitle/index"
+  },
+  "disableScroll": true
 }

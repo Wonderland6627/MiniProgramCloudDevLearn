@@ -1,0 +1,5 @@
+<!--components/inputWithTitle/index.wxml-->
+<view class="i-cell">
+  <view class="title">{{title}}</view>
+  <input class="input" placeholder="{{placeholder}}" bindinput="handleInput" />
+</view>

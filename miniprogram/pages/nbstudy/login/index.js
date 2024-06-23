@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.fetchStoresList();
+    
   },
 
   async fetchStoresList() {
@@ -26,6 +26,19 @@ Page({
       isLoading: false,
       storesList
     });
+  },
+
+  tryLogin: function() {
+    console.log("try login")
+    this.fetchStoresList();
+  },
+
+  contactUs: function() {
+    console.log("contact us")
+  },
+
+  checkPhoneNumber: function(e) {
+    console.log(e)
   },
 
   /**

@@ -14,12 +14,13 @@
         <i-panel>
           <i-input i-class="input-login account" type="text" title="账号" placeholder="有效账号"/>
           <i-input i-class="input-login password" type="password" title="密码" placeholder="密码"/>
+          <i-input-with-title title="手机号" placeholder="有效手机号" bindInput="handleInput"/>
         </i-panel>
       </view>
       <view class="option-select">
-        <view class="contactus"><text bindtap="toRegister">联系我们</text></view>
+        <view class="contactus"><text bindtap="contactUs">联系我们</text></view>
       </view>
-      <view class="confirm-btn" bindtap="goToIndex">
+      <view class="confirm-btn" bindtap="tryLogin">
         <text>登  录</text>
       </view>
     </view>
