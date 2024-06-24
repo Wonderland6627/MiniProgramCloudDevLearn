@@ -14,7 +14,7 @@
         <i-panel>
           <i-input i-class="input-login account" type="text" title="账号" placeholder="有效账号"/>
           <i-input i-class="input-login password" type="password" title="密码" placeholder="密码"/>
-          <i-input-with-title title="手机号" placeholder="有效手机号" bindInput="handleInput"/>
+          <i-input-with-title title="手机号" placeholder="有效手机号" bind:change="checkPhoneNumber"/>
         </i-panel>
       </view>
       <view class="option-select">

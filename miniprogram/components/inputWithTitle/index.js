@@ -29,6 +29,16 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    handleInputChange(event) {
+      const value = event.detail.value;
+      this.setData({value});
+      this.triggerEvent('change', { value });
+    },
+    handleFocus(event) {
+      this.triggerEvent('focus',event);
+    },
+    handleBlur(event) {
+      this.triggerEvent('blur',event);
+    }
   }
 })
