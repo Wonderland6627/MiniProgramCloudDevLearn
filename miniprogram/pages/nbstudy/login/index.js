@@ -6,6 +6,7 @@ Page({
    */
   data: {
     angle: 0,
+    phoneValid: false,
   },
 
   /**
@@ -16,7 +17,7 @@ Page({
   },
 
   async fetchStoresList() {
-    this.setData({ isLoading: true});
+    this.setData({ isLoading: true });
     const res = await wx.cloud.callFunction({
       name: 'quickstartFunctions',
       data: { type: 'fetchStoresList' },
@@ -41,7 +42,11 @@ Page({
   },
 
   checkPhoneNumber: function(e) {
-    console.log(e)
+    const phone = e.detail.value
+    console.log(phone)
+    this.setData({
+      phoneValid: phone.length == 11
+    })
   },
 
   /**

@@ -104,6 +104,12 @@
   color: #aaa;
 }
 
+.option-select .phonevalidtips{
+  width: 50%;
+  float: left;
+  text-align: left;
+}
+
 .option-select .contactus{
   width: 50%;
   float: right;
@@ -124,4 +130,10 @@
 
 .confirm-btn:active{
   opacity: 0.8;
+}
+
+.confirm-btn:disabled {
+  background: #ccc;
+  pointer-events: none;
+  opacity: 0.5;
 }
