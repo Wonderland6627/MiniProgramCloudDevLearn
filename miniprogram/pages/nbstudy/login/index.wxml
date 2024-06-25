@@ -19,7 +19,7 @@
           <text bindtap="contactUs">联系我们</text>
         </view>
       </view>
-      <button wx:if="{{phoneValid}}" class="confirm-btn">
+      <button wx:if="{{phoneValid}}" class="confirm-btn" bindtap="tryLogin">
         <text>登  录</text>
       </button>
       <button wx:else class="confirm-btn" disabled>

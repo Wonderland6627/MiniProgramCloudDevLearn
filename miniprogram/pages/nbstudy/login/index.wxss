@@ -138,5 +138,6 @@
 }
 
 .confirm-btn:disabled {
+  pointer-events: none;
   opacity: 0.5;
 }
