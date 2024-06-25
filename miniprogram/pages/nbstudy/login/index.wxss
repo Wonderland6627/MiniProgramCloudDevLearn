@@ -118,6 +118,9 @@
 
 /* 登录按钮 */
 .confirm-btn{
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
   height: 85rpx;
   background: #d38022;
   font-size: 32rpx;
@@ -125,15 +128,15 @@
   color: #fff;
   text-align: center;
   margin: 15% 20%;
-  border-radius: 100rpx;
+  border-radius: 20rpx;
+  
 }
 
+/* 点击状态 */
 .confirm-btn:active{
   opacity: 0.8;
 }
 
 .confirm-btn:disabled {
-  background: #ccc;
-  pointer-events: none;
   opacity: 0.5;
 }

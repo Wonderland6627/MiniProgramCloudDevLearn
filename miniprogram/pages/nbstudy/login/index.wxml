@@ -12,14 +12,19 @@
     <view class="form-bd">
       <i-input-with-title title="手机号" placeholder="点我输入手机号" bind:change="checkPhoneNumber"/>
       <view class="option-select">
-        <view class="phonevalidtips" wx:if="{{!phoneValid}}">请输入有效手机号</view>
-        <view class="contactus"><text bindtap="contactUs">联系我们</text></view>
-      </view>
-      <view class="confirm-btn">
-        <view class="{{ phonevalidtips ? 'active' : 'disabled' }}" bindtap="tryLogin">
-          <text>登  录</text>
+        <view class="phonevalidtips" wx:if="{{!phoneValid}}">
+          <text>请输入有效手机号</text>
+        </view>
+        <view class="contactus">
+          <text bindtap="contactUs">联系我们</text>
         </view>
       </view>
+      <button wx:if="{{phoneValid}}" class="confirm-btn">
+        <text>登  录</text>
+      </button>
+      <button wx:else class="confirm-btn" disabled>
+        <text>登  录</text>
+      </button>
     </view>
   </view>
 </view>
