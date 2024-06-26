@@ -14,7 +14,11 @@ Component({
     },
     placeholder: {
       type: String,
-      value: ''
+      value: '请输入'
+    },
+    type: {
+      type: String,
+      value: 'text'
     },
   },
 

@@ -4,6 +4,7 @@
   <input
     class="input"
     placeholder="{{placeholder}}"
+    type="{{type}}"
     bindinput="handleInputChange"
   />
 </view>

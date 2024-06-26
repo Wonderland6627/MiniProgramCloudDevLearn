@@ -10,7 +10,8 @@
       <image class="wave wave-bg" src="../../../resources/static/imgs/wave.png" mode="aspectFit"></image>
     </view>
     <view class="form-bd">
-      <i-input-with-title title="手机号" placeholder="点我输入手机号" bind:change="checkPhoneNumber"/>
+      <i-input-with-title title="手机号" placeholder="点我输入手机号" type="number" bind:change="checkPhoneNumber"/>
+      <i-input-with-title title="密码" placeholder="点我输入密码" type="password" bind:change="checkPassword"/>
       <view class="option-select">
         <view class="phonevalidtips" wx:if="{{!phoneValid}}">
           <text>请输入有效手机号</text>
