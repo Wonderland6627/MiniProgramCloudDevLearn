@@ -7,6 +7,8 @@ Page({
   data: {
     angle: 0,
     phoneValid: false,
+    phoneNumber: '',
+    password: '',
   },
 
   /**
@@ -32,9 +34,47 @@ Page({
   tryLogin: function() {
     console.log("try login")
     //this.fetchStoresList();
-    wx.switchTab({
-      url: '/pages/nbstudy/student-main/index',
-    })
+    this.login();
+    // wx.switchTab({
+    //   url: '/pages/nbstudy/student-main/index',
+    // })
+  },
+
+  async login() {
+    // this.setData({ isLoading: true });
+    const { phoneNumber, password } = this.data;
+    console.log(phoneNumber)
+    console.log(password)
+    const response = await wx.cloud.callFunction({
+        name: 'quickstartFunctions',
+        data: {
+          type: 'checkLogin',
+          data: {
+            phoneNumber, password
+          }
+        }
+    });
+    const result = response?.result;
+    console.log("登陆回应：" + JSON.stringify(result))
+    if (result == null) {
+      wx.showToast({
+        title: '登陆无效',
+        icon: 'error',
+      });
+      return
+    }
+    const success = result.code == 0;
+    if (!success) {
+      wx.showToast({
+        title: '登陆无效: ' + result.code,
+        icon: 'error',
+      });
+      return;
+    }
+    wx.showToast({
+      title: '登陆成功',
+      icon: 'success',
+    });
   },
 
   contactUs: function() {
@@ -45,6 +85,7 @@ Page({
     const phone = e.detail.value
     console.log(phone)
     this.setData({
+      phoneNumber: phone,
       phoneValid: phone.length == 11
     })
   },
@@ -52,6 +93,9 @@ Page({
   checkPassword(e) {
     const password = e.detail.value
     console.log(password)
+    this.setData({
+      password: password
+    })
   },
 
   /**
