@@ -1,8 +1,8 @@
 const request = require('request')
 exports.main = async (event, context) => {
   const { js_code } = event.data
-  const appid = 'wx44c4c158f1c2daa2'
-  const secret = '1aab469022ad2765762d8c53b61ca61b'
+  const appid = process.env.APPID
+  const secret = process.env.SECRET
   try {
     const result = await code2Session(appid, secret, js_code)
     return js_code + " " + result
