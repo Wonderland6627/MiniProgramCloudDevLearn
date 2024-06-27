@@ -20,11 +20,14 @@
           <text bindtap="contactUs">联系我们</text>
         </view>
       </view>
-      <button wx:if="{{phoneValid}}" class="confirm-btn" bindtap="tryLogin">
+      <button wx:if="{{phoneValid}}" class="confirm-btn" bindtap="tryCustomLogin">
         <text>登  录</text>
       </button>
       <button wx:else class="confirm-btn" disabled>
         <text>登  录</text>
+      </button>
+      <button class="confirm-btn" bindtap="tryWXLogin">
+        <text>微信登陆</text>
       </button>
     </view>
   </view>

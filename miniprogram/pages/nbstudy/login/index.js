@@ -9,6 +9,7 @@ Page({
     phoneValid: false,
     phoneNumber: '',
     password: '',
+    js_code: '',
   },
 
   /**
@@ -16,6 +17,48 @@ Page({
    */
   onLoad(options) {
     
+  },
+
+  tryWXLogin() {
+    wx.checkSession({
+      success: () => {
+        console.log('session 有效')
+      },
+      fail: ()=> {
+        console.log('session 过期')
+        wx.login({
+          success: (res) => {
+            if (res.code) {
+              console.log('登陆凭证 code:' + res.code)
+              this.setData({
+                js_code: res.code
+              })
+              const { js_code } = this.data
+              wx.cloud.callFunction({
+                name: 'quickstartFunctions',
+                data: {
+                  type: 'getJSCode2Session',
+                  data: {
+                    js_code
+                  }
+                },
+                success: (res) => {
+                  console.log('666 ' + JSON.stringify(res))
+                },
+                fail: (err) => {
+                  console.error('6666 ' + err)
+                }
+              });
+            } else {
+              console.log('登陆失败' + res.errMsg)
+            }
+          },
+          fail: (err) => {
+            console.error('登陆错误' + err)
+          }
+        })
+      }
+    })
   },
 
   async fetchStoresList() {
@@ -31,16 +74,16 @@ Page({
     });
   },
 
-  tryLogin: function() {
-    console.log("try login")
+  tryCustomLogin: function() {
+    console.log("try custom login")
     //this.fetchStoresList();
-    this.login();
+    this.customLogin();
     // wx.switchTab({
     //   url: '/pages/nbstudy/student-main/index',
     // })
   },
 
-  async login() {
+  async customLogin() {
     // this.setData({ isLoading: true });
     const { phoneNumber, password } = this.data;
     console.log(phoneNumber)
