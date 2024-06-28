@@ -81,15 +81,16 @@ Page({
   },
 
   async createStudent() {
-    await wx.cloud.callFunction({
+    const response = await wx.cloud.callFunction({
       name: 'quickstartFunctions',
       data: {
         type: 'createStudent',
         data: {
-          openid: getApp().getOpenID()
+          openid: getApp().getOpenID() //小程序端口上传 跟云函数中获取到的对比下
         }
       }
     })
+    console.log('创建student行: ' + JSON.stringify(response))
   },
 
   async fetchStoresList() {

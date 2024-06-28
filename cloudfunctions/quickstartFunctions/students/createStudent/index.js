@@ -5,19 +5,21 @@ cloud.init({
 const db = cloud.database();
 exports.main = async (event, context) => {
   const { openid } = event.data
+  const wxContext = cloud.getWXContext()
   try {
     await db.collection('students').add({
       data: {
-        OPENID: openid,
+        OPENID: wxContext.OPENID,
       }
     });
     return {
       code: 0,
+      msg: openid == wxContext.OPENID ? 'openid equals' : 'openid not equals'
     }
   } catch (e) {
     return {
       code: -1,
-      err: e,
+      msg: e,
     }
   }
 };
