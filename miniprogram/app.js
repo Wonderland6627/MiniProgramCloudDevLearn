@@ -13,7 +13,24 @@ App({
         traceUser: true,
       });
     }
+  },
 
-    this.globalData = {};
+  globalData: {
+    openid: ''
+  },
+
+  setOpenID(openid) {
+    this.globalData.openid = openid
+    wx.setStorageSync('openid', openid)
+    console.log('set openid: ' + openid)
+  },
+
+  getOpenID() {
+    let openid = this.globalData.openid
+    if (openid === '') {
+      openid = wx.getStorageSync('openid')
+    }
+    console.log('get openid: ' + openid)
+    return openid
   }
 });

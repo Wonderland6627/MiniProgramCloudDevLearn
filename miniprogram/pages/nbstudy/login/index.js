@@ -16,7 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+    getApp().getOpenID()
   },
 
   tryWXLogin() {
@@ -47,6 +47,7 @@ Page({
                     return
                   }
                   console.log('微信登陆凭证校验成功回应: ' + JSON.stringify(res.result.data))
+                  getApp().setOpenID(res.result.data.openid)
                 },
                 fail: (err) => {
                   console.error('微信登陆凭证校验失败: ' + err)
