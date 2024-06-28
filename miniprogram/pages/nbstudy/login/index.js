@@ -22,14 +22,14 @@ Page({
   tryWXLogin() {
     wx.checkSession({
       success: () => {
-        console.log('session 有效')
+        console.log('微信session 有效')
       },
       fail: ()=> {
-        console.log('session 过期')
+        console.log('微信session 过期')
         wx.login({
           success: (res) => {
             if (res.code) {
-              console.log('登陆凭证 code:' + res.code)
+              console.log('微信登陆凭证 code:' + res.code)
               this.setData({
                 js_code: res.code
               })
@@ -38,23 +38,26 @@ Page({
                 name: 'quickstartFunctions',
                 data: {
                   type: 'getJSCode2Session',
-                  data: {
-                    js_code
-                  }
+                  data: { js_code }
                 },
                 success: (res) => {
-                  console.log('666 ' + JSON.stringify(res))
+                  console.log('微信登陆凭证校验成功: ' + JSON.stringify(res))
+                  if (res.result.errMsg != '') {
+                    console.log('微信登陆凭证校验错误: ' + res.result.errMsg)
+                    return
+                  }
+                  console.log('微信登陆凭证校验成功回应: ' + JSON.stringify(res.result.data))
                 },
                 fail: (err) => {
-                  console.error('6666 ' + err)
+                  console.error('微信登陆凭证校验失败: ' + err)
                 }
               });
             } else {
-              console.log('登陆失败' + res.errMsg)
+              console.log('微信登陆失败: ' + res.errMsg)
             }
           },
           fail: (err) => {
-            console.error('登陆错误' + err)
+            console.error('微信登陆错误: ' + err)
           }
         })
       }

@@ -5,9 +5,14 @@ exports.main = async (event, context) => {
   const secret = process.env.SECRET
   try {
     const result = await code2Session(appid, secret, js_code)
-    return js_code + " " + result
+    return {
+      errMsg: '',
+      data: result
+    }
   } catch (error) {
-    return js_code + " " + error
+    return {
+      errMsg: error,
+    }
   }
 };
 
@@ -17,10 +22,9 @@ function code2Session(appid, secret, js_code) {
     request.get(url, (error, response, body) => {
       if (error) {
         reject(error)
-      } else {
-        const result = JSON.parse(body)
-        resolve(result)
+        return
       }
+      resolve(JSON.parse(body))
     })
   })
   return promise
