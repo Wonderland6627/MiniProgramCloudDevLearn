@@ -11,6 +11,8 @@ const fetchStoresList = require('./fetchStoresList/index')
 const checkLogin = require('./checkLogin/index');
 const getJSCode2Session = require('./getJScode2Session/index')
 
+const createStudent = require('./students/createStudent/index')
+
 // 云函数入口函数
 exports.main = async (event, context) => {
   switch (event.type) {
@@ -37,6 +39,9 @@ exports.main = async (event, context) => {
       return await checkLogin.main(event, context);
     case 'getJSCode2Session':
       return await getJSCode2Session.main(event, context);
+
+    case 'createStudent': 
+      return await createStudent.main(event, context);
   }
 };
         

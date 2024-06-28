@@ -20,14 +20,28 @@ Page({
   },
 
   tryWXLogin() {
+    wx.showLoading({
+      title: '检查登陆状态',
+    })
     wx.checkSession({
       success: () => {
+        wx.showToast({
+          title: '已登陆',
+          icon: 'success',
+        })
         console.log('微信session 有效')
       },
       fail: ()=> {
+        wx.showLoading({
+          title: '正在登陆',
+        })
         console.log('微信session 过期')
         wx.login({
           success: (res) => {
+            wx.showToast({
+              title: '登陆成功',
+              icon: 'success',
+            })
             if (res.code) {
               console.log('微信登陆凭证 code:' + res.code)
               this.setData({
@@ -48,6 +62,7 @@ Page({
                   }
                   console.log('微信登陆凭证校验成功回应: ' + JSON.stringify(res.result.data))
                   getApp().setOpenID(res.result.data.openid)
+                  this.createStudent()
                 },
                 fail: (err) => {
                   console.error('微信登陆凭证校验失败: ' + err)
@@ -61,6 +76,18 @@ Page({
             console.error('微信登陆错误: ' + err)
           }
         })
+      }
+    })
+  },
+
+  async createStudent() {
+    await wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: {
+        type: 'createStudent',
+        data: {
+          openid: getApp().getOpenID()
+        }
       }
     })
   },

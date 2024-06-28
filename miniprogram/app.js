@@ -22,7 +22,7 @@ App({
   setOpenID(openid) {
     this.globalData.openid = openid
     wx.setStorageSync('openid', openid)
-    console.log('set openid: ' + openid)
+    console.log('[app.js] set openid: ' + openid)
   },
 
   getOpenID() {
@@ -30,7 +30,7 @@ App({
     if (openid === '') {
       openid = wx.getStorageSync('openid')
     }
-    console.log('get openid: ' + openid)
+    console.log('[app.js] get openid: ' + openid)
     return openid
-  }
+  },
 });
