@@ -29,6 +29,7 @@ App({
     let openid = this.globalData.openid
     if (openid === '') {
       openid = wx.getStorageSync('openid')
+      this.globalData.openid = openid
     }
     console.log('[app.js] get openid: ' + openid)
     return openid

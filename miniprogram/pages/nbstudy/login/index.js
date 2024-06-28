@@ -29,24 +29,24 @@ Page({
           title: '已登陆',
           icon: 'success',
         })
-        console.log('微信session 有效')
+        console.log('微信session有效')
+        this.createStudent()
       },
       fail: ()=> {
         wx.showLoading({
           title: '正在登陆',
         })
-        console.log('微信session 过期')
+        console.log('微信session过期')
         wx.login({
           success: (res) => {
             wx.showToast({
               title: '登陆成功',
               icon: 'success',
             })
-            if (res.code) {
+            if (res.code) { //到这一步获取到code代表登陆成功 后面json2Session主要是为了本地存openid
               console.log('微信登陆凭证 code:' + res.code)
-              this.setData({
-                js_code: res.code
-              })
+              this.createStudent()
+              this.setData({ js_code: res.code })
               const { js_code } = this.data
               wx.cloud.callFunction({
                 name: 'quickstartFunctions',
@@ -62,7 +62,6 @@ Page({
                   }
                   console.log('微信登陆凭证校验成功回应: ' + JSON.stringify(res.result.data))
                   getApp().setOpenID(res.result.data.openid)
-                  this.createStudent()
                 },
                 fail: (err) => {
                   console.error('微信登陆凭证校验失败: ' + err)
@@ -81,16 +80,29 @@ Page({
   },
 
   async createStudent() {
+    wx.showLoading({
+      title: '检查用户数据',
+    })
     const response = await wx.cloud.callFunction({
       name: 'quickstartFunctions',
       data: {
         type: 'createStudent',
-        data: {
-          openid: getApp().getOpenID() //小程序端口上传 跟云函数中获取到的对比下
-        }
       }
     })
-    console.log('创建student行: ' + JSON.stringify(response))
+    console.log('创建student行回应: ' + JSON.stringify(response))
+    if (response.result.code < 0) {
+      wx.showToast({
+        title: '创建用户出错',
+        icon: 'error',
+      })
+      console.log('创建用户出错')
+      return
+    }
+    const title = response.result.code == 0 ? "创建新信息" : "用户已创建"
+    wx.showToast({
+      title: title,
+    })
+    console.log('创建student成功')
   },
 
   async fetchStoresList() {
