@@ -44,7 +44,7 @@ Page({
               icon: 'success',
             })
             if (res.code) { //到这一步获取到code代表登陆成功 后面json2Session主要是为了本地存openid
-              console.log('微信登陆凭证 code:' + res.code)
+              console.log('微信登陆凭证 code: ' + res.code)
               this.createStudent()
               this.setData({ js_code: res.code })
               const { js_code } = this.data
@@ -102,7 +102,10 @@ Page({
     wx.showToast({
       title: title,
     })
-    console.log('创建student成功')
+    console.log('创建student流程结束: ' + title)
+    wx.switchTab({
+      url: '/pages/nbstudy/student-main/index',
+    })
   },
 
   async fetchStoresList() {

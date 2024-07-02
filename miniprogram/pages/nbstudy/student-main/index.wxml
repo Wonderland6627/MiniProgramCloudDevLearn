@@ -1,2 +1,9 @@
 <!--pages/nbstudy/student-main/index.wxml-->
-<text>pages/nbstudy/student-main/index.wxml</text>
+
+<view class="userinfo">
+  <button wx:if="{{hasUserInfo}}" bindtap="getUserProfile" class="userinfo-btn"> 点击微信授权 </button>
+  <block wx:else>
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">123</text>
+  </block>
+</view>
