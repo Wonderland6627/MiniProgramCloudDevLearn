@@ -1,4 +1,7 @@
 // pages/nbstudy/login/index.js
+
+const utils = require('../../../utils.js')
+
 Page({
 
   /**
@@ -107,51 +110,44 @@ Page({
         }
       }
     })
+    wx.hideLoading()
+    const data = result?.data
+    if (utils.isEmpty(data)) {
+      console.log('openid为：' + openid + '的学生信息不存在，准备创建')
+      this.createStudentData(openid)
+      return
+    }
+    if (utils.isEmpty(data?.studentName || {})) { //todo: check more stu info
+      console.log('openid为：' + openid + '的学生信息不全，准备补充')
+      this.gotoFillAccount(data)
+      return
+    }
+    this.gotoFillAccount(data)
+  },
+
+  async createStudentData(openid) {
+    wx.showLoading({
+      title: '创建信息',
+    })
+    const result = await getApp().getModels().students.create({
+      data: {
+        OPENID: openid
+      },
+    })
+    wx.showToast({
+      title: '创建信息成功',
+      icon: 'success',
+    })
     const data = result?.data
     console.log(data)
-    if (data == null) {
-      console.log('openid为：' + openid + '的学生信息不存在，准备创建')
-      //todo create data
-      return
-    }
-    if (data.studentName == null) {
-      console.log('openid为：' + openid + '的学生信息不全，准备补充')
-      //todo jump to onboarding
-      return
-    }
+    this.gotoFillAccount(data)
   },
 
-  async createStudent() {
-    wx.showLoading({
-      title: '检查用户数据',
+  gotoFillAccount(data) {
+    wx.setStorageSync('studentAccountData', data)
+    wx.navigateTo({
+      url: '/pages/nbstudy/onboard/index',
     })
-    const response = await wx.cloud.callFunction({
-      name: 'quickstartFunctions',
-      data: {
-        type: 'createStudent',
-      }
-    })
-    console.log('创建student行回应: ' + JSON.stringify(response))
-    if (response.result.code < 0) {
-      wx.showToast({
-        title: '创建用户出错',
-        icon: 'error',
-      })
-      console.log('创建用户出错')
-      return
-    }
-    const title = response.result.code == 0 ? "创建新信息" : "用户已创建"
-    wx.showToast({
-      title: title,
-    })
-    console.log('创建student流程结束: ' + title)
-    wx.switchTab({
-      url: '/pages/nbstudy/student-main/index',
-    })
-  },
-
-  gotoNext(isNewUser) {
-
   },
 
   async fetchStoresList() {

@@ -5,14 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    studentData: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    let data = wx.getStorageSync('studentAccountData')
+    this.setData({
+      studentData: data,
+    })
+    console.log(data)
+    wx.removeStorageSync('studentAccountData')
   },
 
   /**

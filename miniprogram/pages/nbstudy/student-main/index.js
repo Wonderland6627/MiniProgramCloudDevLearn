@@ -37,6 +37,9 @@ Page({
    */
   onShow() {
 
+    wx.navigateTo({
+      url: 'pages/nbstudy/onboard/index',
+    })
   },
 
   /**
