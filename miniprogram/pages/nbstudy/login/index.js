@@ -17,6 +17,16 @@ Page({
    */
   onLoad(options) {
     getApp().getOpenID()
+    this.test()
+  },
+
+  async test() {
+    const { data } = await getApp().getModels().students.create({
+      data: {
+        studentName: "hihihi"
+      }
+    })
+    console.log(data)
   },
 
   tryWXLogin() {

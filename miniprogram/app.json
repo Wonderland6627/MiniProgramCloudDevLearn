@@ -3,6 +3,7 @@
     "pages/nbstudy/login/index",
     "pages/nbstudy/student-main/index",
     "pages/nbstudy/admin-main/index",
+    "pages/nbstudy/onboard/index",
     "pages/index/index",
     "pages/goods-list/index",
     "pages/examples/index",
@@ -18,8 +19,7 @@
     "pages/cloudbaseModuleDetail/index",
     "pages/cloudbaseModuleInstallTips/index",
     "pages/cloudbaseModuleGuide/index",
-    "pages/business/index",
-    "pages/nbstudy/onboard/index"
+    "pages/business/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

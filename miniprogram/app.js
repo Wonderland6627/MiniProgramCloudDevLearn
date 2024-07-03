@@ -1,4 +1,9 @@
 // app.js
+
+const { init } = require('@cloudbase/wx-cloud-client-sdk')
+const client = init(wx.cloud)
+const models = client.models
+
 App({
   onLaunch: function () {
     if (!wx.cloud) {
@@ -17,6 +22,10 @@ App({
 
   globalData: {
     openid: ''
+  },
+
+  getModels() {
+    return models
   },
 
   setOpenID(openid) {
