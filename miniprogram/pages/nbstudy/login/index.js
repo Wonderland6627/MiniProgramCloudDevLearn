@@ -108,6 +108,10 @@ Page({
     })
   },
 
+  gotoNext(isNewUser) {
+    
+  },
+
   async fetchStoresList() {
     this.setData({ isLoading: true });
     const res = await wx.cloud.callFunction({
