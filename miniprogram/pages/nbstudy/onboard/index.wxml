@@ -3,15 +3,15 @@
 
 <view class="container">
   <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-    <image class="avatar" src="{{root + avatarUrl}}"></image>
+    <image class="avatar" src="{{avatarUrl}}"></image>
   </button>
   <view class='edit-container'>
     <view class="a-item">
-      <image class="icon" src="/images/icon/receiver.png"></image>
+      <image class="icon" src="{{avatarUrl}}"></image>
       <input class='a-input' bindinput="bindinputName" bindblur="bindinputName" placeholder='请输入姓名' value="{{studentData.studentName}}"></input>
     </view>
     <view class="a-item">
-      <image class="icon" src="/images/icon/mobile.png"></image>
+      <image class="icon" src="{{avatarUrl}}"></image>
       <input class='a-input' bindinput="mobilechange" bindblur="mobilechange" value="{{studentData.phone}}" placeholder='请输入手机'></input>
     </view>
   </view>
