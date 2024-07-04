@@ -21,14 +21,21 @@ Page({
     this.setData({
       studentData: data,
     })
-    console.log('获取studentAccountData: ' + data)
+    console.log('获取studentAccountData: ' + JSON.stringify(data))
     wx.removeStorageSync('studentAccountData')
+
+    if (!this.data.studentData.OPENID) {
+      this.setData({
+        'studentData.OPENID': getApp().getOpenID(),
+      })
+    }
+    console.log(this.data.studentData)
   },
 
   onChooseAvatar(e) {
     var filePath = e.detail.avatarUrl
     console.log('获取头像变化: ' + filePath)
-    var clouthPath = 'studentAvatars/avatar_' + getApp().getOpenID() + '.png'
+    var clouthPath = 'studentAvatars/avatar_' + this.data.studentData.OPENID + '.png'
     console.log(clouthPath)
     wx.cloud.uploadFile({
       cloudPath: clouthPath,
@@ -61,6 +68,25 @@ Page({
 
   saveInfo() {
     console.log('save')
+    this.tryUpdateStudentData()
+  },
+
+  async tryUpdateStudentData() {
+    const { studentData } = this.data
+    const result = await getApp().getModels().students.update({
+      data: {
+        avatarUrl: studentData.avatarUrl,
+        studentName: "老八",
+      },
+      filter: {
+        where: {
+          OPENID: {
+            $eq: studentData.OPENID
+          }
+        }
+      }
+    })
+    console.log(result)
   },
 
   /**
