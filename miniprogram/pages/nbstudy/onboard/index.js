@@ -59,11 +59,19 @@ Page({
   },
 
   bindinputName(e) {
-    
+    const name = e.detail.value
+    this.setData({
+      'studentData.studentName': name
+    })
+    console.log('修改学生名字: ' + name)
   },
 
   mobileChange(e) {
-    
+    const phone = e.detail.value
+    this.setData({
+      'studentData.phone': phone
+    })
+    console.log('修改电话: ' + phone)
   },
 
   saveInfo() {
@@ -73,10 +81,28 @@ Page({
 
   async tryUpdateStudentData() {
     const { studentData } = this.data
+    if (!studentData.studentName) {
+      wx.showToast({
+        title: '请输入学生姓名',
+        icon: 'error',
+      })
+      return
+    }
+    if (!studentData.phone || studentData.phone.length != 11) {
+      wx.showToast({
+        title: '请输入手机号',
+        icon: 'error',
+      })
+      return
+    }
+    wx.showLoading({
+      title: '正在保存',
+    })
     const result = await getApp().getModels().students.update({
       data: {
         avatarUrl: studentData.avatarUrl,
-        studentName: "老八",
+        studentName: studentData.studentName,
+        phone: studentData.phone,
       },
       filter: {
         where: {
@@ -87,6 +113,19 @@ Page({
       }
     })
     console.log(result)
+    if (result.data.count != 1) {
+      wx.showToast({
+        title: '保存失败',
+        icon: 'success',
+      })
+      console.log('学生信息保存失败')
+      return
+    }
+    wx.showToast({
+      title: '保存成功',
+      icon: 'success',
+    })
+    console.log('学生信息保存成功')
   },
 
   /**

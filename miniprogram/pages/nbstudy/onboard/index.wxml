@@ -8,11 +8,11 @@
   <view class='edit-container'>
     <view class="a-item">
       <image class="icon" src="{{studentData.avatarUrl}}"></image>
-      <input class='a-input' bindinput="bindinputName" bindblur="bindinputName" placeholder='请输入姓名' value="{{studentData.studentName}}"></input>
+      <input class='a-input' bindinput="bindinputName" placeholder='请输入姓名' value="{{studentData.studentName}}"></input>
     </view>
     <view class="a-item">
       <image class="icon" src="{{studentData.avatarUrl}}"></image>
-      <input class='a-input' bindinput="mobileChange" bindblur="mobileChange" value="{{studentData.phone}}" placeholder='请输入手机'></input>
+      <input class='a-input' bindinput="mobileChange" placeholder='请输入手机' type="number"value="{{studentData.phone}}"></input>
     </view>
   </view>
   <view class='wrap-btn'>
