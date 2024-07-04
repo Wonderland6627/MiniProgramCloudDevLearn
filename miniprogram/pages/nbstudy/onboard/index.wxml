@@ -12,7 +12,7 @@
     </view>
     <view class="a-item">
       <image class="icon" src="{{studentData.avatarUrl}}"></image>
-      <input class='a-input' bindinput="mobilechange" bindblur="mobilechange" value="{{studentData.phone}}" placeholder='请输入手机'></input>
+      <input class='a-input' bindinput="mobileChange" bindblur="mobileChange" value="{{studentData.phone}}" placeholder='请输入手机'></input>
     </view>
   </view>
   <view class='wrap-btn'>

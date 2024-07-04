@@ -43,10 +43,24 @@ Page({
         this.setData({
           'studentData.avatarUrl': avatarUrl
         })
+      }).catch(e => {
+        console.error('获取CloudURL失败: ' + e)
       })
     }).catch(e => {
-      console.log('头像上传失败: ' + e)
+      console.error('头像上传失败: ' + e)
     })
+  },
+
+  bindinputName(e) {
+    
+  },
+
+  mobileChange(e) {
+    
+  },
+
+  saveInfo() {
+    console.log('save')
   },
 
   /**
