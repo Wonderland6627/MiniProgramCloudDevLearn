@@ -48,12 +48,26 @@ height: 56px;
 .a-item .icon{
   width: 40rpx;
   height: 40rpx;
+  margin-right: 16rpx;
+}
+
+.a-item .title {
+  writing-mode: horizontal-tb;
+  font-size: 28rpx;
   margin-right: 20rpx;
 }
 
 .a-input {
   font-size: 28rpx;
-  width: 100%;
+  width: 60%;
+}
+
+.a-picker .picker {
+  font-size: 28rpx;
+}
+
+.a-picker  .a-picker-placeholder-text {
+  color: #808080;
 }
 
 .wrap-btn{

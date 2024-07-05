@@ -82,6 +82,14 @@ Page({
     return phone.toString().replace(/\D/g, '')
   },
 
+  bindDateChange(e) { 
+    const birthday = e.detail.value 
+    this.setData({ 
+      'studentData.birthday': birthday
+    })
+    console.log('修改生日: ' + birthday)
+  }, 
+
   saveInfo() {
     console.log('save')
     this.tryUpdateStudentData()
@@ -111,6 +119,7 @@ Page({
         avatarUrl: studentData.avatarUrl,
         studentName: studentData.studentName,
         phone: studentData.phone,
+        birthday: studentData.birthday,
       },
       filter: {
         where: {
@@ -119,12 +128,18 @@ Page({
           }
         }
       }
+    }).catch(err => {
+      wx.showToast({
+        title: '保存错误',
+        icon: 'error',
+      })
+      console.error('学生信息保存错误: ' + err)
     })
     console.log(result)
     if (result.data.count != 1) {
       wx.showToast({
         title: '保存失败',
-        icon: 'success',
+        icon: 'error',
       })
       console.log('学生信息保存失败')
       return
