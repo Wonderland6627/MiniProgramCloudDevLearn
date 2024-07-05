@@ -58,20 +58,28 @@ Page({
     })
   },
 
-  bindinputName(e) {
-    const name = e.detail.value
+  bindInputName(e) {
+    const name = this.nameJudge(e.detail.value)
     this.setData({
       'studentData.studentName': name
     })
     console.log('修改学生名字: ' + name)
   },
 
-  mobileChange(e) {
-    const phone = e.detail.value
+  nameJudge(name) {
+    return name.toString().replace(/[^\u4e00-\u9fa5\w]/g,'')
+  },
+
+  bindInputPhone(e) {
+    const phone = this.phoneJudge(e.detail.value)
     this.setData({
       'studentData.phone': phone
     })
     console.log('修改电话: ' + phone)
+  },
+
+  phoneJudge(phone) {
+    return phone.toString().replace(/\D/g, '')
   },
 
   saveInfo() {
