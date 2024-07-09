@@ -136,7 +136,7 @@ Page({
       console.error('学生信息保存错误: ' + err)
     })
     console.log(result)
-    if (result.data.count != 1) {
+    if (result?.data.count != 1) {
       wx.showToast({
         title: '保存失败',
         icon: 'error',
