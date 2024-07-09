@@ -20,9 +20,9 @@
     <view class="a-item">
       <image class="icon" src="../../../images/icons/birthday.svg"></image>
       <text class="title">生日:</text>
-      <picker class="a-picker" mode="date" value="{{studentData.birthday}}" bindchange="bindDateChange"> 
+      <picker class="a-picker" mode="date" value="{{studentData.birthdayFormat}}" bindchange="bindDateChange"> 
         <view class="picker">
-          <text wx:if="{{studentData.birthday}}">{{studentData.birthday}}</text>
+          <text wx:if="{{studentData.birthdayFormat}}">{{studentData.birthdayFormat}}</text>
           <text class="a-picker-placeholder-text" wx:else>请输入生日</text>
         </view>
       </picker> 

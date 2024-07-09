@@ -1,5 +1,6 @@
 // pages/nbstudy/onboard/index.js
 
+const utils = require('../../../utils.js')
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
 Page({
@@ -10,6 +11,8 @@ Page({
   data: {
     studentData: {
       avatarUrl: defaultAvatarUrl,
+      //birthday：远端数据 timestamp
+      //birthdayFormat: 本地数据 dateformat
     },
   },
 
@@ -29,7 +32,12 @@ Page({
         'studentData.OPENID': getApp().getOpenID(),
       })
     }
-    console.log(this.data.studentData)
+    if (this.data.studentData.birthday) {
+      const birthdayFormat = utils.TimeStamp2DateFormat(this.data.studentData.birthday)
+      this.setData({
+        'studentData.birthdayFormat': birthdayFormat
+      })
+    }
   },
 
   onChooseAvatar(e) {
@@ -83,12 +91,25 @@ Page({
   },
 
   bindDateChange(e) { 
-    const birthday = e.detail.value 
+    const birthdayFormat = e.detail.value 
     this.setData({ 
-      'studentData.birthday': birthday
+      'studentData.birthdayFormat': birthdayFormat
     })
-    console.log('修改生日: ' + birthday)
+    console.log('修改生日Format: ' + birthdayFormat)
+    this.birthdayParser(birthdayFormat)
   }, 
+
+  birthdayParser(birthdayFormat) {
+    if (!birthdayFormat) {
+      console.error('检查选择的生日Format')
+      return
+    }
+    const birthdayTimeStamp = utils.DateFormat2TimeStamp(birthdayFormat)
+    this.setData({
+      'studentData.birthday': birthdayTimeStamp
+    })
+    console.log('修改生日TimeStamp: ' + birthdayTimeStamp)
+  },
 
   saveInfo() {
     console.log('save')
@@ -107,6 +128,13 @@ Page({
     if (!studentData.phone || studentData.phone.length != 11) {
       wx.showToast({
         title: '请输入手机号',
+        icon: 'error',
+      })
+      return
+    }
+    if (!studentData.birthday) {
+      wx.showToast({
+        title: '请输入生日',
         icon: 'error',
       })
       return
