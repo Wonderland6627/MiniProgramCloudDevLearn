@@ -9,6 +9,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    genderIndex: -1,
+    genderArray: [
+      '女生', '男生',
+    ],
     studentData: {
       avatarUrl: defaultAvatarUrl,
       //birthday：远端数据 timestamp
@@ -90,7 +94,7 @@ Page({
     return phone.toString().replace(/\D/g, '')
   },
 
-  bindDateChange(e) { 
+  bindBirthdayChange(e) { 
     const birthdayFormat = e.detail.value 
     this.setData({ 
       'studentData.birthdayFormat': birthdayFormat
@@ -109,6 +113,12 @@ Page({
       'studentData.birthday': birthdayTimeStamp
     })
     console.log('修改生日TimeStamp: ' + birthdayTimeStamp)
+  },
+
+  bindGenderChange(e) {
+    this.setData({
+      'genderIndex': e.detail.value
+    })
   },
 
   saveInfo() {
