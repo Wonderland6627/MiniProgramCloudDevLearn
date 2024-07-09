@@ -31,9 +31,9 @@
       <image class="icon" src="../../../images/icons/gender.svg"></image>
       <text class="title">性别:</text>
       <view class="section">
-        <picker class="a-picker" range="{{genderArray}}" value="{{genderIndex}}" bindchange="bindGenderChange" >
+        <picker class="a-picker" range="{{genderArray}}" value="{{genderIndex}}" bindchange="bindGenderChange" bindtap="bindGenderTap">
           <view class="picker">
-            <text class="a-picker-placeholder-text" wx:if="{{genderIndex == -1}}">请输入生日</text>
+            <text class="a-picker-placeholder-text" wx:if="{{genderIndex == -1}}">请输入性别</text>
             <text wx:else>{{genderArray[genderIndex]}}</text>
           </view>
         </picker>

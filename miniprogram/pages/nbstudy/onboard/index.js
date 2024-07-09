@@ -37,7 +37,7 @@ Page({
       })
     }
     if (this.data.studentData.birthday) {
-      const birthdayFormat = utils.TimeStamp2DateFormat(this.data.studentData.birthday)
+      const birthdayFormat = utils.timeStamp2DateFormat(this.data.studentData.birthday)
       this.setData({
         'studentData.birthdayFormat': birthdayFormat
       })
@@ -108,7 +108,7 @@ Page({
       console.error('检查选择的生日Format')
       return
     }
-    const birthdayTimeStamp = utils.DateFormat2TimeStamp(birthdayFormat)
+    const birthdayTimeStamp = utils.dateFormat2TimeStamp(birthdayFormat)
     this.setData({
       'studentData.birthday': birthdayTimeStamp
     })
@@ -119,6 +119,15 @@ Page({
     this.setData({
       'genderIndex': e.detail.value
     })
+  },
+
+  bindGenderTap(e) {
+    console.log(this.data.genderIndex)
+    if (this.data.genderIndex == -1) {
+      this.setData({
+        'genderIndex': 0
+      })
+    }
   },
 
   saveInfo() {
