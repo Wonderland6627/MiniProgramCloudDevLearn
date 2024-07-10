@@ -18,26 +18,24 @@
       <input class='a-input' bindinput="bindInputPhone" placeholder='请输入手机' type="number" maxlength="11" value="{{studentData.phone}}"></input>
     </view>
     <view class="a-item">
+      <image class="icon" src="../../../images/icons/gender.svg"></image>
+      <text class="title">性别:</text>
+      <picker class="a-picker" range="{{genderArray}}" value="{{genderIndex}}" bindchange="bindGenderChange" bindtap="bindGenderTap">
+        <view class="picker">
+          <text class="a-picker-placeholder-text" wx:if="{{genderIndex == -1}}">请输入性别</text>
+          <text wx:else>{{genderArray[genderIndex]}}</text>
+        </view>
+      </picker>
+    </view>
+    <view class="a-item">
       <image class="icon" src="../../../images/icons/birthday.svg"></image>
       <text class="title">生日:</text>
-      <picker class="a-picker" mode="date" value="{{studentData.birthdayFormat}}" bindchange="bindBirthdayChange"> 
+      <picker class="a-picker" mode="date" start="{{birthdaySelectRange[0]}}" end="{{birthdaySelectRange[1]}}" value="{{studentData.birthdayFormat}}" bindchange="bindBirthdayChange"> 
         <view class="picker">
           <text wx:if="{{studentData.birthdayFormat}}">{{studentData.birthdayFormat}}</text>
           <text class="a-picker-placeholder-text" wx:else>请输入生日</text>
         </view>
       </picker> 
-    </view>
-    <view class="a-item">
-      <image class="icon" src="../../../images/icons/gender.svg"></image>
-      <text class="title">性别:</text>
-      <view class="section">
-        <picker class="a-picker" range="{{genderArray}}" value="{{genderIndex}}" bindchange="bindGenderChange" bindtap="bindGenderTap">
-          <view class="picker">
-            <text class="a-picker-placeholder-text" wx:if="{{genderIndex == -1}}">请输入性别</text>
-            <text wx:else>{{genderArray[genderIndex]}}</text>
-          </view>
-        </picker>
-      </view>
     </view>
   </view>
 

@@ -18,6 +18,10 @@ Page({
       //birthday：远端数据 timestamp
       //birthdayFormat: 本地数据 dateformat
     },
+    birthdaySelectRange: [
+      "1900-01-01",
+      utils.timeStamp2DateFormat(Date.now()) //Date.now() 返回的是时间戳
+    ]
   },
 
   /**
