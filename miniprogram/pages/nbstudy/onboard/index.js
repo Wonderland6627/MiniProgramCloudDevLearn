@@ -28,12 +28,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let data = wx.getStorageSync('studentAccountData')
+    let data = wx.getStorageSync('studentBasicData')
     this.setData({
       studentData: data,
     })
-    console.log('获取studentAccountData: ' + JSON.stringify(data))
-    wx.removeStorageSync('studentAccountData')
+    console.log('获取studentBasicData: ' + JSON.stringify(data))
+    wx.removeStorageSync('studentBasicData')
 
     if (!this.data.studentData.OPENID) {
       this.setData({

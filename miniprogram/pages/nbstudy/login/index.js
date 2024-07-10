@@ -144,7 +144,12 @@ Page({
       this.createStudentData(openid)
       return
     }
-    if (utils.isEmpty(data?.studentName || {})) { //todo: check more stu info
+    if (utils.isEmpty(
+      data?.studentName ||
+      data?.phone ||
+      data?.gender ||
+      data?.birthday ||
+      {})) { //todo: check more stu info
       console.log('openid为：' + openid + '的学生信息不全，准备补充')
       this.gotoFillAccount(data)
       return
@@ -171,7 +176,7 @@ Page({
   },
 
   gotoFillAccount(data) {
-    wx.setStorageSync('studentAccountData', data)
+    wx.setStorageSync('studentBasicData', data)
     wx.navigateTo({
       url: '/pages/nbstudy/onboard/index',
     })
