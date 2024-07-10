@@ -27,33 +27,39 @@ Page({
       title: '检查登陆状态',
     })
     const openid = getApp().getOpenID()
+    const openidValid = openid !== ''
+    console.log('OpneID: [' + openid + '], ' + (openidValid ? '有效' : '无效'))
     wx.checkSession({
       success: () => {
+        console.log('微信session有效')
         wx.showToast({
           title: '已登陆',
           icon: 'success',
         })
-        console.log('微信session有效')
-        this.checkStudentDataExists(openid)
+        if (openidValid) { //session有效 且本地有openid 直接检查用户数据
+          this.checkStudentDataExists(openid)
+          return
+        }
+        this.getWXContextOpenID(this.checkStudentDataExists) //session有效 但本地没有openid 获取openid再继续
       },
       fail: () => {
+        console.log('微信session过期')
         wx.showLoading({
           title: '正在登陆',
         })
-        console.log('微信session过期')
         wx.login({
           success: (res) => {
-            wx.showToast({
-              title: '登陆成功',
-              icon: 'success',
-            })
             if (res.code) { //到这一步获取到code代表登陆成功 后面json2Session主要是为了本地存openid
               console.log('微信登陆凭证 code: ' + res.code)
               this.setData({
                 js_code: res.code
               })
-              if (openid !== '') { //如果有openid 直接拉数据进主页
+              if (openidValid) { //session无效 登陆成功 且本地有openid 去检查用户数据
                 console.log('微信openid存在')
+                wx.showToast({
+                  title: '登陆成功',
+                  icon: 'success',
+                })
                 this.checkStudentDataExists(openid)
                 return
               }
@@ -79,7 +85,7 @@ Page({
                   const oid = res.result.data.openid
                   console.log('通过JSCode2Session获取微信openid成功: ' + oid)
                   getApp().setOpenID(oid) //通过JSCode2Session获取openid
-                  this.checkStudentDataExists(oid)
+                  this.checkStudentDataExists(oid) //session无效 获取openid 去检查用户数据
                 },
                 fail: (err) => {
                   console.error('微信登陆凭证校验失败: ' + err)
@@ -94,6 +100,23 @@ Page({
           }
         })
       }
+    })
+  },
+
+  getWXContextOpenID(callback) {
+    wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: {
+        type: 'getOpenId'
+      }
+    }).then(res => {
+      console.log('获取WXContext: ' + JSON.stringify(res))
+      const openid = res.result.openid
+      console.log('通过WXContext获取微信openid成功: ' + openid)
+      getApp().setOpenID(openid)
+      callback(openid)
+    }).catch(err => {
+      console.error('获取WXContext失败: ' + err)
     })
   },
 
