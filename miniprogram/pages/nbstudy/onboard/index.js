@@ -40,6 +40,11 @@ Page({
         'studentData.OPENID': getApp().getOpenID(),
       })
     }
+    if (this.data.studentData.gender) {
+      this.setData({
+        'genderIndex': this.data.studentData.gender
+      })
+    }
     if (this.data.studentData.birthday) {
       const birthdayFormat = utils.timeStamp2DateFormat(this.data.studentData.birthday)
       this.setData({
@@ -120,14 +125,16 @@ Page({
   },
 
   bindGenderChange(e) {
+    const index = e.detail.value
     this.setData({
-      'genderIndex': e.detail.value
+      'genderIndex': e.detail.value,
+      'studentData.gender': e.detail.value,
     })
+    console.log('修改性别: ' + this.data.genderArray[index])
   },
 
   bindGenderTap(e) {
-    console.log(this.data.genderIndex)
-    if (this.data.genderIndex == -1) {
+    if (this.data.genderIndex == -1) { //防止第一次点击默认选中的位置不对
       this.setData({
         'genderIndex': 0
       })
@@ -155,6 +162,13 @@ Page({
       })
       return
     }
+    if (!(this.data.genderIndex == 0 || this.data.genderIndex == 1)) {
+      wx.showToast({
+        title: '请选择性别',
+        icon: 'error',
+      })
+      return
+    }
     if (!studentData.birthday) {
       wx.showToast({
         title: '请输入生日',
@@ -170,6 +184,7 @@ Page({
         avatarUrl: studentData.avatarUrl,
         studentName: studentData.studentName,
         phone: studentData.phone,
+        gender: studentData.gender,
         birthday: studentData.birthday,
       },
       filter: {
