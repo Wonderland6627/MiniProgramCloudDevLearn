@@ -3,7 +3,7 @@
     "pages/nbstudy/login/index",
     "pages/nbstudy/student-main/index",
     "pages/nbstudy/admin-main/index",
-    "pages/nbstudy/onboard/index",
+    "pages/nbstudy/editBasicData/index",
     "pages/index/index",
     "pages/goods-list/index",
     "pages/examples/index",

@@ -1,5 +1,5 @@
-<!--pages/nbstudy/onboard/index.wxml-->
-<text>pages/nbstudy/onboard/index.wxml</text>
+<!--pages/nbstudy/editBasicData/index.wxml-->
+<text>pages/nbstudy/editBasicData/index.wxml</text>
 
 <view class="container">
   <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">

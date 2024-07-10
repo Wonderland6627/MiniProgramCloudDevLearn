@@ -178,7 +178,7 @@ Page({
   gotoFillAccount(data) {
     wx.setStorageSync('studentBasicData', data)
     wx.navigateTo({
-      url: '/pages/nbstudy/onboard/index',
+      url: '/pages/nbstudy/editBasicData/index',
     })
   },
 
