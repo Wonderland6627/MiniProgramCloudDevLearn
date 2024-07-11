@@ -1,6 +1,6 @@
 /* pages/nbstudy/login/index.wxss */
 .container{
-  background: #d38022;
+  background: #ff8533;
   height: 100vh;
 }
 
@@ -122,7 +122,7 @@
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
   height: 85rpx;
-  background: #d38022;
+  background: #ff8533;
   font-size: 32rpx;
   line-height: 85rpx;
   color: #fff;

@@ -162,6 +162,7 @@ Page({
       return
     }
     console.log('openid为：' + openid + '的学生基础信息完整')
+    this.gotoStudentMain()
   },
 
   async createStudentInfo(openid) {
@@ -193,6 +194,12 @@ Page({
     wx.setStorageSync('studentBasicInfo', info)
     wx.navigateTo({
       url: '/pages/nbstudy/editEducation/index',
+    })
+  },
+
+  gotoStudentMain() {
+    wx.switchTab({
+      url: '/pages/nbstudy/student-main/index',
     })
   },
 

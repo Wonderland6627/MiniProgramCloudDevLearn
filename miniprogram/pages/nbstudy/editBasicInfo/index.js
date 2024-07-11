@@ -201,7 +201,7 @@ Page({
       })
       console.error('学生基础信息保存错误: ' + err)
     })
-    console.log(result)
+    console.log('学生基础信息保存回应' + result)
     if (result?.data.count != 1) {
       wx.showToast({
         title: '保存失败',
