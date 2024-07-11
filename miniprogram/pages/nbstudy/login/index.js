@@ -37,10 +37,10 @@ Page({
           icon: 'success',
         })
         if (openidValid) { //session有效 且本地有openid 直接检查用户数据
-          this.checkStudentDataExists(openid)
+          this.checkStudentInfoExists(openid)
           return
         }
-        this.getWXContextOpenID(this.checkStudentDataExists) //session有效 但本地没有openid 获取openid再继续
+        this.getWXContextOpenID(this.checkStudentInfoExists) //session有效 但本地没有openid 获取openid再继续
       },
       fail: () => {
         console.log('微信session过期')
@@ -60,7 +60,7 @@ Page({
                   title: '登陆成功',
                   icon: 'success',
                 })
-                this.checkStudentDataExists(openid)
+                this.checkStudentInfoExists(openid)
                 return
               }
               console.log('微信openid不存在，尝试获取')
@@ -116,7 +116,7 @@ Page({
         const oid = res.result.data.openid
         console.log('通过JSCode2Session获取微信openid成功: ' + oid)
         getApp().setOpenID(oid) //通过JSCode2Session获取openid
-        this.checkStudentDataExists(oid)
+        this.checkStudentInfoExists(oid)
       },
       fail: (err) => {
         console.error('微信登陆凭证校验失败: ' + err)
@@ -124,7 +124,7 @@ Page({
     })
   },
 
-  async checkStudentDataExists(openid) {
+  async checkStudentInfoExists(openid) {
     wx.showLoading({
       title: '检查用户数据',
     })
@@ -141,7 +141,7 @@ Page({
     const data = result?.data
     if (utils.isEmpty(data)) {
       console.log('openid为：' + openid + '的学生信息不存在，准备创建')
-      this.createStudentData(openid)
+      this.createStudentInfo(openid)
       return
     }
     if (utils.isEmpty(
@@ -157,7 +157,7 @@ Page({
     this.gotoFillAccount(data)
   },
 
-  async createStudentData(openid) {
+  async createStudentInfo(openid) {
     wx.showLoading({
       title: '创建信息',
     })
@@ -176,9 +176,9 @@ Page({
   },
 
   gotoFillAccount(data) {
-    wx.setStorageSync('studentBasicData', data)
+    wx.setStorageSync('studentBasicInfo', data)
     wx.navigateTo({
-      url: '/pages/nbstudy/editBasicData/index',
+      url: '/pages/nbstudy/editBasicInfo/index',
     })
   },
 

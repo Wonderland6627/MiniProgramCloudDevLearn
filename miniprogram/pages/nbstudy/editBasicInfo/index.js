@@ -1,4 +1,4 @@
-// pages/nbstudy/editBasicData/index.js
+// pages/nbstudy/editBasicInfo/index.js
 
 const utils = require('../../../utils.js')
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
@@ -13,7 +13,7 @@ Page({
     genderArray: [
       '女生', '男生',
     ],
-    studentData: {
+    studentInfo: {
       avatarUrl: defaultAvatarUrl,
       //birthday：远端数据 timestamp
       //birthdayFormat: 本地数据 dateformat
@@ -28,27 +28,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let data = wx.getStorageSync('studentBasicData')
+    let info = wx.getStorageSync('studentBasicInfo')
     this.setData({
-      studentData: data,
+      studentInfo: info,
     })
-    console.log('获取studentBasicData: ' + JSON.stringify(data))
-    wx.removeStorageSync('studentBasicData')
+    console.log('获取studentBasicInfo: ' + JSON.stringify(info))
+    wx.removeStorageSync('studentBasicInfo')
 
-    if (!this.data.studentData.OPENID) {
+    if (!this.data.studentInfo.OPENID) {
       this.setData({
-        'studentData.OPENID': getApp().getOpenID(),
+        'studentInfo.OPENID': getApp().getOpenID(),
       })
     }
-    if (this.data.studentData.gender) {
+    if (this.data.studentInfo.gender) {
       this.setData({
-        'genderIndex': this.data.studentData.gender
+        'genderIndex': this.data.studentInfo.gender
       })
     }
-    if (this.data.studentData.birthday) {
-      const birthdayFormat = utils.timeStamp2DateFormat(this.data.studentData.birthday)
+    if (this.data.studentInfo.birthday) {
+      const birthdayFormat = utils.timeStamp2DateFormat(this.data.studentInfo.birthday)
       this.setData({
-        'studentData.birthdayFormat': birthdayFormat
+        'studentInfo.birthdayFormat': birthdayFormat
       })
     }
   },
@@ -56,7 +56,7 @@ Page({
   onChooseAvatar(e) {
     var filePath = e.detail.avatarUrl
     console.log('获取头像变化: ' + filePath)
-    var clouthPath = 'studentAvatars/avatar_' + this.data.studentData.OPENID + '.png'
+    var clouthPath = 'studentAvatars/avatar_' + this.data.studentInfo.OPENID + '.png'
     console.log(clouthPath)
     wx.cloud.uploadFile({
       cloudPath: clouthPath,
@@ -69,7 +69,7 @@ Page({
         var avatarUrl = res.fileList[0].tempFileURL + '?t=' + new Date().getTime()
         console.log('头像CloudURL: ' + avatarUrl)
         this.setData({
-          'studentData.avatarUrl': avatarUrl
+          'studentInfo.avatarUrl': avatarUrl
         })
       }).catch(e => {
         console.error('获取CloudURL失败: ' + e)
@@ -82,7 +82,7 @@ Page({
   bindInputName(e) {
     const name = this.nameJudge(e.detail.value)
     this.setData({
-      'studentData.studentName': name
+      'studentInfo.studentName': name
     })
     console.log('修改学生名字: ' + name)
   },
@@ -94,7 +94,7 @@ Page({
   bindInputPhone(e) {
     const phone = this.phoneJudge(e.detail.value)
     this.setData({
-      'studentData.phone': phone
+      'studentInfo.phone': phone
     })
     console.log('修改电话: ' + phone)
   },
@@ -106,7 +106,7 @@ Page({
   bindBirthdayChange(e) { 
     const birthdayFormat = e.detail.value 
     this.setData({ 
-      'studentData.birthdayFormat': birthdayFormat
+      'studentInfo.birthdayFormat': birthdayFormat
     })
     console.log('修改生日Format: ' + birthdayFormat)
     this.birthdayParser(birthdayFormat)
@@ -119,7 +119,7 @@ Page({
     }
     const birthdayTimeStamp = utils.dateFormat2TimeStamp(birthdayFormat)
     this.setData({
-      'studentData.birthday': birthdayTimeStamp
+      'studentInfo.birthday': birthdayTimeStamp
     })
     console.log('修改生日TimeStamp: ' + birthdayTimeStamp)
   },
@@ -128,7 +128,7 @@ Page({
     const index = e.detail.value
     this.setData({
       'genderIndex': e.detail.value,
-      'studentData.gender': e.detail.value,
+      'studentInfo.gender': e.detail.value,
     })
     console.log('修改性别: ' + this.data.genderArray[index])
   },
@@ -143,19 +143,19 @@ Page({
 
   saveInfo() {
     console.log('save')
-    this.tryUpdateStudentData()
+    this.tryUpdateStudentInfo()
   },
 
-  async tryUpdateStudentData() {
-    const { studentData } = this.data
-    if (!studentData.studentName) {
+  async tryUpdateStudentInfo() {
+    const { studentInfo } = this.data
+    if (!studentInfo.studentName) {
       wx.showToast({
         title: '请输入学生姓名',
         icon: 'error',
       })
       return
     }
-    if (!studentData.phone || studentData.phone.length != 11) {
+    if (!studentInfo.phone || studentInfo.phone.length != 11) {
       wx.showToast({
         title: '请输入手机号',
         icon: 'error',
@@ -169,7 +169,7 @@ Page({
       })
       return
     }
-    if (!studentData.birthday) {
+    if (!studentInfo.birthday) {
       wx.showToast({
         title: '请输入生日',
         icon: 'error',
@@ -181,16 +181,16 @@ Page({
     })
     const result = await getApp().getModels().students.update({
       data: {
-        avatarUrl: studentData.avatarUrl,
-        studentName: studentData.studentName,
-        phone: studentData.phone,
-        gender: studentData.gender,
-        birthday: studentData.birthday,
+        avatarUrl: studentInfo.avatarUrl,
+        studentName: studentInfo.studentName,
+        phone: studentInfo.phone,
+        gender: studentInfo.gender,
+        birthday: studentInfo.birthday,
       },
       filter: {
         where: {
           OPENID: {
-            $eq: studentData.OPENID
+            $eq: studentInfo.OPENID
           }
         }
       }

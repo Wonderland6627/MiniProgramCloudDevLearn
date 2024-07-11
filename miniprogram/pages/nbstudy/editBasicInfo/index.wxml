@@ -1,21 +1,21 @@
-<!--pages/nbstudy/editBasicData/index.wxml-->
-<text>pages/nbstudy/editBasicData/index.wxml</text>
+<!--pages/nbstudy/editBasicInfo/index.wxml-->
+<text>pages/nbstudy/editBasicInfo/index.wxml</text>
 
 <view class="container">
   <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-    <image class="avatar" src="{{studentData.avatarUrl}}"></image>
+    <image class="avatar" src="{{studentInfo.avatarUrl}}"></image>
   </button>
 
   <view class='edit-container'>
     <view class="a-item">
       <image class="icon" src="../../../images/icons/name.svg"></image>
       <text class="title">姓名:</text>
-      <input class='a-input' bindinput="bindInputName" placeholder='请输入姓名' value="{{studentData.studentName}}"></input>
+      <input class='a-input' bindinput="bindInputName" placeholder='请输入姓名' value="{{studentInfo.studentName}}"></input>
     </view>
     <view class="a-item">
       <image class="icon" src="../../../images/icons/phone.svg"></image>
       <text class="title">电话:</text>
-      <input class='a-input' bindinput="bindInputPhone" placeholder='请输入手机' type="number" maxlength="11" value="{{studentData.phone}}"></input>
+      <input class='a-input' bindinput="bindInputPhone" placeholder='请输入手机' type="number" maxlength="11" value="{{studentInfo.phone}}"></input>
     </view>
     <view class="a-item">
       <image class="icon" src="../../../images/icons/gender.svg"></image>
@@ -30,9 +30,9 @@
     <view class="a-item">
       <image class="icon" src="../../../images/icons/birthday.svg"></image>
       <text class="title">生日:</text>
-      <picker class="a-picker" mode="date" start="{{birthdaySelectRange[0]}}" end="{{birthdaySelectRange[1]}}" value="{{studentData.birthdayFormat}}" bindchange="bindBirthdayChange"> 
+      <picker class="a-picker" mode="date" start="{{birthdaySelectRange[0]}}" end="{{birthdaySelectRange[1]}}" value="{{studentInfo.birthdayFormat}}" bindchange="bindBirthdayChange"> 
         <view class="picker">
-          <text wx:if="{{studentData.birthdayFormat}}">{{studentData.birthdayFormat}}</text>
+          <text wx:if="{{studentInfo.birthdayFormat}}">{{studentInfo.birthdayFormat}}</text>
           <text class="a-picker-placeholder-text" wx:else>请输入生日</text>
         </view>
       </picker> 
