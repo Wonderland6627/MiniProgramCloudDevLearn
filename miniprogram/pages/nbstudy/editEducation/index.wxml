@@ -5,9 +5,9 @@
 
   <view class='edit-container'>
     <view class="a-item">
-      <image class="icon" src="../../../images/icons/name.svg"></image>
-      <text class="title">姓名:</text>
-      <input class='a-input' bindinput="bindInputName" placeholder='请输入姓名' value="123"></input>
+      <image class="icon" src="../../../images/icons/school.svg"></image>
+      <text class="title">学校:</text>
+      <input class='a-input' bindinput="bindInputSchool" placeholder='请输入学校' value="{{studentInfo.school}}"></input>
     </view>
   </view>
 

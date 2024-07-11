@@ -154,8 +154,14 @@ Page({
       this.gotoFillAccount(data)
       return
     }
+    if (utils.isEmpty(
+      data?.school ||
+      {})) { //todo: check more edu info
+      console.log('openid为：' + openid + '的学生教育信息不全，准备补充')
+      this.gotoFillEducation(data)
+      return
+    }
     console.log('openid为：' + openid + '的学生基础信息完整')
-    this.gotoFillEducation(data)
   },
 
   async createStudentInfo(openid) {
@@ -171,20 +177,20 @@ Page({
       title: '创建信息成功',
       icon: 'success',
     })
-    const data = result?.data
-    console.log(data)
-    this.gotoFillAccount(data)
+    const info = result?.data
+    console.log(info)
+    this.gotoFillAccount(info)
   },
 
-  gotoFillAccount(data) {
-    wx.setStorageSync('studentBasicInfo', data)
+  gotoFillAccount(info) {
+    wx.setStorageSync('studentBasicInfo', info)
     wx.navigateTo({
       url: '/pages/nbstudy/editBasicInfo/index',
     })
   },
 
-  gotoFillEducation(data) {
-    wx.setStorageSync('studentBasicInfo', data)
+  gotoFillEducation(info) {
+    wx.setStorageSync('studentBasicInfo', info)
     wx.navigateTo({
       url: '/pages/nbstudy/editEducation/index',
     })

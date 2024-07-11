@@ -32,7 +32,7 @@ Page({
     this.setData({
       studentInfo: info,
     })
-    console.log('获取studentBasicInfo: ' + JSON.stringify(info))
+    console.log('[EditBasicInfo] 获取studentBasicInfo: ' + JSON.stringify(info))
     wx.removeStorageSync('studentBasicInfo')
 
     if (!this.data.studentInfo.OPENID) {
@@ -199,7 +199,7 @@ Page({
         title: '保存错误',
         icon: 'error',
       })
-      console.error('学生信息保存错误: ' + err)
+      console.error('学生基础信息保存错误: ' + err)
     })
     console.log(result)
     if (result?.data.count != 1) {
@@ -207,14 +207,29 @@ Page({
         title: '保存失败',
         icon: 'error',
       })
-      console.log('学生信息保存失败')
+      console.log('学生基础信息保存失败')
       return
     }
     wx.showToast({
       title: '保存成功',
       icon: 'success',
     })
-    console.log('学生信息保存成功')
+    console.log('学生基础信息保存成功')
+
+    if (utils.isEmpty(
+      studentInfo.school ||
+      {})) { //todo: check more edu info
+      console.log('openid为：' + studentInfo.openid + '的学生教育信息不全，准备补充')
+      this.gotoFillEducation(studentInfo)
+      return
+    }
+  },
+
+  gotoFillEducation(info) {
+    wx.setStorageSync('studentBasicInfo', info)
+    wx.navigateTo({
+      url: '/pages/nbstudy/editEducation/index',
+    })
   },
 
   /**
