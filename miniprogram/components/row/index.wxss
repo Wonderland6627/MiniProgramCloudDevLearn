@@ -1,6 +1,0 @@
-/* components/row/index.wxss */
-.i-row:after{
-  content: '';
-  display: table;
-  clear: both;
-}
