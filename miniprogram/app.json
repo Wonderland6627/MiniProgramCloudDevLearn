@@ -4,6 +4,7 @@
     "pages/nbstudy/student-main/index",
     "pages/nbstudy/admin-main/index",
     "pages/nbstudy/editBasicInfo/index",
+    "pages/nbstudy/editEducation/index",
     "pages/index/index",
     "pages/goods-list/index",
     "pages/examples/index",

@@ -150,11 +150,12 @@ Page({
       data?.gender ||
       data?.birthday ||
       {})) { //todo: check more stu info
-      console.log('openid为：' + openid + '的学生信息不全，准备补充')
+      console.log('openid为：' + openid + '的学生基础信息不全，准备补充')
       this.gotoFillAccount(data)
       return
     }
-    this.gotoFillAccount(data)
+    console.log('openid为：' + openid + '的学生基础信息完整')
+    this.gotoFillEducation(data)
   },
 
   async createStudentInfo(openid) {
@@ -179,6 +180,13 @@ Page({
     wx.setStorageSync('studentBasicInfo', data)
     wx.navigateTo({
       url: '/pages/nbstudy/editBasicInfo/index',
+    })
+  },
+
+  gotoFillEducation(data) {
+    wx.setStorageSync('studentBasicInfo', data)
+    wx.navigateTo({
+      url: '/pages/nbstudy/editEducation/index',
     })
   },
 
