@@ -6,7 +6,9 @@
     "pages/nbstudy/editBasicInfo/index",
     "pages/nbstudy/editEducation/index",
     "pages/index/index",
-    "pages/nbstudy/admin-login/index"
+    "pages/nbstudy/admin-login/index",
+    "pages/nbstudy/profile/index",
+    "pages/nbstudy/admin-edit/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -22,6 +24,7 @@
     "color": "#bfbfbf",
     "selectedColor": "#ff8533",
     "backgroundColor": "#ffffff",
+    "custom": true,
     "list": [
       {
         "pagePath": "pages/nbstudy/student-main/index",
@@ -30,10 +33,22 @@
         "selectedIconPath": "images/icons/main-active.png"
       },
       {
-        "pagePath": "pages/nbstudy/admin-main/index",
-        "text": "个人信息",
+        "pagePath": "pages/nbstudy/profile/index",
+        "text": "个人",
         "iconPath": "images/icons/profile.png",
         "selectedIconPath": "images/icons/profile-active.png"
+      },
+      {
+        "pagePath": "pages/nbstudy/admin-edit/index",
+        "text": "编辑",
+        "iconPath": "images/icons/admin-edit.png",
+        "selectedIconPath": "images/icons/admin-edit-active.png"
+      },
+      {
+        "pagePath": "pages/nbstudy/admin-main/index",
+        "text": "管理",
+        "iconPath": "images/icons/admin.png",
+        "selectedIconPath": "images/icons/admin-active.png"
       }
     ]
   }

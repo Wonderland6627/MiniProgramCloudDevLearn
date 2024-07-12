@@ -1,5 +1,6 @@
 // app.js
 
+const eventBus = require('eventBus.js')
 const { init } = require('@cloudbase/wx-cloud-client-sdk')
 const client = init(wx.cloud)
 const models = client.models
@@ -22,6 +23,14 @@ App({
 
   globalData: {
     openid: ''
+  },
+
+  eventBus: eventBus,
+  changeUserRight() {
+    const i = wx.getStorageSync('rightId') || 0
+    const id = i === 0 ? 1: 0
+    wx.setStorageSync('rightId', id)
+    getApp().eventBus.emit('rightChange', id)
   },
 
   getModels() {

@@ -1,4 +1,4 @@
-// pages/nbstudy/main/index.js
+// pages/nbstudy/admin-edit/index.js
 Page({
 
   /**
