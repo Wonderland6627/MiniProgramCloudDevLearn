@@ -22,7 +22,12 @@ Page({
     
   },
 
-  tryWXLogin() {
+  studentLogin() {
+    console.log('学生登陆')
+    this.tryWXLogin(false)
+  },
+
+  tryWXLogin(isAdmin = false) {
     wx.showLoading({
       title: '检查登陆状态',
     })
@@ -37,10 +42,11 @@ Page({
           icon: 'success',
         })
         if (openidValid) { //session有效 且本地有openid 直接检查用户数据
-          this.checkStudentInfoExists(openid)
+          isAdmin ? this.checkAdminInfo() : this.checkStudentInfoExists(openid)
           return
         }
-        this.getWXContextOpenID(this.checkStudentInfoExists) //session有效 但本地没有openid 获取openid再继续
+        const action = isAdmin ? this.checkAdminInfo : this.checkStudentInfoExists
+        this.getWXContextOpenID(action) //session有效 但本地没有openid 获取openid再继续
       },
       fail: () => {
         console.log('微信session过期')
@@ -60,11 +66,12 @@ Page({
                   title: '登陆成功',
                   icon: 'success',
                 })
-                this.checkStudentInfoExists(openid)
+                isAdmin ? this.checkAdminInfo() : this.checkStudentInfoExists(openid)
                 return
               }
               console.log('微信openid不存在，尝试获取')
-              this.getJSCode2Session() //session无效 获取openid 去检查用户数据
+              const action = isAdmin ? this.checkAdminInfo : this.checkStudentInfoExists
+              this.getJSCode2Session(action) //session无效 获取openid 去检查用户数据
             } else {
               console.log('微信登陆失败: ' + res.errMsg)
             }
@@ -94,7 +101,7 @@ Page({
     })
   },
 
-  getJSCode2Session() {
+  getJSCode2Session(callback) {
     const {
       js_code
     } = this.data
@@ -116,7 +123,7 @@ Page({
         const oid = res.result.data.openid
         console.log('通过JSCode2Session获取微信openid成功: ' + oid)
         getApp().setOpenID(oid) //通过JSCode2Session获取openid
-        this.checkStudentInfoExists(oid)
+        callback(oid)
       },
       fail: (err) => {
         console.error('微信登陆凭证校验失败: ' + err)
@@ -292,7 +299,19 @@ Page({
   },
 
   onIconLongPress(e) {
-    console.log(e)
+    this.adminLogin()
+  },
+
+  adminLogin() {
+    console.log('管理员登陆')
+    this.tryWXLogin(true)
+  },
+
+  checkAdminInfo() {
+    getApp().setAdmin(true)
+    wx.switchTab({
+      url: '/pages/nbstudy/admin-edit/index',
+    })
   },
 
   /**

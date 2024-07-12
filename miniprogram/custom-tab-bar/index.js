@@ -12,7 +12,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    rightId: wx.getStorageSync('rightId') || 0, 
     selected: 0,
     color: "#808080",
     selectedColor: "#ff8533",
@@ -49,38 +48,24 @@ Component({
 
   attached() {
     this.changeList()
-    getApp().eventBus.on('rightChange', data => {
-      if (data !== this.data.rightId) {
-        this.setData({
-          rightId: data
-        })
-        this.changeList()
-      }
+    getApp().eventBus.on('userTypeChange', () => {
+      this.changeList()
     })
   },
 
   detached() {
-    getApp().eventBus.off('rightChange')
+    getApp().eventBus.off('userTypeChange')
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-
     changeList() {
+      const list = getApp().isAdmin ? this.data.adminTabList : this.data.studentTabList
       this.setData({
-        rightId: wx.getStorageSync('rightId') || 0
+        list: list
       })
-      if (this.data.rightId === 0) {
-        this.setData({
-          list: this.data.studentTabList
-        })
-      } else {
-        this.setData({
-          list: this.data.adminTabList
-        })
-      }
     },
 
     switchTab(e) {

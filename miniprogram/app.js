@@ -25,12 +25,12 @@ App({
     openid: ''
   },
 
+  isAdmin: false,
   eventBus: eventBus,
-  changeUserRight() {
-    const i = wx.getStorageSync('rightId') || 0
-    const id = i === 0 ? 1: 0
-    wx.setStorageSync('rightId', id)
-    getApp().eventBus.emit('rightChange', id)
+
+  setAdmin(newValue) {
+    this.isAdmin = newValue
+    getApp().eventBus.emit('userTypeChange')
   },
 
   getModels() {
