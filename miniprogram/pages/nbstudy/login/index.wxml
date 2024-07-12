@@ -1,16 +1,13 @@
 <!--pages/nbstudy/login/index.wxml-->
 <view class="container">
-  <view wx:for="{{storesList}}" wx:key="_id">
-    <view>{{item.storeName}}</view>
-  </view>
   <view class="content">
     <view class="content-wave" style="transform: rotateZ({{angle}}deg)">
-      <image class="logo" src="../../../images/app_icon.png"></image>
+      <image class="logo" src="../../../images/app_icon.png" bind:longpress="onIconLongPress"></image>
       <image class="wave" src="../../../images/wave.png" mode="aspectFit"></image>
       <image class="wave wave-bg" src="../../../images/wave.png" mode="aspectFit"></image>
     </view>
     <view class="form-bd">
-      <i-input-with-title title="手机号" placeholder="点我输入手机号" type="number" bind:change="checkPhoneNumber"/>
+      <!-- <i-input-with-title title="手机号" placeholder="点我输入手机号" type="number" bind:change="checkPhoneNumber"/>
       <i-input-with-title title="密码" placeholder="点我输入密码" type="password" bind:change="checkPassword"/>
       <view class="option-select">
         <view class="phonevalidtips" wx:if="{{!phoneValid}}">
@@ -25,7 +22,7 @@
       </button>
       <button wx:else class="confirm-btn" disabled>
         <text>登  录</text>
-      </button>
+      </button> -->
       <button class="confirm-btn" bindtap="tryWXLogin">
         <text>微信登陆</text>
       </button>
