@@ -19,30 +19,30 @@ Component({
     list: [],
     studentTabList: [
       {
-        pagePath: "pages/nbstudy/student-main/index",
+        pagePath: "/pages/nbstudy/student-main/index",
         text: "主页",
-        iconPath: "../images/icons/main.png",
-        selectedIconPath: "../images/icons/main-active.png"
+        iconPath: "/images/icons/main.png",
+        selectedIconPath: "/images/icons/main-active.png"
       },
       {
-        pagePath: "pages/nbstudy/profile/index",
+        pagePath: "/pages/nbstudy/profile/index",
         text: "个人",
-        iconPath: "../images/icons/profile.png",
-        selectedIconPath: "../images/icons/profile-active.png"
+        iconPath: "/images/icons/profile.png",
+        selectedIconPath: "/images/icons/profile-active.png"
       },
     ],
     adminTabList: [
       {
-        pagePath: "pages/nbstudy/admin-edit/index",
+        pagePath: "/pages/nbstudy/admin-edit/index",
         text: "编辑",
-        iconPath: "../images/icons/admin-edit.png",
-        selectedIconPath: "../images/icons/admin-edit-active.png"
+        iconPath: "/images/icons/admin-edit.png",
+        selectedIconPath: "/images/icons/admin-edit-active.png"
       },
       {
-        pagePath: "pages/nbstudy/admin-main/index",
+        pagePath: "/pages/nbstudy/admin-main/index",
         text: "管理",
-        iconPath: "../images/icons/admin.png",
-        selectedIconPath: "../images/icons/admin-active.png"
+        iconPath: "/images/icons/admin.png",
+        selectedIconPath: "/images/icons/admin-active.png"
       }
     ]
   },
@@ -72,7 +72,7 @@ Component({
       this.setData({
         rightId: wx.getStorageSync('rightId') || 0
       })
-      if (this.data.rightId === 1) {
+      if (this.data.rightId === 0) {
         this.setData({
           list: this.data.studentTabList
         })
@@ -86,10 +86,8 @@ Component({
     switchTab(e) {
       const data = e.currentTarget.dataset
       const url = data.path
+      console.log(url)
       wx.switchTab({url})
-      this.setData({
-        selected: data.index
-      })
     }
   }
 })
