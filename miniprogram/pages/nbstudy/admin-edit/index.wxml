@@ -1,2 +1,14 @@
 <!--pages/nbstudy/admin-edit/index.wxml-->
 <text>pages/nbstudy/admin-edit/index.wxml</text>
+<view wx:for="{{students}}">
+  <view>
+    <view>
+      <image src="{{item.avatarUrl}}"></image>
+    </view>
+    <view>
+      <view>name: {{item.studentName}}</view>
+      <view>gender: {{item.gender}}</view>
+      <view>oid: {{item.OPENID}}</view>
+    </view>
+  </view>
+</view>

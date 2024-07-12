@@ -5,14 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
+    students: [
 
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.fetchStudents()
+  },
 
+  async fetchStudents() {
+    const result = await getApp().getModels().students.list({
+      filter: {
+        where: {}
+      },
+      getCount: true,
+    })
+    const list = result?.data.records || {}
+    this.setData({
+      students: list
+    })
+    console.log(result)
   },
 
   /**
