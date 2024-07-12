@@ -1,7 +1,6 @@
 // pages/nbstudy/editBasicInfo/index.js
 
 const utils = require('../../../utils.js')
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
 Page({
 
@@ -14,7 +13,7 @@ Page({
       '女生', '男生',
     ],
     studentInfo: {
-      avatarUrl: defaultAvatarUrl,
+      avatarUrl: getApp().globalData.defaultAvatarUrl,
       //birthday：远端数据 timestamp
       //birthdayFormat: 本地数据 dateformat
     },

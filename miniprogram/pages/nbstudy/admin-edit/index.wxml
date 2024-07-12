@@ -1,14 +1,14 @@
 <!--pages/nbstudy/admin-edit/index.wxml-->
 <text>pages/nbstudy/admin-edit/index.wxml</text>
-<view wx:for="{{students}}">
-  <view>
-    <view>
-      <image src="{{item.avatarUrl}}"></image>
+
+<view class="scrollview">
+  <scroll-view scroll-y="true" style="height: 100%;">
+    <view class="cell" wx:for="{{students}}" wx:key="index">
+      <image class="avatar" src="{{item.avatarUrl}}"></image>
+      <view class="info">
+        <view class="name">{{item.studentName + ' ' + item.school}}</view>
+        <view class="gender">{{item.gender}}</view>
+      </view>
     </view>
-    <view>
-      <view>name: {{item.studentName}}</view>
-      <view>gender: {{item.gender}}</view>
-      <view>oid: {{item.OPENID}}</view>
-    </view>
-  </view>
+  </scroll-view>
 </view>
