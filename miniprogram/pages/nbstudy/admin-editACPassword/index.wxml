@@ -1,7 +1,7 @@
 <!--pages/nbstudy/admin-editACPassword/index.wxml-->
 
 <view class="password-change-page">
-  <view class="label">当前密码：123456</view>
+  <view class="label" wx:if="{{currentPwd !== -1}}">当前密码：{{currentPwd}}</view>
   <view class="input-container">
     <input class="input" type="number" placeholder="请输入新门禁密码" maxlength="6" bindinput="onInputChange"></input>
   </view>

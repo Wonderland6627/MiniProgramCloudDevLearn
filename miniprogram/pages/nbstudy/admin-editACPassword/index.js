@@ -5,14 +5,49 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    currentPwd: -1,
+    newPwd: -1,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.fetchAccessControlPwd()
+  },
 
+  async fetchAccessControlPwd() {
+    wx.showLoading({
+      title: '获取数据',
+    })
+    const result = await getApp().getModels().stores.get({
+      filter: {
+        where: {
+          storeID: {
+            $eq: 1,
+          }
+        }
+      }
+    })
+    wx.hideLoading()
+    const data = result?.data
+    console.log('当前门禁密码: ' + data.accessControlPassword)
+    this.setData({
+      'currentPwd': data.accessControlPassword,
+    })
+  },
+
+  onInputChange(e) {
+    const newPwd = e.detail.value
+    this.setData({
+      'newPwd': newPwd,
+    })
+    console.log('修改门禁密码: ' + newPwd)
+  },
+
+  onSave() {
+    const { newPwd } = this.data
+    console.log('保存密码: ' + newPwd)
   },
 
   /**

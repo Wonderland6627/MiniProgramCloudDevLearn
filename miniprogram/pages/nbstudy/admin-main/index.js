@@ -12,12 +12,12 @@ Page({
         onTap: "onSeatCellClick"
       },
       {
-        title: "套餐设置",
+        title: "修改套餐",
         icon: "../../../images/icons/package.svg",
         onTap: "onPackageCellClick"
       },
       {
-        title: "门禁设置",
+        title: "修改门禁",
         icon: "../../../images/icons/lock.svg",
         onTap: "onAccessControlPasswordCellClick"
       },
