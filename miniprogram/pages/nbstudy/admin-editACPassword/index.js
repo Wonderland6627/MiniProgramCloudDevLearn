@@ -24,7 +24,7 @@ Page({
       filter: {
         where: {
           storeID: {
-            $eq: 1,
+            $eq: 2
           }
         }
       }
@@ -46,8 +46,53 @@ Page({
   },
 
   onSave() {
+    this.trySavePwd()
+  },
+
+  async trySavePwd() {
     const { newPwd } = this.data
-    console.log('保存密码: ' + newPwd)
+    if (!newPwd || newPwd.length !== 6) {
+      wx.showToast({
+        title: '输入门禁有误',
+        icon: 'error',
+      })
+      return
+    }
+    wx.showLoading({
+      title: '正在保存',
+    })
+    const result = await getApp().getModels().stores.update({
+      data: {
+        accessControlPassword: newPwd,
+      },
+      filter: {
+        where: {
+          storeID: {
+            $eq: 2
+          }
+        }
+      }
+    }).catch(err => {
+      wx.showToast({
+        title: '保存错误',
+        icon: 'error',
+      })
+      console.error('门禁密码保存错误: ' + err)
+    })
+    console.log('门禁密码保存回应: ' + result)
+    if (result?.data.count != 1) {
+      wx.showToast({
+        title: '保存失败',
+        icon: 'error',
+      })
+      console.log('门禁密码保存失败')
+      return
+    }
+    wx.showToast({
+      title: '保存成功',
+      icon: 'success',
+    })
+    console.log('门禁密码保存成功')
   },
 
   /**
