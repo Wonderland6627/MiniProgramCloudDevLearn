@@ -32,16 +32,16 @@ Component({
     ],
     adminTabList: [
       {
-        pagePath: "/pages/nbstudy/admin-edit/index",
-        text: "编辑",
-        iconPath: "/images/icons/admin-edit.png",
-        selectedIconPath: "/images/icons/admin-edit-active.png"
-      },
-      {
         pagePath: "/pages/nbstudy/admin-main/index",
         text: "管理",
         iconPath: "/images/icons/admin.png",
         selectedIconPath: "/images/icons/admin-active.png"
+      },
+      {
+        pagePath: "/pages/nbstudy/admin-edit/index",
+        text: "编辑",
+        iconPath: "/images/icons/admin-edit.png",
+        selectedIconPath: "/images/icons/admin-edit-active.png"
       }
     ]
   },
