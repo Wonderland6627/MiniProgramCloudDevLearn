@@ -19,7 +19,7 @@ Page({
       {
         title: "门禁设置",
         icon: "../../../images/icons/lock.svg",
-        onTap: "onStorePasswordCellClick"
+        onTap: "onAccessControlPasswordCellClick"
       },
       {
         title: "退出登录",
@@ -44,12 +44,18 @@ Page({
     console.log("onPackageCellClick")
   },
 
-  onStorePasswordCellClick(e) {
-    console.log("onStorePasswordCellClick")
+  onAccessControlPasswordCellClick(e) {
+    console.log("onAccessControlPasswordCellClick")
+    wx.navigateTo({
+      url: '/pages/nbstudy/admin-editACPassword/index',
+    })
   },
 
   onLogoutCellClick(e) {
     console.log("onLogoutCellClick")
+    wx.showLoading({
+      title: '退出登录',
+    })
     wx.redirectTo({
       url: '/pages/nbstudy/login/index',
     })

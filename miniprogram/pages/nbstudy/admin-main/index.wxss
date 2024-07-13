@@ -29,11 +29,11 @@
 }
 
 .setting-cell-icon {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 26px;
   margin-right: 10px;
 }
 
 .setting-cell-text {
-  font-size: 16px;
+  font-size: 15px;
 }
