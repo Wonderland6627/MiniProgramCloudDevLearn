@@ -5,7 +5,28 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    settings: [
+      {
+        title: "座位设置",
+        icon: "../../../images/icons/seat.svg",
+        onTap: "onSeatCellClick"
+      },
+      {
+        title: "套餐设置",
+        icon: "../../../images/icons/package.svg",
+        onTap: "onPackageCellClick"
+      },
+      {
+        title: "门禁设置",
+        icon: "../../../images/icons/lock.svg",
+        onTap: "onStorePasswordCellClick"
+      },
+      {
+        title: "退出登录",
+        icon: "../../../images/icons/logout.svg",
+        onTap: "onLogoutCellClick"
+      }
+    ]
   },
 
   /**
@@ -13,6 +34,25 @@ Page({
    */
   onLoad(options) {
 
+  },
+
+  onSeatCellClick(e) {
+    console.log("onSeatCellClick")
+  },
+
+  onPackageCellClick(e) {
+    console.log("onPackageCellClick")
+  },
+
+  onStorePasswordCellClick(e) {
+    console.log("onStorePasswordCellClick")
+  },
+
+  onLogoutCellClick(e) {
+    console.log("onLogoutCellClick")
+    wx.redirectTo({
+      url: '/pages/nbstudy/login/index',
+    })
   },
 
   /**

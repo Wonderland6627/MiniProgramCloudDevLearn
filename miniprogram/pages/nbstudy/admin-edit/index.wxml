@@ -4,10 +4,13 @@
 <view class="scrollview">
   <scroll-view scroll-y="true" style="height: 100%;">
     <view class="cell" wx:for="{{students}}" wx:key="index">
-      <image class="avatar" src="{{item.avatarUrl}}"></image>
+      <view class="avatar-container">
+        <image class="avatar" src="{{item.avatarUrl}}"></image>
+      </view>
       <view class="info">
-        <view class="name">{{item.studentName + ' ' + item.school}}</view>
-        <view class="gender">{{item.gender}}</view>
+        <view class="name">{{item.studentName}}</view>
+        <!-- <view class="message">{{item.gender}}</view> -->
+        <view class="message">{{item.school}}</view>
       </view>
     </view>
   </scroll-view>
