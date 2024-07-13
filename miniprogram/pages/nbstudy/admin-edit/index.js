@@ -5,8 +5,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-    students: [
-
+    settings: [
+      {
+        title: "座位设置",
+        icon: "../../../images/icons/seat.svg",
+        onTap: "onSeatCellClick"
+      },
+      {
+        title: "修改套餐",
+        icon: "../../../images/icons/package.svg",
+        onTap: "onPackageCellClick"
+      },
+      {
+        title: "修改门禁",
+        icon: "../../../images/icons/lock.svg",
+        onTap: "onAccessControlPasswordCellClick"
+      },
+      {
+        title: "退出登录",
+        icon: "../../../images/icons/logout.svg",
+        onTap: "onLogoutCellClick"
+      }
     ]
   },
 
@@ -14,21 +33,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.fetchStudents()
+
   },
 
-  async fetchStudents() {
-    const result = await getApp().getModels().students.list({
-      filter: {
-        where: {}
-      },
-      getCount: true,
+  onSeatCellClick(e) {
+    console.log("onSeatCellClick")
+  },
+
+  onPackageCellClick(e) {
+    console.log("onPackageCellClick")
+  },
+
+  onAccessControlPasswordCellClick(e) {
+    console.log("onAccessControlPasswordCellClick")
+    wx.navigateTo({
+      url: '/pages/nbstudy/admin-editACPassword/index',
     })
-    const list = result?.data.records || {}
-    this.setData({
-      students: list
+  },
+
+  onLogoutCellClick(e) {
+    console.log("onLogoutCellClick")
+    wx.showLoading({
+      title: '退出登录',
     })
-    console.log(result)
+    wx.redirectTo({
+      url: '/pages/nbstudy/login/index',
+    })
   },
 
   /**

@@ -1,12 +1,16 @@
 <!--pages/nbstudy/admin-main/index.wxml-->
-<text>pages/nbstudy/admin-main/index.wxml</text>
 
-<view class="my-page">
-  <view class="background"></view>
-  <view class="settings">
-    <view class="setting-cell" wx:for="{{settings}}" wx:key="index" bind:tap="{{item.onTap}}">
-      <image class="setting-cell-icon" src="{{item.icon}}"></image>
-      <text class="setting-cell-text">{{item.title}}</text>
+<view class="scrollview">
+  <scroll-view scroll-y="true" style="height: 100%;">
+    <view class="cell" wx:for="{{students}}" wx:key="index">
+      <view class="avatar-container">
+        <image class="avatar" src="{{item.avatarUrl}}"></image>
+      </view>
+      <view class="info">
+        <view class="name">{{item.studentName}}</view>
+        <!-- <view class="message">{{item.gender}}</view> -->
+        <view class="message">{{item.school}}</view>
+      </view>
     </view>
-  </view>
+  </scroll-view>
 </view>
