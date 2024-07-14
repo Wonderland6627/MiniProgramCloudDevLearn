@@ -5,6 +5,7 @@ const checkLogin = require('./checkLogin/index');
 const getJSCode2Session = require('./getJScode2Session/index')
 
 const createStudent = require('./students/createStudent/index')
+const updatePwd = require('./updatePwd/index')
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -21,6 +22,9 @@ exports.main = async (event, context) => {
 
     case 'createStudent': 
       return await createStudent.main(event, context);
+
+    case 'updatePwd': 
+      return await updatePwd.main(event, context);
   }
 };
         

@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    storeID: 2,
     currentPwd: -1,
     newPwd: -1,
   },
@@ -24,7 +25,7 @@ Page({
       filter: {
         where: {
           storeID: {
-            $eq: 2
+            $eq: this.data.storeID
           }
         }
       }
@@ -49,6 +50,21 @@ Page({
     this.trySavePwd()
   },
 
+  save() {
+    const { storeID, newPwd } = this.data
+    wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: {
+        type: 'updatePwd',
+        data: { storeID, newPwd }
+      }
+    }).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.error(err)
+    })
+  },
+
   async trySavePwd() {
     const { newPwd } = this.data
     if (!newPwd || newPwd.length !== 6) {
@@ -68,7 +84,7 @@ Page({
       filter: {
         where: {
           storeID: {
-            $eq: 2
+            $eq: this.data.storeID
           }
         }
       }
