@@ -47,10 +47,10 @@ Page({
   },
 
   onSave() {
-    this.trySavePwd()
+    this.trySavePwdByCloudFunc()
   },
 
-  save() {
+  trySavePwdByCloudFunc() {
     const { storeID, newPwd } = this.data
     wx.cloud.callFunction({
       name: 'quickstartFunctions',
@@ -59,7 +59,26 @@ Page({
         data: { storeID, newPwd }
       }
     }).then(res => {
-      console.log(res)
+      console.log('门禁密码保存回应: ' + JSON.stringify(res))
+      if (res.result.code != 0) {
+        console.log('门禁密码保存失败: ' + res.result)
+        wx.showToast({
+          title: '保存失败',
+          icon: 'error',
+        })
+        return
+      }
+      if (res.result.result.stats.updated == 0) {
+        wx.showToast({
+          title: '重复保存',
+          icon: 'error',
+        })
+        return
+      }
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+      })
     }).catch(err => {
       console.error(err)
     })
@@ -79,6 +98,7 @@ Page({
     })
     const result = await getApp().getModels().stores.update({
       data: {
+        _openid: '{openid}',
         accessControlPassword: newPwd,
       },
       filter: {

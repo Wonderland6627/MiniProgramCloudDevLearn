@@ -13,12 +13,20 @@ exports.main = async (event, context) => {
           "accessControlPassword": newPwd,
         }
       })
+    if (!result) {
+      return {
+        code: -1,
+        errMsg: "empty update result"
+      }
+    }
     return {
-      result: JSON.stringify(result)
+      code: 0,
+      result: result
     }
   } catch (err) {
     return {
-      result: JSON.stringify(err)
+      code: -2,
+      errMsg: err
     };
   }
 };
