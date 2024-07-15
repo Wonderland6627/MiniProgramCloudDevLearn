@@ -79,6 +79,9 @@ Page({
         title: '保存成功',
         icon: 'success',
       })
+      this.setData({
+        currentPwd: newPwd,
+      })
     }).catch(err => {
       console.error(err)
     })
