@@ -1,0 +1,26 @@
+/* pages/nbstudy/admin-editPackage/index.wxss */
+.container {
+  padding: 20px;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.option {
+  padding: 10px 20px;
+  background-color: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.option.selected {
+  background-color: #007AFF;
+  color: #fff;
+}
+
+.details {
+  font-size: 16px;
+}

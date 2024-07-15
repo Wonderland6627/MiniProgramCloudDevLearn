@@ -42,6 +42,9 @@ Page({
 
   onPackageCellClick(e) {
     console.log("onPackageCellClick")
+    wx.navigateTo({
+      url: '/pages/nbstudy/admin-editPackage/index',
+    })
   },
 
   onAccessControlPasswordCellClick(e) {
