@@ -17,7 +17,7 @@
 }
 
 .option.selected {
-  background-color: #007AFF;
+  background-color: #ff8533;
   color: #fff;
 }
 

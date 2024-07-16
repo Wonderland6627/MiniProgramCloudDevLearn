@@ -1,16 +1,10 @@
 <!--pages/nbstudy/admin-editPackage/index.wxml-->
 <view class="container">
   <view class="options">
-    <view class="option {{selectedSeat === 'A' ? 'selected' : ''}}" bindtap="selectSeatA">座位A</view>
-    <view class="option {{selectedSeat === 'B' ? 'selected' : ''}}" bindtap="selectSeatB">座位B</view>
-    <view class="option {{selectedSeat === 'C' ? 'selected' : ''}}" bindtap="selectSeatC">座位C</view>
-    <view class="option {{selectedSeat === 'VIP' ? 'selected' : ''}}" bindtap="selectSeatVIP">VIP座位</view>
+    <view wx:for="{{seatInfosTable}}" wx:key="value" class="option {{selectedSeat === item.type ? 'selected' : ''}}" bindtap="selectSeat" data-value="{{item.type}}">{{item.label}}</view>
   </view>
   <view class="options">
-    <view class="option {{selectedDuration === '次卡' ? 'selected' : ''}}" bindtap="selectDurationOnce">次卡</view>
-    <view class="option {{selectedDuration === '周卡' ? 'selected' : ''}}" bindtap="selectDurationWeek">周卡</view>
-    <view class="option {{selectedDuration === '月卡' ? 'selected' : ''}}" bindtap="selectDurationMonth">月卡</view>
-    <view class="option {{selectedDuration === '年卡' ? 'selected' : ''}}" bindtap="selectDurationYear">年卡</view>
+   <view wx:for="{{durationInfosTable}}" wx:key="value" class="option {{selectedDuration === item.type ? 'selected' : ''}}" bindtap="selectDuration" data-value="{{item.type}}">{{item.label}}</view>
   </view>
   <view class="details">
     <text>选中的座位类型：{{selectedSeat}}</text>

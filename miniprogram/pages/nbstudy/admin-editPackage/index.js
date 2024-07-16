@@ -1,43 +1,65 @@
 // pages/nbstudy/admin-editPackage/index.js
+
+//与后台枚举选项内容要保持一致
+const SeatType = {
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  VIP: 'VIP',
+}
+
+const DurationType = {
+  Temp: '次卡',
+  Week: '周卡',
+  Month: '月卡',
+  Season: '季卡',
+  Year: '年卡',
+}
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    selectedSeat: 'A',
-    selectedDuration: '次卡'
-  },
-  selectSeatA: function() {
-    this.setData({ selectedSeat: 'A' });
-  },
-  selectSeatB: function() {
-    this.setData({ selectedSeat: 'B' });
-  },
-  selectSeatC: function() {
-    this.setData({ selectedSeat: 'C' });
-  },
-  selectSeatVIP: function() {
-    this.setData({ selectedSeat: 'VIP' });
-  },
-  selectDurationOnce: function() {
-    this.setData({ selectedDuration: '次卡' });
-  },
-  selectDurationWeek: function() {
-    this.setData({ selectedDuration: '周卡' });
-  },
-  selectDurationMonth: function() {
-    this.setData({ selectedDuration: '月卡' });
-  },
-  selectDurationYear: function() {
-    this.setData({ selectedDuration: '年卡' });
+    seatInfosTable: [
+      { type: SeatType.A, label: 'A座位' },
+      { type: SeatType.B, label: 'B座位' },
+      { type: SeatType.C, label: 'C座位' },
+      { type: SeatType.VIP, label: 'VIP座位' }
+    ],
+    durationInfosTable: [
+      { type: DurationType.Temp, label: '次卡' },
+      { type: DurationType.Week, label: '周卡' },
+      { type: DurationType.Month, label: '月卡' },
+      { type: DurationType.Season, label: '季卡' },
+      { type: DurationType.Year, label: '年卡' }
+    ],
+
+
+    selectedSeat: SeatType.A,
+    selectedDuration: DurationType.Temp,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    
+  },
 
+  selectSeat(e) {
+    const selectedValue = e.currentTarget.dataset.value
+    this.setData({
+      selectedSeat: selectedValue
+    })
+  },
+
+  selectDuration(e) {
+    const selectedValue = e.currentTarget.dataset.value
+    this.setData({
+      selectedDuration: selectedValue
+    })
   },
 
   /**
