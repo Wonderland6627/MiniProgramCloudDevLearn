@@ -83,7 +83,11 @@ Page({
         currentPwd: newPwd,
       })
     }).catch(err => {
-      console.error(err)
+      console.error('门禁密码保存错误: ' + err)
+      wx.showToast({
+        title: '保存错误',
+        icon: 'error',
+      })
     })
   },
 
