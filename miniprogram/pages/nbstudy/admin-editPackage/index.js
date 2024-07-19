@@ -1,5 +1,7 @@
 // pages/nbstudy/admin-editPackage/index.js
 
+const utils = require('../../../utils.js')
+
 //与后台枚举选项内容要保持一致
 const SeatType = {
   A: 'A',
@@ -16,6 +18,21 @@ const DurationType = {
   Year: '年卡',
 }
 
+const SeatTypeRemote2Local = {
+  1: 'A',
+  2: 'B',
+  3: 'C',
+  4: 'VIP',
+}
+
+const DurationTypeRemote2Local = {
+  1: 'Temp',
+  2: 'Week',
+  3: 'Month',
+  4: 'Season',
+  5: 'Year',
+}
+
 Page({
 
   /**
@@ -23,10 +40,9 @@ Page({
    */
   data: {
     seatInfosTable: [
-      { type: SeatType.A, label: 'A座位' },
+      { type: SeatType.VIP, label: 'VIP单间' },
       { type: SeatType.B, label: 'B座位' },
       { type: SeatType.C, label: 'C座位' },
-      { type: SeatType.VIP, label: 'VIP座位' }
     ],
     durationInfosTable: [
       { type: DurationType.Temp, label: '次卡' },
@@ -36,21 +52,64 @@ Page({
       { type: DurationType.Year, label: '年卡' }
     ],
 
-    selectedSeat: SeatType.A,
-    selectedDuration: DurationType.Temp,
+    selectedSeat: SeatType.B,
+    selectedDuration: DurationType.Month,
     price: 0,
-    giftDays: 0,
+    giftDayCount: 0,
+    packages: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+    this.fetchPackages()
   },
 
   async fetchPackages() {
+    // wx.showLoading({
+    //   title: '获取数据',
+    // })
+    const result = await getApp().getModels().packages.list({
+      filter: {
+        where: {}
+      },
+      getCount: true,
+    })
+    console.log('拉取所有套餐信息: ' + JSON.stringify(result))
+    const records = result?.data.records || {}
+    if (utils.isEmpty(records)) {
+      wx.showToast({
+        title: '获取信息失败',
+        icon: 'error',
+      })
+      return
+    }
+    this.onReceiveRecords(records)
+  },
 
+  onReceiveRecords(records) {
+    const packageMap = []
+    records.forEach(record => {
+      const { seatType, durationType } = record
+      const seatKey = SeatTypeRemote2Local[seatType]
+      const durationKey = DurationTypeRemote2Local[durationType]
+      if (!packageMap[seatKey]) {
+        packageMap[seatKey] = {}
+      }
+      if (!packageMap[seatKey][durationKey]) {
+        packageMap[seatKey][durationKey] = [] 
+      }
+      const data = {
+        price: record.price,
+        giftDayCount: record.giftDayCount,
+      }
+      packageMap[seatKey][durationKey] = data
+    })
+    console.log(packageMap) 
+    this.setData({
+      packages: packageMap
+    })
   },
 
   selectSeat(e) {

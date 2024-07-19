@@ -15,7 +15,7 @@
     <text class="unit">元</text>
   </view>
   <view class="modify-section">
-    <input class="modify-input" type="number" bindinput="updateGiftDays" placeholder="输入赠送天数" value="{{giftDays}}"/>
+    <input class="modify-input" type="number" bindinput="updateGiftDayCount" placeholder="输入赠送天数" value="{{giftDayCount}}"/>
     <text class="unit">天</text>
   </view>
   <view class="button-container">
