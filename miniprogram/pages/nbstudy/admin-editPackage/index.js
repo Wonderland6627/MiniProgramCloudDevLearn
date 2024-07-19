@@ -52,8 +52,10 @@ Page({
       { type: DurationType.Year, label: '年卡' }
     ],
 
-    selectedSeat: SeatType.B,
-    selectedDuration: DurationType.Month,
+    selected: {
+      seat: SeatType.B,
+      duration: DurationType.Month,
+    },
     price: 0,
     giftDayCount: 0,
     packages: [],
@@ -112,17 +114,24 @@ Page({
     })
   },
 
+  getPackageData(seatKey, durationKey) {
+    const { packages } = this.data
+    return packages[seatKey]
+  },
+
   selectSeat(e) {
     const selectedValue = e.currentTarget.dataset.value
     this.setData({
-      selectedSeat: selectedValue
+      'selected.seat': selectedValue
     })
+    const { selected } = this.data
+    console.log(this.getPackageData(selected.seat, selected.duration))
   },
 
   selectDuration(e) {
     const selectedValue = e.currentTarget.dataset.value
     this.setData({
-      selectedDuration: selectedValue
+      'selected.duration': selectedValue
     })
   },
 
