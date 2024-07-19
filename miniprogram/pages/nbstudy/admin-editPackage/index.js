@@ -36,9 +36,10 @@ Page({
       { type: DurationType.Year, label: '年卡' }
     ],
 
-
     selectedSeat: SeatType.A,
     selectedDuration: DurationType.Temp,
+    price: 0,
+    giftDays: 0,
   },
 
   /**
@@ -46,6 +47,10 @@ Page({
    */
   onLoad(options) {
     
+  },
+
+  async fetchPackages() {
+
   },
 
   selectSeat(e) {

@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    storeID: 2,
+    storeID: 1,
     currentPwd: -1,
     newPwd: -1,
   },
@@ -51,6 +51,9 @@ Page({
   },
 
   trySavePwdByCloudFunc() {
+    wx.showLoading({
+      title: '正在保存',
+    })
     const { storeID, newPwd } = this.data
     wx.cloud.callFunction({
       name: 'quickstartFunctions',

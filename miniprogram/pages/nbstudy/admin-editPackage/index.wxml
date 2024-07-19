@@ -7,8 +7,18 @@
    <view wx:for="{{durationInfosTable}}" wx:key="value" class="option {{selectedDuration === item.type ? 'selected' : ''}}" bindtap="selectDuration" data-value="{{item.type}}">{{item.label}}</view>
   </view>
   <view class="details">
-    <text>选中的座位类型：{{selectedSeat}}</text>
-    <text>选中的时长类型：{{selectedDuration}}</text>
-    <text>套餐详情：{{selectedSeat}}的{{selectedDuration}}详情</text>
+    <view>座位类型：{{selectedSeat}}</view>
+    <view>时长类型：{{selectedDuration}}</view>
+  </view>
+  <view class="modify-section">
+    <input class="modify-input" type="number" bindinput="updatePrice" placeholder="输入价格" value="{{price}}"/>
+    <text class="unit">元</text>
+  </view>
+  <view class="modify-section">
+    <input class="modify-input" type="number" bindinput="updateGiftDays" placeholder="输入赠送天数" value="{{giftDays}}"/>
+    <text class="unit">天</text>
+  </view>
+  <view class="button-container">
+    <button class="save-button" bindtap="onSave">保存</button>
   </view>
 </view>
