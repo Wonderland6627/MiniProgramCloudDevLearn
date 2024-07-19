@@ -11,11 +11,11 @@ const SeatType = {
 }
 
 const DurationType = {
-  Temp: '次卡',
-  Week: '周卡',
-  Month: '月卡',
-  Season: '季卡',
-  Year: '年卡',
+  Temp: 'Temp',
+  Week: 'Week',
+  Month: 'Month',
+  Season: 'Season',
+  Year: 'Year',
 }
 
 const SeatTypeRemote2Local = {
@@ -58,7 +58,7 @@ Page({
     },
     price: 0,
     giftDayCount: 0,
-    packages: [],
+    currentPackages: [],
   },
 
   /**
@@ -76,6 +76,7 @@ Page({
       filter: {
         where: {}
       },
+      pageSize: 20,
       getCount: true,
     })
     console.log('拉取所有套餐信息: ' + JSON.stringify(result))
@@ -99,24 +100,30 @@ Page({
       if (!packageMap[seatKey]) {
         packageMap[seatKey] = {}
       }
-      if (!packageMap[seatKey][durationKey]) {
-        packageMap[seatKey][durationKey] = [] 
-      }
-      const data = {
+      packageMap[seatKey][durationKey] = {
         price: record.price,
         giftDayCount: record.giftDayCount,
       }
-      packageMap[seatKey][durationKey] = data
     })
     console.log(packageMap) 
     this.setData({
-      packages: packageMap
+      currentPackages: packageMap
+    })
+    this.updateInputs()
+  },
+
+  updateInputs() {
+    const { selected } = this.data
+    const selectPackageData = this.getCurrentPackageData(selected.seat, selected.duration)
+    this.setData({
+      price: selectPackageData.price,
+      giftDayCount: selectPackageData.giftDayCount,
     })
   },
 
-  getPackageData(seatKey, durationKey) {
-    const { packages } = this.data
-    return packages[seatKey]
+  getCurrentPackageData(seatKey, durationKey) {
+    const { currentPackages } = this.data
+    return currentPackages[seatKey][durationKey]
   },
 
   selectSeat(e) {
@@ -124,8 +131,7 @@ Page({
     this.setData({
       'selected.seat': selectedValue
     })
-    const { selected } = this.data
-    console.log(this.getPackageData(selected.seat, selected.duration))
+    this.updateInputs();
   },
 
   selectDuration(e) {
@@ -133,6 +139,7 @@ Page({
     this.setData({
       'selected.duration': selectedValue
     })
+    this.updateInputs();
   },
 
   /**
