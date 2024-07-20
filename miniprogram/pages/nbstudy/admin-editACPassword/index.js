@@ -47,7 +47,23 @@ Page({
   },
 
   onSave() {
-    this.trySavePwdByCloudFunc()
+    const { newPwd } = this.data
+    if (!newPwd || newPwd.length !== 6) {
+      wx.showToast({
+        title: '输入门禁有误',
+        icon: 'error',
+      })
+      return
+    }
+
+    wx.showModal({
+      content: '确认更新密码为: ' + this.data.newPwd + ' ?',
+      complete: (res) => {
+        if (res.confirm) {
+          this.trySavePwdByCloudFunc()
+        }
+      }
+    })
   },
 
   trySavePwdByCloudFunc() {
