@@ -91,6 +91,7 @@
   flex-direction: column;
   animation: bd-rise 2s cubic-bezier(0.23,1,0.23,1) .75s forwards;
   opacity: 0;
+  margin-top: 50px;
 }
 
 .input-area{
@@ -116,23 +117,18 @@
   text-align: right;
 }
 
-/* 登录按钮 */
 .confirm-btn{
   display: flex;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
-  height: 85rpx;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
   background: #ff8533;
-  font-size: 32rpx;
-  line-height: 85rpx;
+  font-size: 16px;
   color: #fff;
   text-align: center;
-  margin: 15% 20%;
-  border-radius: 20rpx;
-  
+  border-radius: 4px;
 }
 
-/* 点击状态 */
 .confirm-btn:active{
   opacity: 0.8;
 }

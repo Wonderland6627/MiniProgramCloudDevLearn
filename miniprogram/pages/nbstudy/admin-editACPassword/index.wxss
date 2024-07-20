@@ -36,11 +36,13 @@
 }
 
 .save-button {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 40px;
-  background-color: #ff8533;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  background: #ff8533;
   font-size: 16px;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
 }

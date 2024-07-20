@@ -8,6 +8,7 @@ Page({
     storeID: 1,
     currentPwd: -1,
     newPwd: -1,
+    pwdValid: false,
   },
 
   /**
@@ -42,13 +43,14 @@ Page({
     const newPwd = e.detail.value
     this.setData({
       'newPwd': newPwd,
+      'pwdValid': newPwd && newPwd.length === 6
     })
     console.log('修改门禁密码: ' + newPwd)
   },
 
   onSave() {
-    const { newPwd } = this.data
-    if (!newPwd || newPwd.length !== 6) {
+    const { newPwd, pwdValid } = this.data
+    if (!pwdValid) {
       wx.showToast({
         title: '输入门禁有误',
         icon: 'error',
@@ -57,7 +59,7 @@ Page({
     }
 
     wx.showModal({
-      content: '确认更新密码为: ' + this.data.newPwd + ' ?',
+      content: '确认更新密码为: ' + newPwd + ' ?',
       complete: (res) => {
         if (res.confirm) {
           this.trySavePwdByCloudFunc()
@@ -111,8 +113,8 @@ Page({
   },
 
   async trySavePwd() {
-    const { newPwd } = this.data
-    if (!newPwd || newPwd.length !== 6) {
+    const { newPwd, pwdValid } = this.data
+    if (!pwdValid) {
       wx.showToast({
         title: '输入门禁有误',
         icon: 'error',
