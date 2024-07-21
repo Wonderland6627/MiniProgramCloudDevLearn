@@ -23,7 +23,7 @@
       <button wx:else class="confirm-btn" disabled>
         <text>登  录</text>
       </button> -->
-      <button class="confirm-btn" bindtap="studentLogin">
+      <button class="common-btn" bindtap="studentLogin">
         <text>微信登陆</text>
       </button>
     </view>

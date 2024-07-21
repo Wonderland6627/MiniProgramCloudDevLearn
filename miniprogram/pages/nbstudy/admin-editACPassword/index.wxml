@@ -5,8 +5,7 @@
   <view class="input-container">
     <input class="input" type="number" placeholder="请输入新门禁密码" maxlength="6" bindinput="onInputChange"></input>
   </view>
-  <view class="button-container">
-    <button wx:if="{{pwdValid}}" class="save-button" bindtap="onSave">保 存</button>
-    <button wx:else class="save-button" disabled>保 存</button>
-  </view>
+  <button class="common-btn" bindtap="onSave" disabled="{{!pwdValid}}">
+    <text>保  存</text>
+  </button>
 </view>

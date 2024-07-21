@@ -117,23 +117,13 @@
   text-align: right;
 }
 
-.confirm-btn{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  background: #ff8533;
-  font-size: 16px;
-  color: #fff;
+.common-btn {
+  background-color: #ff8533;
+  color: #ffffff;
   text-align: center;
   border-radius: 4px;
 }
 
-.confirm-btn:active{
+.common-btn:active {
   opacity: 0.8;
-}
-
-.confirm-btn:disabled {
-  pointer-events: none;
-  opacity: 0.5;
 }

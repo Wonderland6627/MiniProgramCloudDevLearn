@@ -18,6 +18,12 @@ button::after{
   border: none;
 }
 
+wx-button[disabled]:not([type]) {
+	background-color: #ff8533;
+  color: #ffffff;
+  pointer-events: none;
+  opacity: 0.5;
+}
 
 page {
   background: #f6f6f6;
