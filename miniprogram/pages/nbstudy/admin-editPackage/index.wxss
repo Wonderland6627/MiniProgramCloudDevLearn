@@ -1,6 +1,7 @@
 /* pages/nbstudy/admin-editPackage/index.wxss */
 .container {
-  padding: 20px;
+  padding: 0px;
+  margin-top: 20px;
 }
 
 .options {
@@ -9,14 +10,16 @@
   margin-bottom: 20px;
 }
 
-.option {
+.optiontab {
   padding: 10px 20px;
   background-color: #eee;
   border-radius: 4px;
   cursor: pointer;
+  text-align: center;
+  font-size: 15px;
 }
 
-.option.selected {
+.optiontab.selected {
   background-color: #ff8533;
   color: #fff;
 }
@@ -33,12 +36,12 @@
 }
 
 .modify-input {
-  flex: 1;
   width: 125px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   padding: 6px;
   font-size: 16px;
   text-align: center;
+  border-radius: 4px;
 }
 
 .unit {

@@ -59,6 +59,7 @@ Page({
     price: 0,
     giftDayCount: 0,
     currentPackages: [],
+    modifiedPackages: [], //修改了的套餐信息
   },
 
   /**
@@ -114,15 +115,19 @@ Page({
 
   updateInputs() {
     const { selected } = this.data
-    const selectPackageData = this.getCurrentPackageData(selected.seat, selected.duration)
+    const selectPackageData = this.getPackageData(selected.seat, selected.duration)
     this.setData({
       price: selectPackageData.price,
       giftDayCount: selectPackageData.giftDayCount,
     })
   },
 
-  getCurrentPackageData(seatKey, durationKey) {
-    const { currentPackages } = this.data
+  //获取选中套餐的详情 默认返回远端信息 如果本地修改了 显示修改过的
+  getPackageData(seatKey, durationKey) {
+    const { currentPackages, modifiedPackages } = this.data
+    if (modifiedPackages[seatKey] && modifiedPackages[seatKey][durationKey]) {
+      return modifiedPackages[seatKey][durationKey]
+    }
     return currentPackages[seatKey][durationKey]
   },
 
@@ -140,6 +145,33 @@ Page({
       'selected.duration': selectedValue
     })
     this.updateInputs();
+  },
+
+  updatePrice(e) {
+    const newPrice = parseInt(e.detail.value)
+    this.updateModifiedPackages('price', newPrice)
+  },
+
+  updateGiftDayCount(e) {
+    const newGiftDays = parseInt(e.detail.value)
+    this.updateModifiedPackages('giftDayCount', newGiftDays)
+  },
+
+  updateModifiedPackages(key, value) {
+    const { selected, currentPackages, modifiedPackages } = this.data
+    const seatType = selected.seat
+    const durationType = selected.duration
+    if (!modifiedPackages[seatType]) {
+      modifiedPackages[seatType] = {}
+    }
+    if (!modifiedPackages[seatType][durationType]) {
+      modifiedPackages[seatType][durationType] = currentPackages[seatType][durationType]
+    }
+    modifiedPackages[seatType][durationType][key] = value
+    this.setData({
+      modifiedPackages: modifiedPackages,
+    })
+    console.log(this.data.modifiedPackages)
   },
 
   /**

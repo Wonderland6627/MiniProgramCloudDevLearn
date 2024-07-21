@@ -1,10 +1,10 @@
 <!--pages/nbstudy/admin-editPackage/index.wxml-->
 <view class="container">
   <view class="options">
-    <view wx:for="{{seatInfosTable}}" wx:key="value" class="option {{selected.seat === item.type ? 'selected' : ''}}" bindtap="selectSeat" data-value="{{item.type}}">{{item.label}}</view>
+    <view wx:for="{{seatInfosTable}}" wx:key="value" class="optiontab.{{selected.seat === item.type ? 'selected' : ''}}" bindtap="selectSeat" data-value="{{item.type}}">{{item.label}}</view>
   </view>
   <view class="options">
-   <view wx:for="{{durationInfosTable}}" wx:key="value" class="option {{selected.duration === item.type ? 'selected' : ''}}" bindtap="selectDuration" data-value="{{item.type}}">{{item.label}}</view>
+   <view wx:for="{{durationInfosTable}}" wx:key="value" class="optiontab.{{selected.duration === item.type ? 'selected' : ''}}" bindtap="selectDuration" data-value="{{item.type}}">{{item.label}}</view>
   </view>
   <view class="details">
     <view>座位类型：{{selected.seat}}</view>
