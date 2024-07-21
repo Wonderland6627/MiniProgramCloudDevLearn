@@ -169,15 +169,14 @@ Page({
       modifiedPackages[seatType][durationType] = JSON.parse(curMapValue)
     }
     modifiedPackages[seatType][durationType][key] = value
-    console.log(modifiedPackages)
     if (JSON.stringify(modifiedPackages[seatType][durationType]) ===  JSON.stringify(currentPackages[seatType][durationType])) {
       console.log(`modifiedPackages[${seatType}][${durationType}]修改值重置`)
       delete modifiedPackages[seatType][durationType]
       if (utils.isEmpty(modifiedPackages[seatType])) {
         delete modifiedPackages[seatType]
       }
-      console.log(modifiedPackages)
     }
+    console.log(modifiedPackages)
     this.setData({
       modifiedPackages: modifiedPackages,
     })
