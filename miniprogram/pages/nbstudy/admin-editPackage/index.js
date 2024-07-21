@@ -165,13 +165,22 @@ Page({
       modifiedPackages[seatType] = {}
     }
     if (!modifiedPackages[seatType][durationType]) {
-      modifiedPackages[seatType][durationType] = currentPackages[seatType][durationType]
+      const curMapValue = JSON.stringify(currentPackages[seatType][durationType])
+      modifiedPackages[seatType][durationType] = JSON.parse(curMapValue)
     }
     modifiedPackages[seatType][durationType][key] = value
+    console.log(modifiedPackages)
+    if (JSON.stringify(modifiedPackages[seatType][durationType]) ===  JSON.stringify(currentPackages[seatType][durationType])) {
+      console.log(`modifiedPackages[${seatType}][${durationType}]修改值重置`)
+      delete modifiedPackages[seatType][durationType]
+      if (utils.isEmpty(modifiedPackages[seatType])) {
+        delete modifiedPackages[seatType]
+      }
+      console.log(modifiedPackages)
+    }
     this.setData({
       modifiedPackages: modifiedPackages,
     })
-    console.log(this.data.modifiedPackages)
   },
 
   /**
