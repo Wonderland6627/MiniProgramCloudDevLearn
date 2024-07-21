@@ -182,6 +182,14 @@ Page({
     })
   },
 
+  updateModifyMark(seatType, durationType) {
+    const { seatInfosTable, durationInfosTable } = this.data
+    seatInfosTable[seatType] += '*' //todo: parse type and set value
+    this.setData({
+      seatInfosTable: seatInfosTable,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
