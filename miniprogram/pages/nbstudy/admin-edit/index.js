@@ -38,6 +38,9 @@ Page({
 
   onSeatCellClick(e) {
     console.log("onSeatCellClick")
+    wx.navigateTo({
+      url: '/pages/nbstudy/admin-editSeat/index',
+    })
   },
 
   onPackageCellClick(e) {

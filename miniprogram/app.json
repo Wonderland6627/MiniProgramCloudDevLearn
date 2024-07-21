@@ -11,7 +11,8 @@
     "pages/nbstudy/admin-edit/index",
     "pages/nbstudy/admin-editStore/index",
     "pages/nbstudy/admin-editACPassword/index",
-    "pages/nbstudy/admin-editPackage/index"
+    "pages/nbstudy/admin-editPackage/index",
+    "pages/nbstudy/admin-editSeat/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
