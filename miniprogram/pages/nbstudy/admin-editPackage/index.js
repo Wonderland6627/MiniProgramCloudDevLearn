@@ -137,7 +137,8 @@ Page({
     this.setData({
       'selected.seat': selectedValue
     })
-    this.updateInputs();
+    this.updateInputs()
+    this.updateModifyMark()
   },
 
   selectDuration(e) {
@@ -145,7 +146,7 @@ Page({
     this.setData({
       'selected.duration': selectedValue
     })
-    this.updateInputs();
+    this.updateInputs()
   },
 
   updatePrice(e) {
@@ -187,27 +188,17 @@ Page({
 
   updateModifyMark() {
     const { selected, seatInfosTable, durationInfosTable, modifiedPackages } = this.data
-    seatInfosTable.forEach((info) => {
-      info.label = this.setModifyMark(info.label, false)
-    })
-    durationInfosTable.forEach((info) => {
-      info.label = this.setModifyMark(info.label, false)
-    }) //先重置所有标记
-
     seatInfosTable.forEach((seatInfo) => {
-      durationInfosTable.forEach((durationInfo) => {
-        const seatType = seatInfo.type
-        const durationType = durationInfo.type
-        const modified = modifiedPackages[seatType] && modifiedPackages[seatType][durationType]
-        if (modified) {
-          seatInfo.label = this.setModifyMark(seatInfo.label, true)
-          durationInfo.label = this.setModifyMark(durationInfo.label, true)
-        }
-      })
+      const seatType = seatInfo.type
+      const modified = modifiedPackages[seatType]
+      seatInfo.label = this.setModifyMark(seatInfo.label, modified)
     })
-
-    console.log(JSON.stringify(seatInfosTable))
-    console.log(JSON.stringify(durationInfosTable))
+    durationInfosTable.forEach((durationInfo) => {
+      const seatType = selected.seat //时长类型是二级分类 修改标记显示根据座位类型而变化
+      const durationType = durationInfo.type
+      const modified = modifiedPackages[seatType] && modifiedPackages[seatType][durationType]
+      durationInfo.label = this.setModifyMark(durationInfo.label, modified)
+    })
     this.setData({
       seatInfosTable: seatInfosTable,
       durationInfosTable: durationInfosTable
