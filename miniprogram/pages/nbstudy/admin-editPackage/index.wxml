@@ -19,6 +19,8 @@
     <text class="unit">天</text>
   </view>
   <view class="button-container">
-    <button class="common-btn" bindtap="onSave">保 存</button>
+    <button class="common-btn" bindtap="onSave" disabled="{{!modified}}">
+      <text>保  存</text>
+    </button>
   </view>
 </view>

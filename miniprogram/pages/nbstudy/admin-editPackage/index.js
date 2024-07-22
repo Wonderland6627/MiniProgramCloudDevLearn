@@ -60,6 +60,7 @@ Page({
     giftDayCount: 0,
     currentPackages: [],
     modifiedPackages: [], //修改了的套餐信息
+    modified: false,
   },
 
   /**
@@ -179,6 +180,7 @@ Page({
     console.log(modifiedPackages)
     this.setData({
       modifiedPackages: modifiedPackages,
+      modified: !utils.isEmpty(modifiedPackages),
     })
   },
 
