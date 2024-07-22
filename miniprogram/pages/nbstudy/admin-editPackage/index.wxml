@@ -11,10 +11,12 @@
     <view>时长类型：{{selected.duration}}</view>
   </view>
   <view class="modify-section">
+    <text class="tag">价格</text>
     <input class="modify-input" type="number" bindinput="updatePrice" placeholder="输入价格" value="{{price}}"/>
     <text class="unit">元</text>
   </view>
   <view class="modify-section">
+    <text class="tag">赠送</text>
     <input class="modify-input" type="number" bindinput="updateGiftDayCount" placeholder="输入赠送天数" value="{{giftDayCount}}"/>
     <text class="unit">天</text>
   </view>

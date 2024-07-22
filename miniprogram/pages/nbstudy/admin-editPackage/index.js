@@ -182,14 +182,43 @@ Page({
       modifiedPackages: modifiedPackages,
       modified: !utils.isEmpty(modifiedPackages),
     })
+    this.updateModifyMark()
   },
 
-  updateModifyMark(seatType, durationType) {
-    const { seatInfosTable, durationInfosTable } = this.data
-    seatInfosTable[seatType] += '*' //todo: parse type and set value
+  updateModifyMark() {
+    const { selected, seatInfosTable, durationInfosTable, modifiedPackages } = this.data
+    seatInfosTable.forEach((info) => {
+      info.label = this.setModifyMark(info.label, false)
+    })
+    durationInfosTable.forEach((info) => {
+      info.label = this.setModifyMark(info.label, false)
+    }) //先重置所有标记
+
+    seatInfosTable.forEach((seatInfo) => {
+      durationInfosTable.forEach((durationInfo) => {
+        const seatType = seatInfo.type
+        const durationType = durationInfo.type
+        const modified = modifiedPackages[seatType] && modifiedPackages[seatType][durationType]
+        if (modified) {
+          seatInfo.label = this.setModifyMark(seatInfo.label, true)
+          durationInfo.label = this.setModifyMark(durationInfo.label, true)
+        }
+      })
+    })
+
+    console.log(JSON.stringify(seatInfosTable))
+    console.log(JSON.stringify(durationInfosTable))
     this.setData({
       seatInfosTable: seatInfosTable,
+      durationInfosTable: durationInfosTable
     })
+  },
+
+  setModifyMark(label, enable) {
+    if (enable) {
+      return label.replace(/\*+$/, '') + '*'
+    }
+    return label.replace(/\*/g, '')
   },
 
   /**
