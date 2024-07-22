@@ -217,6 +217,48 @@ Page({
     return label.replace(/\*/g, '')
   },
 
+  onSave() {
+    this.trySavePackages()
+  },
+
+  async trySavePackages() {
+    wx.showLoading({
+      title: '正在保存',
+    })
+    const result = await getApp().getModels().students.update({
+      data: {
+        studentName: "tester",
+      },
+      filter: {
+        where: {
+          studentName: {
+            $eq: "mu"
+          }
+        }
+      }
+    }).catch(err => {
+      wx.showToast({
+        title: '保存错误',
+        icon: 'error',
+      })
+      console.error('套餐信息保存错误: ' + err)
+    })
+    console.log('套餐信息保存回应: ' + result)
+    if (result?.data.count != 1) {
+      wx.showToast({
+        title: '保存失败',
+        icon: 'error',
+      })
+      console.log('套餐信息保存失败')
+      return
+    }
+    wx.showToast({
+      title: '保存成功',
+      icon: 'success',
+    })
+    console.log('套餐信息保存成功')
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -6,10 +6,10 @@
   <view class="options">
    <view wx:for="{{durationInfosTable}}" wx:key="value" class="optiontab.{{selected.duration === item.type ? 'selected' : ''}}" bindtap="selectDuration" data-value="{{item.type}}">{{item.label}}</view>
   </view>
-  <view class="details">
+  <!-- <view class="details">
     <view>座位类型：{{selected.seat}}</view>
     <view>时长类型：{{selected.duration}}</view>
-  </view>
+  </view> -->
   <view class="modify-section">
     <text class="tag">价格</text>
     <input class="modify-input" type="number" bindinput="updatePrice" placeholder="输入价格" value="{{price}}"/>
