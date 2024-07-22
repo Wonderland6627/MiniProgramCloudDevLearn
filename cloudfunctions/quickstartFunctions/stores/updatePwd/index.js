@@ -4,7 +4,7 @@ cloud.init({
 });
 const db = cloud.database();
 exports.main = async (event, context) => {
-  const { storeID, newPwd } = event.data;
+  const { storeID, newPwd } = event.data
   try {
     const result = await db.collection('stores')
       .where({ storeID: storeID })
