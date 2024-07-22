@@ -71,9 +71,9 @@ Page({
   },
 
   async fetchPackages() {
-    // wx.showLoading({
-    //   title: '获取数据',
-    // })
+    wx.showLoading({
+      title: '获取数据',
+    })
     const result = await getApp().getModels().packages.list({
       filter: {
         where: {}
@@ -90,6 +90,11 @@ Page({
       })
       return
     }
+    wx.showToast({
+      title: '获取信息成功',
+      icon: 'success',
+      duration: 500,
+    })
     this.onReceiveRecords(records)
   },
 
