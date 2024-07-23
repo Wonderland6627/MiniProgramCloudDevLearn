@@ -33,6 +33,21 @@ const DurationTypeRemote2Local = {
   5: 'Year',
 }
 
+const SeatTypeLocal2Remote = {
+  'A': '1',
+  'B': '2',
+  'C': '3',
+  'VIP': '4',
+}
+
+const DurationTypeLocal2Remote = {
+  'Temp': '1',
+  'Week': '2',
+  'Month': '3',
+  'Season': '4',
+  'Year': '5',
+}
+
 Page({
 
   /**
@@ -218,45 +233,43 @@ Page({
   },
 
   onSave() {
-    this.trySavePackages()
+    this.trySavePackagesByCloudFunc()
   },
 
-  async trySavePackages() {
-    wx.showLoading({
-      title: '正在保存',
-    })
-    const result = await getApp().getModels().students.update({
+  trySavePackagesByCloudFunc() {
+    const { modifiedPackages } = this.data
+    const modifies = this.parsePackages2Array(modifiedPackages)
+    console.log(`本次修改内容: ${JSON.stringify(modifies)}`)
+    wx.cloud.callFunction({
+      name: 'quickstartFunctions',
       data: {
-        studentName: "tester",
-      },
-      filter: {
-        where: {
-          studentName: {
-            $eq: "mu"
-          }
-        }
+        type: 'updatePackages',
+        data: { modifies }
       }
-    }).catch(err => {
-      wx.showToast({
-        title: '保存错误',
-        icon: 'error',
-      })
-      console.error('套餐信息保存错误: ' + err)
-    })
-    console.log('套餐信息保存回应: ' + result)
-    if (result?.data.count != 1) {
-      wx.showToast({
-        title: '保存失败',
-        icon: 'error',
-      })
-      console.log('套餐信息保存失败')
-      return
+    }).then(res => {
+			console.log(JSON.stringify(res))
+		}).catch(err => {
+			console.error(err)
+		})
+  },
+
+  parsePackages2Array(modifiedPackages) {
+    const modifies = []
+    for (let seatKey in modifiedPackages) {
+      const packages = modifiedPackages[seatKey]
+      if (!packages) { continue }
+      for (let durationKey in packages) {
+        const pack = packages[durationKey]
+        if (!pack) { continue }
+        modifies.push({
+          seatType: SeatTypeLocal2Remote[seatKey],
+          durationType: DurationTypeLocal2Remote[durationKey],
+          price: pack.price,
+          giftDayCount: pack.giftDayCount
+        })
+      }
     }
-    wx.showToast({
-      title: '保存成功',
-      icon: 'success',
-    })
-    console.log('套餐信息保存成功')
+    return modifies
   },
 
   /**

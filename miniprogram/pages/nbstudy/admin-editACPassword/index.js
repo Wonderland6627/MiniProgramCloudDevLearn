@@ -112,53 +112,6 @@ Page({
     })
   },
 
-  async trySavePwd() {
-    const { newPwd, pwdValid } = this.data
-    if (!pwdValid) {
-      wx.showToast({
-        title: '输入门禁有误',
-        icon: 'error',
-      })
-      return
-    }
-    wx.showLoading({
-      title: '正在保存',
-    })
-    const result = await getApp().getModels().stores.update({
-      data: {
-        _openid: '{openid}',
-        accessControlPassword: newPwd,
-      },
-      filter: {
-        where: {
-          storeID: {
-            $eq: this.data.storeID
-          }
-        }
-      }
-    }).catch(err => {
-      wx.showToast({
-        title: '保存错误',
-        icon: 'error',
-      })
-      console.error('门禁密码保存错误: ' + err)
-    })
-    console.log('门禁密码保存回应: ' + result)
-    if (result?.data.count != 1) {
-      wx.showToast({
-        title: '保存失败',
-        icon: 'error',
-      })
-      console.log('门禁密码保存失败')
-      return
-    }
-    wx.showToast({
-      title: '保存成功',
-      icon: 'success',
-    })
-    console.log('门禁密码保存成功')
-  },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
