@@ -8,15 +8,15 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   const openid = wxContext.OPENID
   try {
-    const existsResult = await db.collection('students')
-    .where({ OPENID: openid })
-    .get()
-    if (existsResult?.data.length > 0) {
-      return {
-        code: 1,
-        msg: 'data with openid: [' + openid + '] already exists',
-      }
-    }
+		const existsResult = await db.collection('students')
+			.where({ OPENID: openid })
+			.get()
+		if (existsResult?.data.length > 0) {
+			return {
+				code: 1,
+				msg: 'data with openid: [' + openid + '] already exists',
+			}
+		}
     await createData(openid)
     return {
       code: 0,

@@ -8,16 +8,16 @@ exports.main = async (event, context) => {
 	try {
 		const results = []
 		const tasks = modifies.map(async (pack) => {
-			const result = db.collection('packages').where({
-					seatType: pack.seatType,
-					durationType: pack.durationType
-				}).update({
-					data: {
-						price: pack.price,
-						giftDayCount: pack.giftDayCount
-					}
-				})
-				results.push(result)
+			const result = await db.collection('packages').where({
+				seatType: pack.seatType,
+				durationType: pack.durationType,
+			}).update({
+				data: {
+					"price": pack.price,
+					"giftDayCount": pack.giftDayCount,
+				}
+			})
+			results.push(result)
 		})
 		await Promise.all(tasks)
 		return {
