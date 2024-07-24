@@ -29,7 +29,17 @@ Page({
       students: list
     })
     console.log(result)
-  },
+	},
+	
+	handleCellTap(e) {
+		const index = e.currentTarget.dataset.index
+		const studentInfo = this.data.students[index]
+		console.log('选择学生: ' + JSON.stringify(studentInfo))
+		// wx.setStorageSync('selectedStudentInfo', studentInfo)
+		wx.navigateTo({
+			url: '/pages/nbstudy/admin-editStudent/index',
+		})
+	},
 
   /**
    * 生命周期函数--监听页面初次渲染完成

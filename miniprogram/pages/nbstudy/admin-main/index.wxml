@@ -2,7 +2,7 @@
 
 <view class="scrollview">
   <scroll-view scroll-y="true" style="height: 100%;">
-    <view class="cell" wx:for="{{students}}" wx:key="index">
+    <view class="cell" wx:for="{{students}}" wx:key="index" bindtap="handleCellTap" data-index="{{index}}">
       <view class="avatar-container">
         <image class="avatar" src="{{item.avatarUrl}}"></image>
       </view>
