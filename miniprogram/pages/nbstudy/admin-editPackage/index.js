@@ -274,18 +274,22 @@ Page({
 					modifiesCount = modifiesCount - 1
 				}
 			})
-			console.log(Date.now())
-			if (modifiesCount == 0) {
-				wx.showToast({
-					title: `保存成功`,
-					icon: 'success',
-				})
-			} else {
+			if (modifiesCount != 0) {
 				wx.showToast({
 					title: `${modifiesCount}个保存失败`,
 					icon: 'error',
 				})
+				return
 			}
+			wx.showToast({
+				title: `保存成功`,
+				icon: 'success',
+				duration: 2000,
+				mask: true,
+			})
+			setTimeout(function() {
+				wx.navigateBack()
+			}, 2000)
 		}).catch(err => {
 			console.error('套餐修改保存错误: ' + err)
       wx.showToast({
