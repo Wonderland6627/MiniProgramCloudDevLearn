@@ -233,12 +233,24 @@ Page({
   },
 
   onSave() {
-    this.trySavePackagesByCloudFunc()
+		const { modifiedPackages } = this.data
+		const modifies = this.parsePackages2Array(modifiedPackages)
+		var modifiesCount = modifies.length
+		wx.showModal({
+      content: `确认修改${modifiesCount}条套餐信息?`,
+      complete: (res) => {
+        if (res.confirm) {
+          this.trySavePackagesByCloudFunc(modifies)
+        }
+      }
+    })
   },
 
-  trySavePackagesByCloudFunc() {
-    const { modifiedPackages } = this.data
-    const modifies = this.parsePackages2Array(modifiedPackages)
+  trySavePackagesByCloudFunc(modifies) {
+		var modifiesCount = modifies.length
+		wx.showLoading({
+			title: `${modifiesCount}个修改保存中`,
+		})
     console.log(`本次修改内容: ${JSON.stringify(modifies)}`)
     wx.cloud.callFunction({
       name: 'quickstartFunctions',
@@ -247,9 +259,39 @@ Page({
         data: { modifies }
       }
     }).then(res => {
-			console.log(JSON.stringify(res))
+			console.log('套餐修改保存回应: ' + JSON.stringify(res))
+			if (res.result.code != 0) {
+				console.log('套餐修改保存失败: ' + res.result)
+				wx.showToast({
+          title: '保存失败',
+          icon: 'error',
+        })
+        return
+			}
+			const results = res.result.results
+			results.forEach(result => {
+				if (result.stats.updated == 1) {
+					modifiesCount = modifiesCount - 1
+				}
+			})
+			console.log(Date.now())
+			if (modifiesCount == 0) {
+				wx.showToast({
+					title: `保存成功`,
+					icon: 'success',
+				})
+			} else {
+				wx.showToast({
+					title: `${modifiesCount}个保存失败`,
+					icon: 'error',
+				})
+			}
 		}).catch(err => {
-			console.error(err)
+			console.error('套餐修改保存错误: ' + err)
+      wx.showToast({
+        title: '保存错误',
+        icon: 'error',
+      })
 		})
   },
 
