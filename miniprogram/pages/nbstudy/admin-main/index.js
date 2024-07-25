@@ -35,7 +35,7 @@ Page({
 		const index = e.currentTarget.dataset.index
 		const studentInfo = this.data.students[index]
 		console.log('选择学生: ' + JSON.stringify(studentInfo))
-		// wx.setStorageSync('selectedStudentInfo', studentInfo)
+		wx.setStorageSync('selectedStudentInfo', studentInfo)
 		wx.navigateTo({
 			url: '/pages/nbstudy/admin-editStudent/index',
 		})

@@ -1,2 +1,40 @@
 <!--pages/nbstudy/admin-editStudent/index.wxml-->
-<text>pages/nbstudy/admin-editStudent/index.wxml</text>
+<view class="top-section">
+  <view class="info-section">
+    <view class="info-item">
+      <view class="label">姓名：</view>
+      <view class="value">{{studentInfo.studentName}}</view>
+      <image class="edit-icon" src="../../../images/icons/admin-edit-active.png"></image>
+    </view>
+    <view class="info-item">
+      <view class="label">年龄：</view>
+      <view class="value">{{studentInfo.birthday}}}</view>
+      <image class="edit-icon" src="../../../images/icons/admin-edit-active.png"></image>
+    </view>
+    <view class="info-item">
+      <view class="label">性别：</view>
+      <view class="value">{{studentInfo.gender}}</view>
+      <image class="edit-icon" src="../../../images/icons/admin-edit-active.png"></image>
+    </view>
+  </view>
+  <view class="avatar-container">
+    <image class="avatar" src="{{studentInfo.avatarUrl}}"></image>
+  </view>
+</view>
+
+<view class="bottom-section">
+  <view class="info-section">
+    <view class="info-item">
+      <view class="label">学校：</view>
+      <view class="value">{{studentInfo.school}}</view>
+    </view>
+    <view class="info-item">
+      <view class="label">班级：</view>
+      <view class="value"></view>
+    </view>
+    <view class="info-item">
+      <view class="label">电话：</view>
+      <view class="value">{{studentInfo.phone}}</view>
+    </view>
+  </view>
+</view>

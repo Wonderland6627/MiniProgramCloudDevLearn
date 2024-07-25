@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    studentInfo: {
 
+    }
   },
 
   /**
@@ -14,7 +16,10 @@ Page({
   onLoad(options) {
 		let info = wx.getStorageSync('selectedStudentInfo')
 		console.log('学生信息: ' + JSON.stringify(info))
-		wx.removeStorageSync('selectedStudentInfo')
+    wx.removeStorageSync('selectedStudentInfo')
+    this.setData({
+      studentInfo: info
+    })
   },
 
   /**
