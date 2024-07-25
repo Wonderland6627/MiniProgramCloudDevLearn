@@ -1,6 +1,6 @@
 // pages/nbstudy/login/index.js
 
-const utils = require('../../../utils.js')
+const utils = require('../../../utils/utils.js')
 
 Page({
 

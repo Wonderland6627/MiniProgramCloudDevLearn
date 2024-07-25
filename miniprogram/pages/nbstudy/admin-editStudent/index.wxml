@@ -8,12 +8,12 @@
     </view>
     <view class="info-item">
       <view class="label">年龄：</view>
-      <view class="value">{{studentInfo.birthday}}}</view>
+      <view class="value">{{age}}</view>
       <image class="edit-icon" src="../../../images/icons/admin-edit-active.png"></image>
     </view>
     <view class="info-item">
       <view class="label">性别：</view>
-      <view class="value">{{studentInfo.gender}}</view>
+      <view class="value">{{genderArray[genderIndex]}}</view>
       <image class="edit-icon" src="../../../images/icons/admin-edit-active.png"></image>
     </view>
   </view>
@@ -27,10 +27,6 @@
     <view class="info-item">
       <view class="label">学校：</view>
       <view class="value">{{studentInfo.school}}</view>
-    </view>
-    <view class="info-item">
-      <view class="label">班级：</view>
-      <view class="value"></view>
     </view>
     <view class="info-item">
       <view class="label">电话：</view>

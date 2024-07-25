@@ -1,6 +1,7 @@
 // pages/nbstudy/editBasicInfo/index.js
 
-const utils = require('../../../utils.js')
+const utils = require('../../../utils/utils.js')
+const timeUtils = require('../../../utils/timeUtils.js')
 
 Page({
 
@@ -19,7 +20,7 @@ Page({
     },
     birthdaySelectRange: [
       "1900-01-01",
-      utils.timeStamp2DateFormat(Date.now()) //Date.now() 返回的是时间戳
+      timeUtils.timeStamp2DateFormat(Date.now()) //Date.now() 返回的是时间戳
     ]
   },
 
@@ -45,7 +46,7 @@ Page({
       })
     }
     if (this.data.studentInfo.birthday) {
-      const birthdayFormat = utils.timeStamp2DateFormat(this.data.studentInfo.birthday)
+      const birthdayFormat = timeUtils.timeStamp2DateFormat(this.data.studentInfo.birthday)
       this.setData({
         'studentInfo.birthdayFormat': birthdayFormat
       })
@@ -116,7 +117,7 @@ Page({
       console.error('检查选择的生日Format')
       return
     }
-    const birthdayTimeStamp = utils.dateFormat2TimeStamp(birthdayFormat)
+    const birthdayTimeStamp = timeUtils.dateFormat2TimeStamp(birthdayFormat)
     this.setData({
       'studentInfo.birthday': birthdayTimeStamp
     })

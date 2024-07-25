@@ -1,13 +1,21 @@
 // pages/nbstudy/admin-editStudent/index.js
+
+const timeUtils = require('../../../utils/timeUtils.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+		genderIndex: -1,
+    genderArray: [
+      '女生', '男生',
+		],
+		age: -1,
     studentInfo: {
-
-    }
+			avatarUrl: getApp().globalData.defaultAvatarUrl,
+		},
   },
 
   /**
@@ -16,11 +24,26 @@ Page({
   onLoad(options) {
 		let info = wx.getStorageSync('selectedStudentInfo')
 		console.log('学生信息: ' + JSON.stringify(info))
+		this.onReceiveStudentInfo(info)
     wx.removeStorageSync('selectedStudentInfo')
-    this.setData({
-      studentInfo: info
-    })
-  },
+	},
+	
+	onReceiveStudentInfo(studentInfo) {
+		if (studentInfo.gender) {
+      this.setData({
+        genderIndex: studentInfo.gender
+			})
+		}
+		if (studentInfo.birthday) {
+			const age = timeUtils.calculateAgeFromTimeStamp(studentInfo.birthday)
+			this.setData({
+        age: age
+			})
+		}
+		this.setData({
+			studentInfo: studentInfo
+		})
+	},
 
   /**
    * 生命周期函数--监听页面初次渲染完成

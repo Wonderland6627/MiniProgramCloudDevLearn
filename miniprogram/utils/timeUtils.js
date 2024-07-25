@@ -1,7 +1,3 @@
-export function isEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
-
 //Date -> 2024-07-04
 export function date2DateFormatStr(date) {
   const year = date.getFullYear();
@@ -37,4 +33,16 @@ export function timeStamp2DateFormat(timeStamp) {
   const month = ('0' + (date.getMonth() + 1)).slice(-2);
   const day = ('0' + date.getDate()).slice(-2);
   return `${year}-${month}-${day}`;
+}
+
+//通过时间戳计算年龄
+export function calculateAgeFromTimeStamp(timeStamp) {
+	const birthDate = new Date(timeStamp);
+	const now = new Date();
+	let age = now.getFullYear() - birthDate.getFullYear();
+	const monthDiff = now.getMonth() - birthDate.getMonth();
+	if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < birthDate.getDate())) {
+		age--;
+	}
+	return age;
 }

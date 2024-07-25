@@ -1,6 +1,6 @@
 // pages/nbstudy/admin-editPackage/index.js
 
-const utils = require('../../../utils.js')
+const utils = require('../../../utils/utils.js')
 
 //与后台枚举选项内容要保持一致
 const SeatType = {
