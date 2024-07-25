@@ -1,6 +1,7 @@
 // pages/nbstudy/admin-editStudent/index.js
 
 const timeUtils = require('../../../utils/timeUtils.js')
+const EditIconPath = '../../../images/icons/admin-edit-active.png'
 
 Page({
 
@@ -16,7 +17,8 @@ Page({
     studentInfo: {
 			avatarUrl: getApp().globalData.defaultAvatarUrl,
 		},
-		editIconPath: '../../../images/icons/admin-edit-active.png',
+
+		editIconPath: EditIconPath,
   },
 
   /**
@@ -44,6 +46,26 @@ Page({
 		this.setData({
 			studentInfo: studentInfo
 		})
+		this.showModalWithInput()
+	},
+
+	showModalWithInput: function () {
+    wx.showModal({
+      title: '输入框弹窗',
+			editable: true,
+			placeholderText: '123',
+      showCancel: true,
+      confirmText: '确定',
+      cancelText: '取消',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定');
+          console.log('输入的内容为：', res.content);
+        } else if (res.cancel) {
+          console.log('用户点击取消');
+        }
+      }.bind(this)
+    });
 	},
 
   /**
