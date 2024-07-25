@@ -3,6 +3,11 @@
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 
+/*
+todo: 
+1.询问是否是新学员、老学员，如果是老学员，尝试与数据库中没有openid且名字一样的student信息做对比，绑定登录者的openid
+2.提供复制openid的按钮，方便后台管理手动填写openid
+*/
 Page({
 
   /**
