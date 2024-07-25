@@ -16,6 +16,7 @@ Page({
     studentInfo: {
 			avatarUrl: getApp().globalData.defaultAvatarUrl,
 		},
+		editIconPath: '../../../images/icons/admin-edit-active.png',
   },
 
   /**
