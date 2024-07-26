@@ -147,10 +147,35 @@ Page({
     wx.hideLoading()
     const data = result?.data
     if (utils.isEmpty(data)) {
-      console.log('openid为：' + openid + '的学生信息不存在，准备创建')
-      this.createStudentInfo(openid)
+      console.log(`openid: ${openid} 的学生信息不存在，准备检查是否有待绑定信息或直接创建新信息`)
+      this.showStudentIsNew(openid)
       return
     }
+    this.checkStudentBasicInfoComplete(openid, data)
+  },
+
+  showStudentIsNew(openid) {
+    wx.showModal({
+      title: '',
+      content: '是否在这学习过？',
+      confirmText: '是',
+      cancelText: '否',
+      complete: (res) => {
+        if (res.cancel) { //没在这学习过
+          console.log(`openid: ${openid} 是新学员，直接创建新号`)
+          this.createStudentInfo(openid)
+          return
+        }
+        if (res.confirm) { //在这学习过
+          //todo: 根据手机号绑定 已存在信息，若手机号也不存在 直接创建新号
+          console.log(`openid: ${openid} 是老学员，检查表中是否存在待绑定信息`) //无OPENID的表数据视为待绑定数据
+          
+        }
+      }
+    })
+  },
+
+  checkStudentBasicInfoComplete(openid, data) {
     if (utils.isEmpty(
       data?.studentName ||
       data?.phone ||
