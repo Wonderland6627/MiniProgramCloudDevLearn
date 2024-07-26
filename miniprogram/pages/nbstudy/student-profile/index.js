@@ -1,4 +1,4 @@
-// pages/nbstudy/profile/index.js
+// pages/nbstudy/student-profile/index.js
 Page({
 
   /**

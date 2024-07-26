@@ -1,4 +1,4 @@
-// pages/nbstudy/editBasicInfo/index.js
+// pages/nbstudy/student-editBasicInfo/index.js
 
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
@@ -233,7 +233,7 @@ Page({
   gotoFillEducation(info) {
     wx.setStorageSync('studentBasicInfo', info)
     wx.navigateTo({
-      url: '/pages/nbstudy/editEducation/index',
+      url: '/pages/nbstudy/student-editEducation/index',
     })
   },
 

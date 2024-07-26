@@ -1,4 +1,4 @@
-/* pages/nbstudy/editEducation/index.wxss */
+/* pages/nbstudy/student-editEducation/index.wxss */
 
 page {
   min-height: 100%;

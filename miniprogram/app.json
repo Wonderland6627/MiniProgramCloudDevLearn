@@ -3,11 +3,11 @@
     "pages/nbstudy/login/index",
     "pages/nbstudy/student-main/index",
     "pages/nbstudy/admin-main/index",
-    "pages/nbstudy/editBasicInfo/index",
-    "pages/nbstudy/editEducation/index",
+    "pages/nbstudy/student-editBasicInfo/index",
+    "pages/nbstudy/student-editEducation/index",
     "pages/index/index",
     "pages/nbstudy/admin-login/index",
-    "pages/nbstudy/profile/index",
+    "pages/nbstudy/student-profile/index",
     "pages/nbstudy/admin-edit/index",
     "pages/nbstudy/admin-editStore/index",
     "pages/nbstudy/admin-editACPassword/index",
@@ -38,7 +38,7 @@
         "selectedIconPath": "images/icons/main-active.png"
       },
       {
-        "pagePath": "pages/nbstudy/profile/index",
+        "pagePath": "pages/nbstudy/student-profile/index",
         "text": "个人",
         "iconPath": "images/icons/profile.png",
         "selectedIconPath": "images/icons/profile-active.png"

@@ -1,4 +1,4 @@
-// pages/nbstudy/editEducation/index.js
+// pages/nbstudy/student-editEducation/index.js
 Page({
 
   /**

@@ -24,7 +24,7 @@ Component({
         selectedIconPath: "/images/icons/main-active.png"
       },
       {
-        pagePath: "/pages/nbstudy/profile/index",
+        pagePath: "/pages/nbstudy/student-profile/index",
         text: "个人",
         iconPath: "/images/icons/profile.png",
         selectedIconPath: "/images/icons/profile-active.png"

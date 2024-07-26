@@ -1,5 +1,5 @@
-<!--pages/nbstudy/editBasicInfo/index.wxml-->
-<text>pages/nbstudy/editBasicInfo/index.wxml</text>
+<!--pages/nbstudy/student-editBasicInfo/index.wxml-->
+<text>pages/nbstudy/student-editBasicInfo/index.wxml</text>
 
 <view class="container">
   <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">

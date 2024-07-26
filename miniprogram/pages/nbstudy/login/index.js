@@ -218,14 +218,14 @@ Page({
   gotoFillAccount(info) {
     wx.setStorageSync('studentBasicInfo', info)
     wx.navigateTo({
-      url: '/pages/nbstudy/editBasicInfo/index',
+      url: '/pages/nbstudy/student-editBasicInfo/index',
     })
   },
 
   gotoFillEducation(info) {
     wx.setStorageSync('studentBasicInfo', info)
     wx.navigateTo({
-      url: '/pages/nbstudy/editEducation/index',
+      url: '/pages/nbstudy/student-editEducation/index',
     })
   },
 
