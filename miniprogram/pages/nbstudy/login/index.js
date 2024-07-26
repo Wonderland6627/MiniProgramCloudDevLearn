@@ -24,6 +24,7 @@ Page({
 
   studentLogin() {
     console.log('学生登陆')
+    getApp().setAdmin(false)
     this.tryWXLogin(false)
   },
 

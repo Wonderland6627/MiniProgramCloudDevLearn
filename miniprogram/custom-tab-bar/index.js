@@ -62,7 +62,9 @@ Component({
    */
   methods: {
     changeList() {
-      const list = getApp().isAdmin ? this.data.adminTabList : this.data.studentTabList
+      const isAdmin = getApp().isAdmin
+      const list = isAdmin ? this.data.adminTabList : this.data.studentTabList
+      console.log(`用户身份切换: ${ isAdmin ? '管理员' : '非管理员' }`)
       this.setData({
         list: list
       })
