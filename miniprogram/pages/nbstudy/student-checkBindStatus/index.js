@@ -10,7 +10,13 @@ Page({
   data: {
 		phone: Number,
 		readyForMatch: false,
-		queryResults: [],
+		queryResults: [
+			{ name: "hihihi ", phone: "123456" },
+			{ name: "hihihi2 ", phone: "66666" },
+		],
+		studentInfo: {
+			name: "hihihi ", phone: "123456",
+		},
   },
 
   /**

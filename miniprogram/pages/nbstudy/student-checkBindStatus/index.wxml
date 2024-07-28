@@ -11,13 +11,11 @@
 	<block wx:if="{{readyForMatch}}">
 		<view class="separator"></view>
 		<view class="label">查询到如下匹配信息</view>
-		<scroll-view class="result-container" scroll-y="true">
-			<block wx:for="{{queryResults}}" wx:key="index">
-				<view class="result-cell">
-					<text>{{item.name}}</text>
-					<text>{{item.phone}}</text>
-				</view>
-			</block>
-		</scroll-view>
+		<view class="result-container">
+			<view class="result-cell">
+				<text>{{studentInfo.name}}</text>
+				<text>{{studentInfo.phone}}</text>
+			</view>
+		</view>
 	</block>
 </view>
