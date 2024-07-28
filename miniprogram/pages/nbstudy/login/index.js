@@ -170,7 +170,7 @@ Page({
         if (res.confirm) { //在这学习过
           //todo: 根据手机号绑定 已存在信息，若手机号也不存在 直接创建新号
           console.log(`openid: ${openid} 是老学员，检查表中是否存在待绑定信息`) //无OPENID的表数据视为待绑定数据
-          
+          this.gotoCheckBindStatus()
         }
       }
     })
@@ -214,6 +214,12 @@ Page({
     const info = result?.data
     console.log(info)
     this.gotoFillAccount(info)
+	},
+	
+	gotoCheckBindStatus() {
+    wx.navigateTo({
+      url: '/pages/nbstudy/student-checkBindStatus/index',
+    })
   },
 
   gotoFillAccount(info) {

@@ -13,7 +13,8 @@
     "pages/nbstudy/admin-editACPassword/index",
     "pages/nbstudy/admin-editPackage/index",
     "pages/nbstudy/admin-editSeat/index",
-    "pages/nbstudy/admin-editStudent/index"
+    "pages/nbstudy/admin-editStudent/index",
+    "pages/nbstudy/student-checkBindStatus/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

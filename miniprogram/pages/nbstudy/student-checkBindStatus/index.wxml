@@ -1,0 +1,23 @@
+<!--pages/nbstudy/student-checkBindStatus/index.wxml-->
+<view class="container">
+	<view class="label">请输入手机号查询已有信息</view>
+  <view class="input-container">
+    <input class="input" type="number" placeholder="请输入手机号" maxlength="11" bindinput="onInputPhone"></input>
+  </view>
+	<button class="common-btn" bindtap="queryMatchingInfo" disabled="{{!readyForMatch}}">
+		<text>查询匹配信息</text>
+	</button>
+
+	<block wx:if="{{readyForMatch}}">
+		<view class="separator"></view>
+		<view class="label">查询到如下匹配信息</view>
+		<scroll-view class="result-container" scroll-y="true">
+			<block wx:for="{{queryResults}}" wx:key="index">
+				<view class="result-cell">
+					<text>{{item.name}}</text>
+					<text>{{item.phone}}</text>
+				</view>
+			</block>
+		</scroll-view>
+	</block>
+</view>
