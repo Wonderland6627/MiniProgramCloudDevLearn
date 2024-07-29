@@ -9,22 +9,22 @@
 
 .info-section {
   flex: 1;
-  padding: 10px;
+  padding: 20rpx;
 }
 
 .info-item {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20rpx;
 }
 
 .title {
   font-weight: bold;
-  margin-right: 10px;
+  margin-right: 20rpx;
 }
 
 .info-label {
-	margin-right: 10px;
+	margin-right: 20rpx;
 }
 
 .info-label-edited {
@@ -32,18 +32,18 @@
 }
 
 .edit-icon {
-  width: 20px;
-	height: 20px;
+  width: 40rpx;
+	height: 40rpx;
 }
 
 .avatar-container {
-  width: 80px;
-  height: 80px;
-  border: 2px solid #ddd;
+  width: 160rpx;
+  height: 160rpx;
+  border: 1px solid #ddd;
   border-radius: 50%;
 	overflow: hidden;
-	margin-top: 20px;
-	margin-right: 20px;
+	margin-top: 40rpx;
+	margin-right: 40rpx;
 }
 
 .avatar {

@@ -91,7 +91,7 @@
   flex-direction: column;
   animation: bd-rise 2s cubic-bezier(0.23,1,0.23,1) .75s forwards;
   opacity: 0;
-  margin-top: 50px;
+  margin-top: 100rpx;
 }
 
 .input-area{
@@ -121,7 +121,7 @@
   background-color: #ff8533;
   color: #ffffff;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 8rpx;
 }
 
 .common-btn:active {

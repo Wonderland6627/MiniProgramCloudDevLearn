@@ -1,22 +1,22 @@
 /* pages/nbstudy/admin-editPackage/index.wxss */
 .container {
-  padding: 0px;
-  margin-top: 20px;
+  padding: 0rpx;
+  margin-top: 40rpx;
 }
 
 .options {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 40rpx;
 }
 
 .optiontab {
-  padding: 10px 20px;
+  padding: 20rpx 40rpx;
   background-color: #eee;
-  border-radius: 4px;
+  border-radius: 8rpx;
   cursor: pointer;
   text-align: center;
-  font-size: 15px;
+  font-size: 32rpx;
 }
 
 .optiontab.selected {
@@ -25,46 +25,46 @@
 }
 
 .details {
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 32rpx;
+  margin-bottom: 40rpx;
 }
 
 .modify-section {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20rpx;
 }
 
 .modify-input {
-  width: 125px;
-  border: 2px solid #ccc;
-  padding: 6px;
-  font-size: 16px;
+  width: 250rpx;
+  border: 1px solid #ccc;
+  padding: 12rpx;
+  font-size: 32rpx;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 8rpx;
 }
 
 .tag {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #333;
-  margin-right: 10px;
+  margin-right: 20rpx;
 }
 
 .unit {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #333;
-  margin-left: 10px;
+  margin-left: 20rpx;
 }
 
 .button-container {
-  margin-top: 30px;
+  margin-top: 60rpx;
 }
 
 .common-btn {
   background-color: #ff8533;
   color: #ffffff;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 8rpx;
 }
 
 .common-btn:active {
