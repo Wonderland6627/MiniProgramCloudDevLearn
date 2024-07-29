@@ -9,14 +9,15 @@ Page({
    */
   data: {
 		phone: Number,
-		readyForMatch: false,
-		queryResults: [
-			{ name: "hihihi ", phone: "123456" },
-			{ name: "hihihi2 ", phone: "66666" },
-		],
-		studentInfo: {
-			name: "hihihi ", phone: "123456",
-		},
+    readyForQuery: false,
+    
+    studentInfo: {},
+    queryCount: 0,
+    hasQuerySuccess: false,
+    queryResultLabel: {
+       true: "请确认是否要与此信息绑定",
+       false: "未查询到此手机号相关信息",
+    }
   },
 
   /**
@@ -30,7 +31,7 @@ Page({
     const phone = this.phoneJudge(e.detail.value)
     this.setData({
 			phone: phone,
-			readyForMatch: phone.length === 11,
+			readyForQuery: phone.length === 11,
     })
     console.log('输入手机号: ' + phone)
 	},
@@ -40,14 +41,17 @@ Page({
   },
 	
  	async	queryMatchingInfo(e) {
-		const { phone } = this.data
+		const { phone, queryCount } = this.data
 		if (!phone || phone.length != 11) {
       wx.showToast({
         title: '请输入手机号',
         icon: 'error',
       })
       return
-		}
+    }
+    wx.showLoading({
+      title: '正在查询',
+    })
 		const result = await getApp().getModels().students.get({
 			filter: {
 				where: {
@@ -59,17 +63,30 @@ Page({
 					}
 				},
 			},
-		})
+    })
+    this.setData({
+      queryCount: queryCount + 1,
+    })
 		const data = result?.data
 		if (utils.isEmpty(data)) {
 			console.log('未查询到此手机号相关信息')
 			wx.showToast({
 				title: '无匹配信息',
 				icon: 'error',
-			})
+      })
+      this.setData({
+        hasQuerySuccess: false
+      })
 			return
 		}
-		console.log(result)
+    console.log(result)
+    wx.showToast({
+      title: '查询成功',
+      icon: 'success',
+    })
+    this.setData({
+      hasQuerySuccess: true
+    })
 	},
 
   /**

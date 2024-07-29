@@ -4,18 +4,20 @@
   <view class="input-container">
     <input class="input" type="number" placeholder="请输入手机号" maxlength="11" bindinput="onInputPhone"></input>
   </view>
-	<button class="common-btn" bindtap="queryMatchingInfo" disabled="{{!readyForMatch}}">
+	<button class="common-btn" bindtap="queryMatchingInfo" disabled="{{!readyForQuery}}">
 		<text>查询匹配信息</text>
 	</button>
 
-	<block wx:if="{{readyForMatch}}">
-		<view class="separator"></view>
-		<view class="label">查询到如下匹配信息</view>
-		<view class="result-container">
-			<view class="result-cell">
-				<text>{{studentInfo.name}}</text>
-				<text>{{studentInfo.phone}}</text>
-			</view>
-		</view>
-	</block>
+  <block wx:if="{{queryCount > 0}}">
+    <view class="separator"></view>
+    <view class="label">{{queryResultLabel[hasQuerySuccess]}}</view>
+    <block wx:if="{{hasQuerySuccess}}">
+      <view class="result-container">
+        <view class="result-cell">
+          <text>{{studentInfo.studentName}}</text>
+          <text>{{studentInfo.phone}}</text>
+        </view>
+      </view>
+    </block>
+  </block>
 </view>
