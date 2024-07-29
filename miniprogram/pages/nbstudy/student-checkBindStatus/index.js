@@ -8,6 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    genderArray: [
+      '女生', '男生',
+    ],
+
 		phone: Number,
     readyForQuery: false,
     
@@ -16,7 +20,7 @@ Page({
     hasQuerySuccess: false,
     queryResultLabel: {
        true: "请确认是否要与此信息绑定",
-       false: "未查询到此手机号相关信息",
+       false: "未查询到此手机号待绑定信息",
     }
   },
 
@@ -59,7 +63,7 @@ Page({
 						$eq: phone
 					},
 					OPENID: {
-						$eq: `UNKNOWN`,
+						$eq: getApp().globalData.pendingOPENID,
 					}
 				},
 			},
@@ -69,7 +73,7 @@ Page({
     })
 		const data = result?.data
 		if (utils.isEmpty(data)) {
-			console.log('未查询到此手机号相关信息')
+			console.log('未查询到此手机号待绑定信息')
 			wx.showToast({
 				title: '无匹配信息',
 				icon: 'error',
@@ -79,13 +83,14 @@ Page({
       })
 			return
 		}
-    console.log(result)
+    console.log(`待绑定信息查询成功: ${JSON.stringify(data)}`)
     wx.showToast({
       title: '查询成功',
       icon: 'success',
     })
     this.setData({
-      hasQuerySuccess: true
+      hasQuerySuccess: true,
+      studentInfo: data,
     })
 	},
 
