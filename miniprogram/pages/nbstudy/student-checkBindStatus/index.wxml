@@ -22,7 +22,7 @@
 
 
           </text>
-          <button class="common-btn">
+          <button class="common-btn" bindtap="bindPendingInfo">
             <text>确认绑定信息</text>
           </button>
         </view>

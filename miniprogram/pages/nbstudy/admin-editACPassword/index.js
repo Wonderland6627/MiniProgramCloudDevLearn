@@ -82,7 +82,7 @@ Page({
     }).then(res => {
       console.log('门禁密码保存回应: ' + JSON.stringify(res))
       if (res.result.code != 0) {
-        console.log('门禁密码保存失败: ' + res.result)
+        console.error('门禁密码保存失败: ' + res.result)
         wx.showToast({
           title: '保存失败',
           icon: 'error',
@@ -90,6 +90,7 @@ Page({
         return
       }
       if (res.result.result.stats.updated == 0) {
+        console.error('门禁密码保存重复: ' + res.result)
         wx.showToast({
           title: '重复保存',
           icon: 'error',

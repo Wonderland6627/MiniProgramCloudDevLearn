@@ -92,7 +92,68 @@ Page({
       hasQuerySuccess: true,
       studentInfo: data,
     })
-	},
+  },
+  
+  bindPendingInfo(e) {
+    wx.showLoading({
+      title: '正在绑定',
+    })
+    const OPENID = getApp().getOpenID()
+    const openidValid = OPENID !== ''
+    if (!openidValid) {
+      wx.showToast({
+        title: '绑定有误',
+        icon: 'error',
+      })
+      return
+    }
+    const { phone } = this.data
+    console.log(phone + ' ' + OPENID)
+    wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: {
+        type: 'bindStudent',
+        data: { phone, OPENID }
+      }
+    }).then(res => {
+      console.log('绑定学生信息保存回应: ' + JSON.stringify(res))
+      if (res.result.code != 0) {
+        console.error('绑定学生信息保存失败: ' + res.result)
+        wx.showToast({
+          title: '绑定失败',
+          icon: 'error',
+        })
+        return
+      }
+      if (res.result.result.stats.updated == 0) {
+        console.error('绑定学生信息保存重复: ' + res.result)
+        wx.showToast({
+          title: '重复绑定',
+          icon: 'error',
+        })
+        return
+      }
+      wx.hideLoading()
+      wx.showModal({
+        title: '绑定成功',
+        content: '现在返回重新登录',
+        showCancel: false,
+        complete: (res) => {
+          if (res.confirm) {
+            wx.redirectTo({
+              url: '/pages/nbstudy/login/index',
+            })
+          }
+        }
+      })
+    }).catch(err => {
+      console.error('绑定学生信息保存错误: ' + err)
+      wx.showToast({
+        title: '绑定错误',
+        icon: 'error',
+      })
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
