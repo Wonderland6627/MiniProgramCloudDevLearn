@@ -24,7 +24,7 @@ App({
   globalData: {
     openid: '',
     pendingOPENID: 'UNKNOWN', //OPENID为 'UNKNOWN' 的表数据视为待绑定数据
-    defaultAvatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+    defaultAvatarUrl: 'https://cdn.jsdelivr.net/gh/Wonderland6627/cloudres@latest/nbstudy/default_avatar.png',
   },
 
   isAdmin: false,
