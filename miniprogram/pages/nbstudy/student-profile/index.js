@@ -5,14 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    studentInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    let info = getApp().dataMgr.getStudentInfo()
+    this.setData({
+      studentInfo: info,
+    })
+    console.log('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
   },
 
   /**

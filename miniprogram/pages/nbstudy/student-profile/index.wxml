@@ -1,16 +1,9 @@
 <!--pages/nbstudy/student-profile/index.wxml-->
 <view class="container">
   <view class="profile">
-    <image class="avatar" src="https://via.placeholder.com/100" />
-    <text class="username">INDEY</text>
-    <view class="badges">
-      <view class="badge">
-        <text class="badge-text">在校学生</text>
-      </view>
-      <view class="badge">
-        <text class="badge-text">研究生考试</text>
-      </view>
-    </view>
+    <image class="avatar" src="{{studentInfo.avatarUrl}}" />
+    <text class="username">{{studentInfo.studentName}}</text>
+    <text class="school">{{studentInfo.school}}</text>
     <view class="stats">
       <view class="stat">
         <text class="stat-value">0h</text>

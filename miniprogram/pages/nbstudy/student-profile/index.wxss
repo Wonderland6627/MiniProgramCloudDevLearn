@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Arial, sans-serif';
   background-color: #f5f5f5;
 }
 
@@ -13,9 +12,9 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: #fff;
+  /* background-color: #fff; */
   padding: 40rpx;
-  margin-top: 20rpx;
+  margin-top: 10rpx;
 }
 
 .profile .avatar {
@@ -30,30 +29,17 @@
   margin-top: 20rpx;
 }
 
-.badges {
-	display: flex;
-  flex-direction: row;
-	margin-top: 20rpx;
-}
-
-.badge {
-  align-items: center;
-  background-color: #ffecb3;
-  padding: 10rpx 20rpx;
-  border-radius: 8rpx;
-  display: inline-block;
-}
-
-.badge-text {
+.profile .school {
   font-size: 24rpx;
-	color: #ff9800;
+  color: #ff9800;
+  text-align: center;
 }
 
 .stats {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  margin-top: 20rpx;
+  margin-top: 30rpx;
 }
 
 .stat {
@@ -76,9 +62,8 @@
 .card {
   width: 90%;
   background-color: #fff;
-  margin-top: 20rpx;
   padding: 20rpx;
-  border-radius: 20rpx;
+  border-radius: 10rpx;
 }
 
 .card-header {
