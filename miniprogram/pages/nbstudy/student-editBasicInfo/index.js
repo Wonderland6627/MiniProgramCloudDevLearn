@@ -3,11 +3,6 @@
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 
-/*
-todo: 
-1.询问是否是新学员、老学员，如果是老学员，尝试与数据库中没有openid且名字一样的student信息做对比，绑定登录者的openid
-2.提供复制openid的按钮，方便后台管理手动填写openid
-*/
 Page({
 
   /**
@@ -33,12 +28,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let info = wx.getStorageSync('studentBasicInfo')
+    let info = getApp().dataMgr.getStudentInfo()
     this.setData({
       studentInfo: info,
     })
     console.log('[EditBasicInfo] 获取studentBasicInfo: ' + JSON.stringify(info))
-    wx.removeStorageSync('studentBasicInfo')
 
     if (!this.data.studentInfo.OPENID) {
       this.setData({
@@ -220,18 +214,18 @@ Page({
       icon: 'success',
     })
     console.log('学生基础信息保存成功')
+    getApp().dataMgr.setStudentInfo(studentInfo)
 
     if (utils.isEmpty(
       studentInfo.school ||
       {})) { //todo: check more edu info
       console.log('openid为：' + studentInfo.openid + '的学生教育信息不全，准备补充')
-      this.gotoFillEducation(studentInfo)
+      this.gotoFillEducation()
       return
     }
   },
 
-  gotoFillEducation(info) {
-    wx.setStorageSync('studentBasicInfo', info)
+  gotoFillEducation() {
     wx.navigateTo({
       url: '/pages/nbstudy/student-editEducation/index',
     })

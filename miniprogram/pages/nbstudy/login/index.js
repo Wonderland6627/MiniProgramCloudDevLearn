@@ -177,6 +177,7 @@ Page({
   },
 
   checkStudentBasicInfoComplete(openid, data) {
+    getApp().dataMgr.setStudentInfo(data)
     if (utils.isEmpty(
       data?.studentName ||
       data?.phone ||
@@ -184,14 +185,14 @@ Page({
       data?.birthday ||
       {})) { //todo: check more stu info
       console.log('openid为：' + openid + '的学生基础信息不全，准备补充')
-      this.gotoFillAccount(data)
+      this.gotoFillAccount()
       return
     }
     if (utils.isEmpty(
       data?.school ||
       {})) { //todo: check more edu info
       console.log('openid为：' + openid + '的学生教育信息不全，准备补充')
-      this.gotoFillEducation(data)
+      this.gotoFillEducation()
       return
     }
     console.log('openid为：' + openid + '的学生基础信息完整')
@@ -213,7 +214,8 @@ Page({
     })
     const info = result?.data
     console.log(info)
-    this.gotoFillAccount(info)
+    getApp().dataMgr.setStudentInfo(info)
+    this.gotoFillAccount()
 	},
 	
 	gotoCheckBindStatus() {
@@ -222,15 +224,13 @@ Page({
     })
   },
 
-  gotoFillAccount(info) {
-    wx.setStorageSync('studentBasicInfo', info)
+  gotoFillAccount() {
     wx.navigateTo({
       url: '/pages/nbstudy/student-editBasicInfo/index',
     })
   },
 
-  gotoFillEducation(info) {
-    wx.setStorageSync('studentBasicInfo', info)
+  gotoFillEducation() {
     wx.navigateTo({
       url: '/pages/nbstudy/student-editEducation/index',
     })

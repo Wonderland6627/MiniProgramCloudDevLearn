@@ -4,6 +4,7 @@ const eventBus = require('eventBus.js')
 const { init } = require('@cloudbase/wx-cloud-client-sdk')
 const client = init(wx.cloud)
 const models = client.models
+const dataMgr = require('./dataMgr')
 
 App({
   onLaunch: function () {
@@ -29,6 +30,7 @@ App({
 
   isAdmin: false,
   eventBus: eventBus,
+  dataMgr: dataMgr,
 
   setAdmin(newValue) {
     this.isAdmin = newValue

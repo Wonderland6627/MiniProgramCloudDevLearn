@@ -12,12 +12,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let info = wx.getStorageSync('studentBasicInfo')
+    let info = getApp().dataMgr.getStudentInfo()
     this.setData({
       studentInfo: info,
     })
     console.log('[EditEducation] 获取studentBasicInfo: ' + JSON.stringify(info))
-    wx.removeStorageSync('studentBasicInfo')
 
     if (!this.data.studentInfo.OPENID) {
       this.setData({
@@ -83,6 +82,7 @@ Page({
       icon: 'success',
     })
     console.log('学生教育信息保存成功')
+    getApp().dataMgr.setStudentInfo(studentInfo)
     this.gotoStudentMain()
   },
 
