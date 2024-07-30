@@ -28,5 +28,10 @@
         </view>
       </view>
     </block>
+		<block wx:else>
+			<button class="common-btn" bindtap="returnToLogin">
+        <text>返回注册新信息</text>
+      </button>
+		</block>
   </block>
 </view>
