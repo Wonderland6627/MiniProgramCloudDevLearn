@@ -69,7 +69,7 @@ Page({
       })
       console.error('学生教育信息保存错误: ' + err)
     })
-    console.log('学生教育信息保存回应' + result)
+    console.log('学生教育信息保存回应' + JSON.stringify(result))
     if (result?.data.count != 1) {
       wx.showToast({
         title: '保存失败',
@@ -83,6 +83,13 @@ Page({
       icon: 'success',
     })
     console.log('学生教育信息保存成功')
+    this.gotoStudentMain()
+  },
+
+  gotoStudentMain() {
+    wx.switchTab({
+      url: '/pages/nbstudy/student-main/index',
+    })
   },
 
   /**
