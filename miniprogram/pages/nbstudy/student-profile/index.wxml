@@ -1,2 +1,39 @@
 <!--pages/nbstudy/student-profile/index.wxml-->
-<text>pages/nbstudy/student-profile/index.wxml</text>
+<view class="container">
+  <view class="profile">
+    <image class="avatar" src="https://via.placeholder.com/100" />
+    <text class="username">INDEY</text>
+    <view class="badges">
+      <view class="badge">
+        <text class="badge-text">在校学生</text>
+      </view>
+      <view class="badge">
+        <text class="badge-text">研究生考试</text>
+      </view>
+    </view>
+    <view class="stats">
+      <view class="stat">
+        <text class="stat-value">0h</text>
+        <text class="stat-label">学时</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-header">更多</view>
+    <view class="tool-items">
+      <view class="tool-item">
+        <image class="icon tool-icon" src="../../../images/icons/sign-in.svg"></image>
+        <text class="tool-label">打卡记录</text>
+      </view>
+      <view class="tool-item">
+        <image class="icon tool-icon" src="../../../images/icons/contact-us.svg"></image>
+        <text class="tool-label">联系我们</text>
+      </view>
+      <view class="tool-item">
+        <image class="icon tool-icon" src="../../../images/icons/feedback.svg"></image>
+        <text class="tool-label">意见反馈</text>
+      </view>
+    </view>
+  </view>
+</view>
