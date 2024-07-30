@@ -6,6 +6,29 @@ Page({
    */
   data: {
     studentInfo: {},
+
+    settings: [
+      {
+        title: "修改个人基础信息",
+        icon: "../../../images/icons/profile-active.png",
+        onTap: "onEditBasicInfoCellClick"
+      },
+      {
+        title: "联系我们",
+        icon: "../../../images/icons/contact-us.svg",
+        onTap: "onContactUsCellClick"
+      },
+      {
+        title: "意见反馈",
+        icon: "../../../images/icons/feedback.svg",
+        onTap: "onFeedbackCellClick"
+      },
+      {
+        title: "退出登录",
+        icon: "../../../images/icons/logout.svg",
+        onTap: "onLogoutCellClick"
+      }
+    ]
   },
 
   /**
