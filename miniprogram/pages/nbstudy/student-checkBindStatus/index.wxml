@@ -4,7 +4,7 @@
   <view class="input-container">
     <input class="input" type="number" placeholder="请输入手机号" maxlength="11" bindinput="onInputPhone"></input>
   </view>
-  <button class="common-btn" bindtap="queryMatchingInfo" disabled="{{!readyForQuery}}">
+  <button class="common-btn" bindtap="queryMatchingInfo" disabled="{{!readyForQuery || queryCount > 0}}">
     <text>查询匹配信息</text>
   </button>
 
