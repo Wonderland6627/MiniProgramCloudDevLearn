@@ -48,8 +48,7 @@
 
 .stat-value {
   font-size: 40rpx;
-  font-weight: bold;
-  color: rgb(3, 3, 3);
+  color: #888;
 }
 
 .stat-label {
