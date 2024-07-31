@@ -12,6 +12,24 @@ Page({
       'https://img0.baidu.com/it/u=454995986,3330485591&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=375'
     ],
 
+    toolInfos: [
+      {
+        title: "WIFI连接",
+        icon: "../../../images/icons/wifi.svg",
+        onTap: "onViewWIFIClick"
+      },
+      {
+        title: "打卡记录",
+        icon: "../../../images/icons/sign-in.svg",
+        onTap: "onViewSignInClick"
+      },
+      {
+        title: "查看门禁",
+        icon: "../../../images/icons/lock.svg",
+        onTap: "onViewAccessControlClick"
+      },
+    ],
+
     selectedTabIndex: 0,
     introduces: [
       { title: "关于我们", content: "Tab 1 Content c1" },

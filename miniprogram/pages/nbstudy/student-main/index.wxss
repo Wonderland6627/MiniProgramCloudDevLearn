@@ -45,12 +45,12 @@
   margin-bottom: 10rpx;
 }
 
-.tool-icon {
+.tool-item-icon {
   width: 60rpx;
   height: 60rpx;
 }
 
-.tool-label {
+.tool-item-label {
   font-size: 28rpx;
   color: #333;
   margin-top: 16rpx;

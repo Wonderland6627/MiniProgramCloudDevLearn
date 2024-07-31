@@ -15,19 +15,15 @@
   <view class="card">
     <view class="card-header">探索</view>
     <view class="tool-items">
-      <view class="tool-item">
-        <image class="icon tool-icon" src="../../../images/icons/sign-in.svg"></image>
-        <text class="tool-label">打卡记录</text>
-      </view>
-      <view class="tool-item">
-        <image class="icon tool-icon" src="../../../images/icons/lock.svg"></image>
-        <text class="tool-label">查看门禁</text>
+      <view class="tool-item" wx:for="{{toolInfos}}" wx:key="index" bind:tap="{{item.onTap}}">
+        <image class="tool-item-icon" src="{{item.icon}}"></image>
+        <text class="tool-item-label">{{item.title}}</text>
       </view>
     </view>
   </view>
 
   <view class="settings">
-    <view class="setting-cell" wx:for="{{settings}}" wx:key="index" bind:tap="{{item.onTap}}">
+    <view class="setting-cell" wx:for="{{settingInfos}}" wx:key="index" bind:tap="{{item.onTap}}">
       <image class="setting-cell-icon" src="{{item.icon}}"></image>
       <text class="setting-cell-text">{{item.title}}</text>
     </view>

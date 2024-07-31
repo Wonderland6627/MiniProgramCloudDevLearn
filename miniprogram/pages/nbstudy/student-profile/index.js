@@ -7,7 +7,19 @@ Page({
   data: {
     studentInfo: {},
 
-    settings: [
+    toolInfos: [
+      {
+        title: "打卡记录",
+        icon: "../../../images/icons/sign-in.svg",
+        onTap: "onViewSignInClick"
+      },
+      {
+        title: "查看门禁",
+        icon: "../../../images/icons/lock.svg",
+        onTap: "onViewAccessControlClick"
+      },
+    ],
+    settingInfos: [
       {
         title: "修改个人基础信息",
         icon: "../../../images/icons/profile-active.png",
