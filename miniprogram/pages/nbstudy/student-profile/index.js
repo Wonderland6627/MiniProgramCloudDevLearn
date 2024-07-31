@@ -1,4 +1,7 @@
 // pages/nbstudy/student-profile/index.js
+
+const utils = require('../../../utils/utils.js')
+
 Page({
 
   /**
@@ -52,6 +55,42 @@ Page({
       studentInfo: info,
     })
     console.log('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
+  },
+
+  onViewAccessControlClick(e) {
+    this.fetchAccessControlPwd()
+  },
+
+  async fetchAccessControlPwd() {
+    wx.showLoading({
+      title: '获取数据',
+    })
+    const result = await getApp().getModels().stores.get({
+      filter: {
+        where: {
+          storeID: {
+            $eq: this.data.storeID
+          }
+        }
+      }
+    })
+    wx.hideLoading()
+    const pwd = result?.data.accessControlPassword || ''
+    if (utils.isEmpty(pwd)) {
+      wx.showToast({
+        title: '获取信息失败',
+        icon: 'error',
+      })
+      return
+    }
+    console.log('当前门禁密码: ' + pwd)
+    wx.showModal({
+      title: '门禁密码请不要随意告诉其他人哦～',
+      content: `${pwd}#`,
+      showCancel: false,
+      confirmText: '我知道啦',
+      complete: (res) => { }
+    })
   },
 
   onLogoutCellClick(e) {
