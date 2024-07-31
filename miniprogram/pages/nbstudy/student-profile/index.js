@@ -120,9 +120,9 @@ Page({
         wx.stopPullDownRefresh()
       })
       .catch(error => {
-        console.error(error);
-        wx.stopPullDownRefresh();
-      });
+        console.error(error)
+        wx.stopPullDownRefresh()
+      })
   },
 
   /**
