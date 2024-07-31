@@ -12,15 +12,17 @@ Page({
       'https://img0.baidu.com/it/u=454995986,3330485591&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=375'
     ],
 
-    currentTab: 0,
-    tabItems: ['Tab 1', 'Tab 2', 'Tab 3'],
-    tabContent: ['Tab 1 Content', 'Tab 2 Content', 'Tab 3 Content'],
+    selectedTabIndex: 0,
+    introduces: [
+      { title: "关于我们", content: "Tab 1 Content c1" },
+      { title: "自习守则", content: "Tab 1 Content c2" },
+    ]
   },
 
   switchTab: function(e) {
     const index = e.currentTarget.dataset.index;
     this.setData({
-      currentTab: index
+      selectedTabIndex: index
     });
   },
 
