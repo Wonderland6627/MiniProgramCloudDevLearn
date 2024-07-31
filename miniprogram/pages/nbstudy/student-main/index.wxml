@@ -34,8 +34,6 @@
       </view>
     </view>
   </view>
-  <view class="tab-content">
-    {{introduces[selectedTabIndex].content}}
-  </view>
+  <text class="tab-content" style="{{introduces[selectedTabIndex].style}}">{{introduces[selectedTabIndex].content}}</text>
 
 </view>
