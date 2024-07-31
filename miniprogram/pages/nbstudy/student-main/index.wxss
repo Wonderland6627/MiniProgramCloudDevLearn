@@ -55,3 +55,29 @@
   color: #333;
   margin-top: 16rpx;
 }
+
+.tab-container {
+  margin-top: 10rpx;
+  width: 95%;
+}
+
+.tab-scroll {
+  display: flex;
+  flex-direction: row;
+}
+
+.tab-item {
+  padding: 10rpx;
+}
+
+.tab-item.active {
+  color: #ff8533;
+}
+
+.tab-content {
+  width: 90%;
+  margin-top: 10rpx;
+  padding: 20rpx;
+  border: 1px solid #ddd;
+  border-radius: 10rpx;
+}

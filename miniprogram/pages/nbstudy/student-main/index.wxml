@@ -35,4 +35,15 @@
     </view>
   </view>
 
+  <view class="tab-container">
+    <view class="tab-scroll">
+      <view class="tab-item {{currentTab === index ? 'active' : ''}}" wx:for="{{tabItems}}" wx:for-index="index" wx:key="index" bindtap="switchTab" data-index="{{index}}">
+        <view>{{item}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="tab-content">
+    {{tabContent[currentTab]}}
+  </view>
+
 </view>

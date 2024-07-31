@@ -10,7 +10,18 @@ Page({
       'https://wx3.sinaimg.cn/mw690/b3e366e1gy1hr8fashq9qj20tw0tstbc.jpg',
       'https://ww1.sinaimg.cn/mw690/0070NSSfgy1hrmykbkxnij335s35snp8.jpg',
       'https://img0.baidu.com/it/u=454995986,3330485591&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=375'
-    ]
+    ],
+
+    currentTab: 0,
+    tabItems: ['Tab 1', 'Tab 2', 'Tab 3'],
+    tabContent: ['Tab 1 Content', 'Tab 2 Content', 'Tab 3 Content'],
+  },
+
+  switchTab: function(e) {
+    const index = e.currentTarget.dataset.index;
+    this.setData({
+      currentTab: index
+    });
   },
 
   /**
