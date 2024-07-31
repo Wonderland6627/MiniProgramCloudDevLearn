@@ -58,10 +58,10 @@ Page({
   },
 
   onViewAccessControlClick(e) {
-    this.fetchAccessControlPwd()
+    this.fetchAccessControlPwd(this.data.studentInfo.storeID)
   },
 
-  async fetchAccessControlPwd() {
+  async fetchAccessControlPwd(storeID) {
     wx.showLoading({
       title: '获取数据',
     })
@@ -69,7 +69,7 @@ Page({
       filter: {
         where: {
           storeID: {
-            $eq: this.data.storeID
+            $eq: storeID
           }
         }
       }
@@ -85,7 +85,7 @@ Page({
     }
     console.log('当前门禁密码: ' + pwd)
     wx.showModal({
-      title: '门禁密码请不要随意告诉其他人哦～',
+      title: '门禁密码需保密，请不要随意告诉其他人哦～',
       content: `${pwd}#`,
       showCancel: false,
       confirmText: '我知道啦',
