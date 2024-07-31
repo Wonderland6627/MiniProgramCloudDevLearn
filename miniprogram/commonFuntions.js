@@ -4,6 +4,30 @@ const utils = require('./utils/utils.js')
 
 const commonFuntions = {
 
+	showWiFiModal() {
+		const wifiName = 'ZXS'
+		const password = '88888888'
+		wx.showModal({
+			title: `WiFi名称: ${wifiName}`,
+			content: `密码: ${password}`,
+			confirmText: '复制密码',
+			complete: (res) => {
+				if (res.confirm) {
+					wx.setClipboardData({
+						data: password,
+						success: () => {
+							wx.showToast({
+								title: '已复制',
+								icon: 'success',
+								duration: 1000,
+							})
+						}
+					})
+				}
+			}
+		})
+	},
+
 	async fetchAccessControlPwd(storeID) {
     wx.showLoading({
       title: '获取数据',

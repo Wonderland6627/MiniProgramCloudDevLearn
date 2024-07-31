@@ -20,7 +20,7 @@ Page({
       {
         title: "WIFI连接",
         icon: "../../../images/icons/wifi.svg",
-        onTap: "onViewWIFIClick"
+        onTap: "onViewWiFiClick"
       },
       {
         title: "打卡记录",
@@ -57,6 +57,10 @@ Page({
       studentInfo: info,
     })
     console.log('[student-main] 获取studentBasicInfo: ' + JSON.stringify(info))
+  },
+
+  onViewWiFiClick(e) {
+    cf.showWiFiModal()
   },
 
   onViewAccessControlClick(e) {
