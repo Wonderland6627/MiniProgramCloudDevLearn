@@ -63,8 +63,9 @@ Page({
 
   onLogoutCellClick(e) {
     console.log("onLogoutCellClick")
-    wx.showLoading({
+    wx.showToast({
       title: '正在退出登录',
+      icon: 'loading',
       mask: true,
     })
     setTimeout(() => {
