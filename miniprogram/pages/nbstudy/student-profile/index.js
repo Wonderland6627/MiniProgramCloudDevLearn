@@ -111,7 +111,18 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    getApp().dataMgr
+      .fetchStudentInfo()
+      .then(info => {
+        this.setData({
+          studentInfo: info
+        })
+        wx.stopPullDownRefresh()
+      })
+      .catch(error => {
+        console.error(error);
+        wx.stopPullDownRefresh();
+      });
   },
 
   /**
