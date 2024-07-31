@@ -1,8 +1,18 @@
 <!--pages/nbstudy/student-main/index.wxml-->
 
 <view class="container">
+
+  <swiper indicator-dots autoplay interval="{{3000}}" style="width: 100%;height: 400rpx">
+    <block wx:for="{{imageUrls}}" wx:key="index">
+      <swiper-item>
+        <image src="{{item}}" style="width: 100%;" />
+      </swiper-item>
+    </block>
+  </swiper>
+
   <view class="card">
-    <view class="card-title">宁博自习室，欢迎你！</view>
+    <!-- <view class="card-title">宁博自习室，欢迎你！</view> -->
+    <view class="card-title">ABCD</view>
     <view class="card-label">鞍山市鞍钢高中正门北走100米-北国知春二期S9门店</view>
     <view class="card-label">周一至周日 07:30-23:30</view>
   </view>

@@ -10,9 +10,7 @@
   background-color: #fff;
   padding: 20rpx;
   border-radius: 50rpx;
-
-  margin-top: 150rpx;
-  margin-bottom: 150rpx;
+  margin-top: 20rpx;
 }
 
 .card-title {
@@ -31,7 +29,7 @@
 .services {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 20rpx;
 }
 
 .service {
