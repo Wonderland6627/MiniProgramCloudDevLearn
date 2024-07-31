@@ -17,24 +17,22 @@
     <view class="card-label">周一至周日 07:30-23:30</view>
   </view>
 
-  <view class="services">
-    <view class="service">
-      <image src="https://via.placeholder.com/50" />
-      <text>联系客户</text>
-    </view>
-    <view class="service">
-      <image src="https://via.placeholder.com/50" />
-      <text>意见反馈</text>
-    </view>
-  </view>
-  <view class="content">
-    <view class="tab">
-      <text>场地介绍</text>
-      <text>注意事项</text>
-      <text>预约流程</text>
-    </view>
-    <view class="description">
-      <text>欢迎来到【一中自习室】无人值守智慧自习室...</text>
+  <view class="card">
+    <view class="card-subtitle">常用</view>
+    <view class="tool-items">
+      <view class="tool-item">
+        <image class="icon tool-icon" src="../../../images/icons/wifi.svg"></image>
+        <text class="tool-label">WIFI连接</text>
+      </view>
+      <view class="tool-item">
+        <image class="icon tool-icon" src="../../../images/icons/sign-in.svg"></image>
+        <text class="tool-label">打卡记录</text>
+      </view>
+      <view class="tool-item">
+        <image class="icon tool-icon" src="../../../images/icons/lock.svg"></image>
+        <text class="tool-label">查看门禁</text>
+      </view>
     </view>
   </view>
+
 </view>

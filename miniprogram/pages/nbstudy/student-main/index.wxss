@@ -9,7 +9,7 @@
   width: 90%;
   background-color: #fff;
   padding: 20rpx;
-  border-radius: 50rpx;
+  border-radius: 10rpx;
   margin-top: 20rpx;
 }
 
@@ -20,33 +20,38 @@
   margin-bottom: 20rpx;
 }
 
+.card-subtitle {
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+}
+
 .card-label {
   font-size: 24rpx;
   color: #888;
   margin-bottom: 10rpx;
 }
 
-.services {
+.tool-items {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 20rpx;
 }
 
-.service {
+.tool-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 25%;
+  margin-bottom: 10rpx;
 }
 
-.content {
-  margin-top: 20px;
+.tool-icon {
+  width: 60rpx;
+  height: 60rpx;
 }
 
-.tab {
-  display: flex;
-  justify-content: space-around;
-}
-
-.description {
-  margin-top: 10px;
+.tool-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-top: 16rpx;
 }
