@@ -68,6 +68,7 @@
 
 .tab-item {
   padding: 10rpx;
+  margin-right: 16rpx;
 }
 
 .tab-item.active {

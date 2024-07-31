@@ -30,7 +30,7 @@ const commonFuntions = {
 
 	async fetchAccessControlPwd(storeID) {
     wx.showLoading({
-      title: '获取数据',
+      title: '拉取中...',
     })
     const result = await getApp().getModels().stores.get({
       filter: {

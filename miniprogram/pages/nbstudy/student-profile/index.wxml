@@ -6,8 +6,12 @@
     <text class="school">{{studentInfo.school}}</text>
     <view class="stats">
       <view class="stat">
-        <text class="stat-value">0h</text>
-        <text class="stat-label">学时</text>
+        <text class="stat-value">0天</text>
+        <text class="stat-label">已加入宁博</text>
+      </view>
+      <view class="stat">
+        <text class="stat-value">0次</text>
+        <text class="stat-label">打卡次数</text>
       </view>
     </view>
   </view>
