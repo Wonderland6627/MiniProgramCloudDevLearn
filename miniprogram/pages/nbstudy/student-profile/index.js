@@ -42,6 +42,19 @@ Page({
     console.log('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
   },
 
+  onLogoutCellClick(e) {
+    console.log("onLogoutCellClick")
+    wx.showLoading({
+      title: '正在退出登录',
+      mask: true,
+    })
+    setTimeout(() => {
+      wx.redirectTo({
+        url: '/pages/nbstudy/login/index',
+      })
+    }, 1500)
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

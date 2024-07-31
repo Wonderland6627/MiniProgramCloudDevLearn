@@ -77,7 +77,10 @@
 .tab-content {
   width: 90%;
   margin-top: 10rpx;
+  margin-bottom: 260rpx;
   padding: 20rpx;
   border: 1px solid #ddd;
   border-radius: 10rpx;
+  white-space: normal;
+  word-wrap: break-word;
 }

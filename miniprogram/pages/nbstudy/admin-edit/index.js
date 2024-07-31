@@ -60,11 +60,14 @@ Page({
   onLogoutCellClick(e) {
     console.log("onLogoutCellClick")
     wx.showLoading({
-      title: '退出登录',
+      title: '正在退出登录',
+      mask: true,
     })
-    wx.redirectTo({
-      url: '/pages/nbstudy/login/index',
-    })
+    setTimeout(() => {
+      wx.redirectTo({
+        url: '/pages/nbstudy/login/index',
+      })
+    }, 1500)
   },
 
   /**
