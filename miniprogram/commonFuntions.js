@@ -42,8 +42,9 @@ const commonFuntions = {
       }
     })
     wx.hideLoading()
+    console.log(`获取门禁密码回应: ${JSON.stringify(result)}`)
     const pwd = result?.data.accessControlPassword || ''
-    if (utils.isEmpty(pwd)) {
+    if (pwd === '') {
       wx.showToast({
         title: '获取信息失败',
         icon: 'error',
