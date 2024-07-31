@@ -1,11 +1,15 @@
 // pages/nbstudy/student-main/index.js
 
+const cf = require('../../../commonFuntions.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    studentInfo: {},
+
     imageUrls: [
       'https://wx3.sinaimg.cn/mw690/b3e366e1gy1hr8fashq9qj20tw0tstbc.jpg',
       'https://ww1.sinaimg.cn/mw690/0070NSSfgy1hrmykbkxnij335s35snp8.jpg',
@@ -49,7 +53,14 @@ Page({
    */
   onLoad(options) {
     let info = getApp().dataMgr.getStudentInfo()
-    console.log(JSON.stringify(info))
+    this.setData({
+      studentInfo: info,
+    })
+    console.log('[student-main] 获取studentBasicInfo: ' + JSON.stringify(info))
+  },
+
+  onViewAccessControlClick(e) {
+    cf.fetchAccessControlPwd(this.data.studentInfo.storeID)
   },
 
   /**
