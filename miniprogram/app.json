@@ -14,7 +14,8 @@
     "pages/nbstudy/admin-editPackage/index",
     "pages/nbstudy/admin-editSeat/index",
     "pages/nbstudy/admin-editStudent/index",
-    "pages/nbstudy/student-checkBindStatus/index"
+    "pages/nbstudy/student-checkBindStatus/index",
+    "pages/nbstudy/student-contact-us/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
