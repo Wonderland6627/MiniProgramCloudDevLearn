@@ -21,6 +21,11 @@ Page({
         icon: "../../../images/icons/lock.svg",
         onTap: "onViewAccessControlClick"
       },
+      {
+        title: "我的钥匙扣",
+        icon: "../../../images/icons/cardkey.svg",
+        onTap: "onViewCardKeyClick"
+      },
     ],
     settingInfos: [
       {

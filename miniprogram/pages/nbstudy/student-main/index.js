@@ -7,9 +7,8 @@ Page({
   /**
    * 页面的初始数据
    */
+  //此页尽量不要用到studentInfo
   data: {
-    studentInfo: {},
-
     imageUrls: [
       'https://wx3.sinaimg.cn/mw690/b3e366e1gy1hr8fashq9qj20tw0tstbc.jpg',
       'https://ww1.sinaimg.cn/mw690/0070NSSfgy1hrmykbkxnij335s35snp8.jpg',
@@ -21,11 +20,6 @@ Page({
         title: "WIFI连接",
         icon: "../../../images/icons/wifi.svg",
         onTap: "onViewWiFiClick"
-      },
-      {
-        title: "查看门禁",
-        icon: "../../../images/icons/lock.svg",
-        onTap: "onViewAccessControlClick"
       },
       {
         title: "打卡记录",
@@ -75,19 +69,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let info = getApp().dataMgr.getStudentInfo()
-    this.setData({
-      studentInfo: info,
-    })
-    console.log('[student-main] 获取studentBasicInfo: ' + JSON.stringify(info))
+    
   },
 
   onViewWiFiClick(e) {
     cf.showWiFiModal()
-  },
-
-  onViewAccessControlClick(e) {
-    cf.fetchAccessControlPwd(this.data.studentInfo.storeID)
   },
 
   /**
