@@ -242,26 +242,8 @@ Page({
     })
   },
 
-  async fetchStoresList() {
-    this.setData({
-      isLoading: true
-    });
-    const res = await wx.cloud.callFunction({
-      name: 'quickstartFunctions',
-      data: {
-        type: 'fetchStoresList'
-      },
-    });
-    const storesList = res?.result?.dataList || [];
-    this.setData({
-      isLoading: false,
-      storesList
-    });
-  },
-
   tryCustomLogin: function () {
     console.log("try custom login")
-    //this.fetchStoresList();
     this.customLogin();
     // wx.switchTab({
     //   url: '/pages/nbstudy/student-main/index',
