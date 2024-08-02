@@ -7,6 +7,11 @@ Page({
   data: {
     qrCodeUrl: 'https://636c-cloud1-1gv3jdz41b34d301-1327447321.tcb.qcloud.la/studentAvatars/avatar_o1fcV7QtbIWVcW3cjnxSkyCpT5MM.png?t=1722326686415',
     // 'https://cdn.jsdelivr.net/gh/Wonderland6627/cloudres@latest/nbstudy/storeqrcode.png',
+    contactInfo: {
+      landline: '0412-7358885',
+      phone: '19904208286',
+      email: 'nbstudy.online@163.com',
+    }
   },
 
   /**
