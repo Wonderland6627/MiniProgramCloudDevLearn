@@ -52,11 +52,13 @@
 .edit-cell .title {
   writing-mode: horizontal-tb;
   font-size: 28rpx;
+  color: rgb(100, 100, 100);
   margin-right: 20rpx;
 }
 
 .edit-input {
   font-size: 28rpx;
+  width: 500rpx;
 }
 
 .edit-picker .picker {
