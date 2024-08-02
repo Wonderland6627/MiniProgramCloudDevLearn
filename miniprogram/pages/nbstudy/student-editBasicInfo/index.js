@@ -228,19 +228,12 @@ Page({
     })
     console.log('学生基础信息保存成功')
     getApp().dataMgr.setStudentInfo(studentInfo)
-
-    if (utils.isEmpty(
-      studentInfo.school ||
-      {})) { //todo: check more edu info
-      console.log('openid为：' + studentInfo.openid + '的学生教育信息不全，准备补充')
-      this.gotoFillEducation()
-      return
-    }
+    this.gotoStudentMain()
   },
 
-  gotoFillEducation() {
-    wx.navigateTo({
-      url: '/pages/nbstudy/student-editEducation/index',
+  gotoStudentMain() {
+    wx.switchTab({
+      url: '/pages/nbstudy/student-main/index',
     })
   },
 

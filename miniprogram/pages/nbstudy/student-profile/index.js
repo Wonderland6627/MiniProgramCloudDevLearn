@@ -66,6 +66,12 @@ Page({
     cf.fetchAccessControlPwd(this.data.studentInfo.storeID)
   },
 
+  onEditBasicInfoCellClick(e) {
+    wx.navigateTo({
+      url: '/pages/nbstudy/student-editBasicInfo/index',
+    })
+  },
+
   onContactUsCellClick(e) {
     wx.navigateTo({
       url: '/pages/nbstudy/student-contact-us/index',
