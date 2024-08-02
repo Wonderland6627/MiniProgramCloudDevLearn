@@ -14,6 +14,23 @@ Page({
     }
   },
 
+  onContactCallClick(e) {
+    const numberType = e.currentTarget.dataset.numberType
+    let phontNumber = this.data.contactInfo.phone
+    if (numberType === 'landline') {
+      phontNumber = this.data.contactInfo.landline
+    }
+    wx.makePhoneCall({
+      phoneNumber: phontNumber,
+      success: () => {
+        console.log('电话调起成功')
+      },
+      fail: (err) => {
+        console.error(`电话调起失败: ${JSON.stringify(err)}`)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

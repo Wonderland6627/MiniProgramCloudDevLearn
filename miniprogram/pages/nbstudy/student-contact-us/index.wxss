@@ -59,7 +59,7 @@
 .contact-icon {
   width: 46rpx;
   height: 46rpx;
-  margin-left: 16rpx;
+  margin-right: 16rpx;
 }
 
 .common-btn {

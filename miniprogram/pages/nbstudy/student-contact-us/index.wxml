@@ -3,13 +3,13 @@
   <view class="card">
     <text class="title">联系我们</text>
     <text class="description">如有预约、咨询自习室相关问题，请点击拨打下面的座机号码或手机号码联系我们:</text>
-    <view class="contact-call">
-        <text class="contact-phone">{{contactInfo.landline}}</text>
+    <view class="contact-call" bindtap="onContactCallClick" data-number-type="landline">
         <image class="contact-icon" src="../../../images/icons/contact-landline.svg"></image>
+        <text class="contact-phone">{{contactInfo.landline}}</text>
     </view>
-    <view class="contact-call">
-        <text class="contact-phone">{{contactInfo.phone}}</text>
+    <view class="contact-call" bindtap="onContactCallClick" data-number-type="phone">
         <image class="contact-icon" src="../../../images/icons/contact-phone.svg"></image>
+        <text class="contact-phone">{{contactInfo.phone}} (微信同)</text>
     </view>
   </view>
   
