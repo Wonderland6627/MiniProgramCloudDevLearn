@@ -31,6 +31,37 @@ Page({
     })
   },
 
+  onContactCallLongTap(e) {
+    const numberType = e.currentTarget.dataset.numberType
+    let phontNumber = this.data.contactInfo.phone
+    if (numberType === 'landline') {
+      phontNumber = this.data.contactInfo.landline
+    }
+    wx.setClipboardData({
+      data: phontNumber,
+      success: () => {
+        wx.showToast({
+          title: '已复制',
+          icon: 'success',
+          duration: 1000,
+        })
+      }
+    })
+  },
+
+  onCopyEmailClick(e) {
+    wx.setClipboardData({
+      data: this.data.contactInfo.email,
+      success: () => {
+        wx.showToast({
+          title: '已复制',
+          icon: 'success',
+          duration: 1000,
+        })
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
