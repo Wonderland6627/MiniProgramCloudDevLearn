@@ -3,15 +3,16 @@
   <view class="card">
     <text class="title">联系我们</text>
     <text class="description">如有预约、咨询自习室相关问题，请拨打下面的座机或手机号码联系我们:</text>
-    <view class="contact-call">
+    <view class="contact-call" bind:longtap="onContactCallLongTap" data-number-type="landline">
         <image class="contact-icon" src="../../../images/icons/contact-landline.svg"></image>
-        <text class="contact-phone" bindtap="onContactCallClick" data-number-type="landline">{{contactInfo.landline}}</text>
+        <text class="contact-phone">{{contactInfo.landline}}</text>
     </view>
-    <view class="contact-call" bind:longtap="onContactCallLongTap" data-number-type="phone">
+    <view class="contact-call" bindtap="onContactCallClick" bind:longtap="onContactCallLongTap" data-number-type="phone">
         <image class="contact-icon" src="../../../images/icons/contact-phone.svg"></image>
-        <text class="contact-phone" bindtap="onContactCallClick" data-number-type="phone">{{contactInfo.phone}}</text>
-        <text class="contact-mini-label">(微信同 长按复制)</text>
+        <text class="contact-phone">{{contactInfo.phone}}</text>
+        <text class="contact-mini-label">(微信同)</text>
     </view>
+    <text class="mini-description">点击复制 长按拨打</text>
   </view>
   
   <view class="card">

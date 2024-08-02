@@ -20,13 +20,14 @@ Page({
     if (numberType === 'landline') {
       phontNumber = this.data.contactInfo.landline
     }
-    wx.makePhoneCall({
-      phoneNumber: phontNumber,
+    wx.setClipboardData({
+      data: phontNumber,
       success: () => {
-        console.log('电话调起成功')
-      },
-      fail: (err) => {
-        console.error(`电话调起失败: ${JSON.stringify(err)}`)
+        wx.showToast({
+          title: '已复制',
+          icon: 'success',
+          duration: 1000,
+        })
       }
     })
   },
@@ -37,14 +38,13 @@ Page({
     if (numberType === 'landline') {
       phontNumber = this.data.contactInfo.landline
     }
-    wx.setClipboardData({
-      data: phontNumber,
+    wx.makePhoneCall({
+      phoneNumber: phontNumber,
       success: () => {
-        wx.showToast({
-          title: '已复制',
-          icon: 'success',
-          duration: 1000,
-        })
+        console.log('电话调起成功')
+      },
+      fail: (err) => {
+        console.error(`电话调起失败: ${JSON.stringify(err)}`)
       }
     })
   },

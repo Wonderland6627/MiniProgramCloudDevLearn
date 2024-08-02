@@ -53,12 +53,12 @@
   font-size: 34rpx;
   color: #333;
   margin-top: -20rpx;
-  margin-bottom: 20rpx
+  margin-bottom: 20rpx;
 }
 
 .contact-mini-label {
   font-size: 28rpx;
-  color: rgb(116, 100, 100);
+  color: rgb(100, 100, 100);
   margin-left: 20rpx;
 }
 
@@ -66,6 +66,12 @@
   width: 46rpx;
   height: 46rpx;
   margin-right: 16rpx;
+}
+
+.mini-description {
+  font-size: 28rpx;
+  color: rgb(100, 100, 100);
+  margin-bottom: -20rpx
 }
 
 .common-btn {
