@@ -72,6 +72,12 @@ Page({
     })
   },
 
+  onFeedbackCellClick(e) {
+    wx.navigateTo({
+      url: '/pages/nbstudy/student-feedback/index',
+    })
+  },
+
   onLogoutCellClick(e) {
     console.log("onLogoutCellClick")
     wx.showToast({

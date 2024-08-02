@@ -1,0 +1,12 @@
+<!--pages/nbstudy/student-feedback/index.wxml-->
+<view class="container">
+  <textarea
+    class="feedback-input"
+    placeholder="请在此输入您的反馈意见..."
+    bindinput="inputFeedback"
+    maxlength="300"
+  >
+    <view class="word-count">{{feedbackLength}}/300</view>
+  </textarea>
+  <button class="common-btn" bindtap="onSubmitClick">提  交</button>
+</view>
