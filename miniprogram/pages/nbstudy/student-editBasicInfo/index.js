@@ -50,6 +50,11 @@ Page({
         'studentInfo.birthdayFormat': birthdayFormat
       })
     }
+    if (!this.data.studentInfo.avatarUrl) {
+      this.setData({
+        'studentInfo.avatarUrl': getApp().globalData.defaultAvatarUrl
+      })
+    }
   },
 
   onChooseAvatar(e) {
@@ -138,6 +143,14 @@ Page({
         'genderIndex': 0
       })
     }
+  },
+
+  bindInputSchool(e) {
+    const name = e.detail.value
+    this.setData({
+      'studentInfo.school': name
+    })
+    console.log('修改学校名字: ' + name)
   },
 
   saveInfo() {
