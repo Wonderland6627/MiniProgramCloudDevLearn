@@ -24,7 +24,7 @@
         <text>登  录</text>
       </button> -->
       <button class="common-btn" bindtap="studentLogin">
-        <text>微信登陆</text>
+        <text>微信登录</text>
       </button>
     </view>
   </view>

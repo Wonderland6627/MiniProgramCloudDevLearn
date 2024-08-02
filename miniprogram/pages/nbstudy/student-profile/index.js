@@ -55,7 +55,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let info = getApp().dataMgr.getStudentInfo()
+    let info = getApp().dataMgr.getStudentInfo(false)
     this.setData({
       studentInfo: info,
     })
@@ -86,16 +86,7 @@ Page({
 
   onLogoutCellClick(e) {
     console.log("onLogoutCellClick")
-    wx.showToast({
-      title: '正在退出登录',
-      icon: 'loading',
-      mask: true,
-    })
-    setTimeout(() => {
-      wx.redirectTo({
-        url: '/pages/nbstudy/login/index',
-      })
-    }, 1500)
+    getApp().logOut('正在退出登录')
   },
 
   /**

@@ -140,9 +140,7 @@ Page({
         showCancel: false,
         complete: (res) => {
           if (res.confirm) {
-            wx.redirectTo({
-              url: '/pages/nbstudy/login/index',
-            })
+            getApp().logOut('重新登录')
           }
         }
       })
@@ -156,9 +154,7 @@ Page({
   },
 
   returnToLogin(e) {
-    wx.redirectTo({
-      url: '/pages/nbstudy/login/index',
-    })
+    getApp().logOut('重新登录')
   },
 
   /**

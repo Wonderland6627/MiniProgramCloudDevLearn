@@ -23,14 +23,14 @@ Page({
   },
 
   studentLogin() {
-    console.log('学生登陆')
+    console.log('学生登录')
     getApp().setAdmin(false)
     this.tryWXLogin(false)
   },
 
   tryWXLogin(isAdmin = false) {
     wx.showLoading({
-      title: '检查登陆状态',
+      title: '检查登录状态',
     })
     const openid = getApp().getOpenID()
     const openidValid = openid !== ''
@@ -39,7 +39,7 @@ Page({
       success: () => {
         console.log('微信session有效')
         wx.showToast({
-          title: '已登陆',
+          title: '已登录',
           icon: 'success',
         })
         if (openidValid) { //session有效 且本地有openid 直接检查用户数据
@@ -52,19 +52,19 @@ Page({
       fail: () => {
         console.log('微信session过期')
         wx.showLoading({
-          title: '正在登陆',
+          title: '正在登录',
         })
         wx.login({
           success: (res) => {
-            if (res.code) { //到这一步获取到code代表登陆成功 后面json2Session主要是为了本地存openid
-              console.log('微信登陆凭证 code: ' + res.code)
+            if (res.code) { //到这一步获取到code代表登录成功 后面json2Session主要是为了本地存openid
+              console.log('微信登录凭证 code: ' + res.code)
               this.setData({
                 js_code: res.code
               })
-              if (openidValid) { //session无效 登陆成功 且本地有openid 去检查用户数据
+              if (openidValid) { //session无效 登录成功 且本地有openid 去检查用户数据
                 console.log('微信openid存在')
                 wx.showToast({
-                  title: '登陆成功',
+                  title: '登录成功',
                   icon: 'success',
                 })
                 isAdmin ? this.checkAdminInfo() : this.checkStudentInfoExists(openid)
@@ -74,11 +74,11 @@ Page({
               const action = isAdmin ? this.checkAdminInfo : this.checkStudentInfoExists
               this.getJSCode2Session(action) //session无效 获取openid 去检查用户数据
             } else {
-              console.log('微信登陆失败: ' + res.errMsg)
+              console.log('微信登录失败: ' + res.errMsg)
             }
           },
           fail: (err) => {
-            console.error('微信登陆错误: ' + err)
+            console.error('微信登录错误: ' + err)
           }
         })
       }
@@ -115,19 +115,19 @@ Page({
         }
       },
       success: (res) => {
-        console.log('微信登陆凭证校验成功: ' + JSON.stringify(res))
+        console.log('微信登录凭证校验成功: ' + JSON.stringify(res))
         if (res.result.errMsg != '') {
-          console.log('微信登陆凭证校验错误: ' + res.result.errMsg)
+          console.log('微信登录凭证校验错误: ' + res.result.errMsg)
           return
         }
-        console.log('微信登陆凭证校验成功回应: ' + JSON.stringify(res.result.data))
+        console.log('微信登录凭证校验成功回应: ' + JSON.stringify(res.result.data))
         const oid = res.result.data.openid
         console.log('通过JSCode2Session获取微信openid成功: ' + oid)
         getApp().setOpenID(oid) //通过JSCode2Session获取openid
         callback(oid)
       },
       fail: (err) => {
-        console.error('微信登陆凭证校验失败: ' + err)
+        console.error('微信登录凭证校验失败: ' + err)
       }
     })
   },
@@ -256,10 +256,10 @@ Page({
       }
     });
     const result = response?.result;
-    console.log("登陆回应：" + JSON.stringify(result))
+    console.log("登录回应：" + JSON.stringify(result))
     if (result == null) {
       wx.showToast({
-        title: '登陆无效',
+        title: '登录无效',
         icon: 'error',
       });
       return
@@ -267,13 +267,13 @@ Page({
     const success = result.code == 0;
     if (!success) {
       wx.showToast({
-        title: '登陆无效: ' + result.code,
+        title: '登录无效: ' + result.code,
         icon: 'error',
       });
       return;
     }
     wx.showToast({
-      title: '登陆成功',
+      title: '登录成功',
       icon: 'success',
     });
   },
@@ -304,7 +304,7 @@ Page({
   },
 
   adminLogin() {
-    console.log('管理员登陆')
+    console.log('管理员登录')
     this.tryWXLogin(true)
   },
 

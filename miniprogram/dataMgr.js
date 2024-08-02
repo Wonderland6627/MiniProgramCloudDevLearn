@@ -10,8 +10,14 @@ const dataMgr = {
     console.log('[dataMgr.js] set student info')
   },
 
-  getStudentInfo() {
-    console.log('[dataMgr.js] get student info')
+  getStudentInfo(checkValid = true) {
+    console.log(`[dataMgr.js] get student info, checkValid: ${checkValid}`)
+    if (checkValid) { //有些页面没有studentInfo不允许打开 返回登录页重新获取
+      if (utils.isEmpty(this.studentInfo)) {
+        getApp().logOut('数据缺失退出')
+        throw new Error('[dataMgr.js] get student info null, back to login')
+      }
+    }
     return this.studentInfo
   },
 

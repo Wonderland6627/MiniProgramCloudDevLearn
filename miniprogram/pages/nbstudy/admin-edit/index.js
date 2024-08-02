@@ -59,16 +59,7 @@ Page({
 
   onLogoutCellClick(e) {
     console.log("onLogoutCellClick")
-    wx.showToast({
-      title: '正在退出登录',
-      icon: 'loading',
-      mask: true,
-    })
-    setTimeout(() => {
-      wx.redirectTo({
-        url: '/pages/nbstudy/login/index',
-      })
-    }, 1500)
+    getApp().logOut('正在退出登录')
   },
 
   /**

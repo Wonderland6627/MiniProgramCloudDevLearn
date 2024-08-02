@@ -56,4 +56,20 @@ App({
     console.log('[app.js] get openid: ' + openid)
     return openid
   },
+
+  logOut(toastStr) {
+    console.log(`[app.js] log out: ${toastStr}`)
+    this.setAdmin(false)
+    wx.showToast({
+      title: toastStr,
+      icon: 'loading',
+      mask: true,
+      duration: 1500,
+    })
+    setTimeout(() => {
+      wx.redirectTo({
+        url: '/pages/nbstudy/login/index',
+      })
+    }, 1500)
+  },
 });

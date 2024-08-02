@@ -47,9 +47,9 @@ Component({
   },
 
   attached() {
-    this.changeList()
+    this.changeTabBarList()
     getApp().eventBus.on('userTypeChange', () => {
-      this.changeList()
+      this.changeTabBarList()
     })
   },
 
@@ -61,7 +61,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    changeList() {
+    changeTabBarList() {
       const isAdmin = getApp().isAdmin
       const list = isAdmin ? this.data.adminTabList : this.data.studentTabList
       console.log(`用户身份切换: ${ isAdmin ? '管理员' : '非管理员' }`)
