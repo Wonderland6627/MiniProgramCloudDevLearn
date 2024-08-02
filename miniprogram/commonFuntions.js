@@ -18,7 +18,7 @@ const commonFuntions = {
 						success: () => {
 							wx.showToast({
 								title: '已复制',
-								icon: 'success',
+								icon: 'none',
 								duration: 1000,
 							})
 						}

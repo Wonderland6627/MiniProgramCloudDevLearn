@@ -9,6 +9,13 @@ Page({
     feedbackLength: 0,
   },
 
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
+    
+  },
+
   inputFeedback(e) {
     let value = e.detail.value;
     let length = value.length;
@@ -19,21 +26,40 @@ Page({
   },
 
   onSubmitClick(e) {
+    this.createFeedback()
+  },
+
+  async createFeedback() {
+    const openid = getApp().getOpenID()
+    if (openid === '') {
+      console.error('openid为空，检查登录状态')
+      wx.showToast({
+        title: '请检查登录状态',
+        icon: 'error',
+      })
+      return
+    }
+    wx.showLoading({
+      title: '正在提交',
+    })
+    const { feedbackContent } = this.data
+    const time = Date.now()
+    await getApp().getModels().feedbacks.create({
+      data: {
+        feedbackOPENID: openid,
+        feedbackTime: time,
+        feedbackContent: feedbackContent
+      }
+    })
     wx.showToast({
-      title: '提交成功',
+      title: '提交成功，我们会认真聆听你的反馈～',
+      icon: 'none',
       duration: 1500,
       mask: true,
     })
     setTimeout(() => {
       wx.navigateBack()
     }, 1500);
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
   },
 
   /**

@@ -8,5 +8,5 @@
   >
     <view class="word-count">{{feedbackLength}}/300</view>
   </textarea>
-  <button class="common-btn" bindtap="onSubmitClick">提  交</button>
+  <button class="common-btn" bindtap="onSubmitClick" disabled="{{feedbackLength==0}}">提  交</button>
 </view>
