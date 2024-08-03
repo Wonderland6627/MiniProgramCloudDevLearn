@@ -1,7 +1,7 @@
 // pages/nbstudy/student-profile/index.js
 
 const cf = require('../../../commonFuntions.js')
-const log = require('../../../log.js')
+const logger = require('../../../logger.js')
 
 Page({
 
@@ -56,12 +56,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    log.setFilterMsg('student-profile')
+    logger.setFilterMsg('student-profile')
     let info = getApp().dataMgr.getStudentInfo(false)
     this.setData({
       studentInfo: info,
     })
-    log.info('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
+    logger.info('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
   },
 
   onViewAccessControlClick(e) {
@@ -87,7 +87,7 @@ Page({
   },
 
   onLogoutCellClick(e) {
-    log.info("onLogoutCellClick")
+    logger.info("onLogoutCellClick")
     getApp().logOut('正在退出登录')
   },
 
@@ -137,7 +137,7 @@ Page({
         wx.stopPullDownRefresh()
       })
       .catch(error => {
-        log.error(error)
+        logger.error(error)
         wx.stopPullDownRefresh()
       })
   },

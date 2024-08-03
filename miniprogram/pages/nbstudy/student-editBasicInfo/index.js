@@ -2,7 +2,7 @@
 
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
-const log = require('../../../log.js')
+const logger = require('../../../logger.js')
 
 Page({
 
@@ -33,7 +33,7 @@ Page({
     this.setData({
       studentInfo: info,
     })
-    log.info('[EditBasicInfo] 获取studentBasicInfo: ' + JSON.stringify(info))
+    logger.info('[EditBasicInfo] 获取studentBasicInfo: ' + JSON.stringify(info))
 
     if (!this.data.studentInfo.OPENID) {
       this.setData({
@@ -60,27 +60,27 @@ Page({
 
   onChooseAvatar(e) {
     var filePath = e.detail.avatarUrl
-    log.info('获取头像变化: ' + filePath)
+    logger.info('获取头像变化: ' + filePath)
     var clouthPath = 'studentAvatars/avatar_' + this.data.studentInfo.OPENID + '.png'
-    log.info(clouthPath)
+    logger.info(clouthPath)
     wx.cloud.uploadFile({
       cloudPath: clouthPath,
       filePath: filePath
     }).then(res => {
-      log.info('头像上传成功: ' + filePath)
+      logger.info('头像上传成功: ' + filePath)
       wx.cloud.getTempFileURL({
         fileList: [res.fileID]
       }).then(res => {
         var avatarUrl = res.fileList[0].tempFileURL + '?t=' + new Date().getTime()
-        log.info('头像CloudURL: ' + avatarUrl)
+        logger.info('头像CloudURL: ' + avatarUrl)
         this.setData({
           'studentInfo.avatarUrl': avatarUrl
         })
       }).catch(e => {
-        log.error('获取CloudURL失败: ' + e)
+        logger.error('获取CloudURL失败: ' + e)
       })
     }).catch(e => {
-      log.error('头像上传失败: ' + e)
+      logger.error('头像上传失败: ' + e)
     })
   },
 
@@ -89,7 +89,7 @@ Page({
     this.setData({
       'studentInfo.studentName': name
     })
-    log.info('修改学生名字: ' + name)
+    logger.info('修改学生名字: ' + name)
   },
 
   nameJudge(name) {
@@ -101,7 +101,7 @@ Page({
     this.setData({
       'studentInfo.phone': phone
     })
-    log.info('修改电话: ' + phone)
+    logger.info('修改电话: ' + phone)
   },
 
   phoneJudge(phone) {
@@ -113,20 +113,20 @@ Page({
     this.setData({ 
       'studentInfo.birthdayFormat': birthdayFormat
     })
-    log.info('修改生日Format: ' + birthdayFormat)
+    logger.info('修改生日Format: ' + birthdayFormat)
     this.birthdayParser(birthdayFormat)
   }, 
 
   birthdayParser(birthdayFormat) {
     if (!birthdayFormat) {
-      log.error('检查选择的生日Format')
+      logger.error('检查选择的生日Format')
       return
     }
     const birthdayTimeStamp = timeUtils.dateFormat2TimeStamp(birthdayFormat)
     this.setData({
       'studentInfo.birthday': birthdayTimeStamp
     })
-    log.info('修改生日TimeStamp: ' + birthdayTimeStamp)
+    logger.info('修改生日TimeStamp: ' + birthdayTimeStamp)
   },
 
   bindGenderChange(e) {
@@ -135,7 +135,7 @@ Page({
       'genderIndex': e.detail.value,
       'studentInfo.gender': e.detail.value,
     })
-    log.info('修改性别: ' + this.data.genderArray[index])
+    logger.info('修改性别: ' + this.data.genderArray[index])
   },
 
   bindGenderTap(e) {
@@ -151,11 +151,11 @@ Page({
     this.setData({
       'studentInfo.school': name
     })
-    log.info('修改学校名字: ' + name)
+    logger.info('修改学校名字: ' + name)
   },
 
   saveInfo() {
-    log.info('save')
+    logger.info('save')
     this.tryUpdateStudentInfo()
   },
 
@@ -212,22 +212,22 @@ Page({
         title: '保存错误',
         icon: 'error',
       })
-      log.error('学生基础信息保存错误: ' + err)
+      logger.error('学生基础信息保存错误: ' + err)
     })
-    log.info('学生基础信息保存回应: ' + result)
+    logger.info('学生基础信息保存回应: ' + result)
     if (result?.data.count != 1) {
       wx.showToast({
         title: '保存失败',
         icon: 'error',
       })
-      log.info('学生基础信息保存失败')
+      logger.info('学生基础信息保存失败')
       return
     }
     wx.showToast({
       title: '保存成功',
       icon: 'success',
     })
-    log.info('学生基础信息保存成功')
+    logger.info('学生基础信息保存成功')
     getApp().dataMgr.setStudentInfo(studentInfo)
     this.gotoStudentMain()
   },

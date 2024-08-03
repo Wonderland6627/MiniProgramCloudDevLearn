@@ -1,6 +1,6 @@
 // pages/nbstudy/admin-main/index.js
 
-const log = require('../../../log.js')
+const logger = require('../../../logger.js')
 
 Page({
 
@@ -31,13 +31,13 @@ Page({
     this.setData({
       students: list
     })
-    log.info(result)
+    logger.info(result)
 	},
 	
 	handleCellTap(e) {
 		const index = e.currentTarget.dataset.index
 		const studentInfo = this.data.students[index]
-		log.info('选择学生: ' + JSON.stringify(studentInfo))
+		logger.info('选择学生: ' + JSON.stringify(studentInfo))
 		wx.setStorageSync('selectedStudentInfo', studentInfo)
 		wx.navigateTo({
 			url: '/pages/nbstudy/admin-editStudent/index',

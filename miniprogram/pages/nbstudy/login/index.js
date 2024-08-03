@@ -1,6 +1,6 @@
 // pages/nbstudy/login/index.js
 
-const log = require('../../../log.js')
+const logger = require('../../../logger.js')
 const utils = require('../../../utils/utils.js')
 
 Page({
@@ -20,11 +20,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // log.setFilterMsg('login')
+    // logger.setFilterMsg('login')
   },
 
   studentLogin() {
-    log.info('学生登录')
+    logger.info('学生登录')
     getApp().setAdmin(false)
     this.tryWXLogin(false)
   },
@@ -35,10 +35,10 @@ Page({
     })
     const openid = getApp().getOpenID()
     const openidValid = openid !== ''
-    log.info('OpneID: [' + openid + '], ' + (openidValid ? '有效' : '无效'))
+    logger.info('OpneID: [' + openid + '], ' + (openidValid ? '有效' : '无效'))
     wx.checkSession({
       success: () => {
-        log.info('微信session有效')
+        logger.info('微信session有效')
         wx.showToast({
           title: '已登录',
           icon: 'success',
@@ -51,19 +51,19 @@ Page({
         this.getWXContextOpenID(action) //session有效 但本地没有openid 获取openid再继续
       },
       fail: () => {
-        log.info('微信session过期')
+        logger.info('微信session过期')
         wx.showLoading({
           title: '正在登录',
         })
         wx.login({
           success: (res) => {
             if (res.code) { //到这一步获取到code代表登录成功 后面json2Session主要是为了本地存openid
-              log.info('微信登录凭证 code: ' + res.code)
+              logger.info('微信登录凭证 code: ' + res.code)
               this.setData({
                 js_code: res.code
               })
               if (openidValid) { //session无效 登录成功 且本地有openid 去检查用户数据
-                log.info('微信openid存在')
+                logger.info('微信openid存在')
                 wx.showToast({
                   title: '登录成功',
                   icon: 'success',
@@ -71,15 +71,15 @@ Page({
                 isAdmin ? this.checkAdminInfo() : this.checkStudentInfoExists(openid)
                 return
               }
-              log.info('微信openid不存在，尝试获取')
+              logger.info('微信openid不存在，尝试获取')
               const action = isAdmin ? this.checkAdminInfo : this.checkStudentInfoExists
               this.getJSCode2Session(action) //session无效 获取openid 去检查用户数据
             } else {
-              log.info('微信登录失败: ' + res.errMsg)
+              logger.info('微信登录失败: ' + res.errMsg)
             }
           },
           fail: (err) => {
-            log.error('微信登录错误: ' + err)
+            logger.error('微信登录错误: ' + err)
           }
         })
       }
@@ -93,13 +93,13 @@ Page({
         type: 'getOpenId'
       }
     }).then(res => {
-      log.info('获取WXContext: ' + JSON.stringify(res))
+      logger.info('获取WXContext: ' + JSON.stringify(res))
       const openid = res.result.openid
-      log.info('通过WXContext获取微信openid成功: ' + openid)
+      logger.info('通过WXContext获取微信openid成功: ' + openid)
       getApp().setOpenID(openid)
       callback(openid)
     }).catch(err => {
-      log.error('获取WXContext失败: ' + err)
+      logger.error('获取WXContext失败: ' + err)
     })
   },
 
@@ -116,19 +116,19 @@ Page({
         }
       },
       success: (res) => {
-        log.info('微信登录凭证校验成功: ' + JSON.stringify(res))
+        logger.info('微信登录凭证校验成功: ' + JSON.stringify(res))
         if (res.result.errMsg != '') {
-          log.info('微信登录凭证校验错误: ' + res.result.errMsg)
+          logger.info('微信登录凭证校验错误: ' + res.result.errMsg)
           return
         }
-        log.info('微信登录凭证校验成功回应: ' + JSON.stringify(res.result.data))
+        logger.info('微信登录凭证校验成功回应: ' + JSON.stringify(res.result.data))
         const oid = res.result.data.openid
-        log.info('通过JSCode2Session获取微信openid成功: ' + oid)
+        logger.info('通过JSCode2Session获取微信openid成功: ' + oid)
         getApp().setOpenID(oid) //通过JSCode2Session获取openid
         callback(oid)
       },
       fail: (err) => {
-        log.error('微信登录凭证校验失败: ' + err)
+        logger.error('微信登录凭证校验失败: ' + err)
       }
     })
   },
@@ -149,7 +149,7 @@ Page({
     wx.hideLoading()
     const data = result?.data
     if (utils.isEmpty(data)) {
-      log.info(`openid: ${openid} 的学生信息不存在，准备检查是否有待绑定信息或直接创建新信息`)
+      logger.info(`openid: ${openid} 的学生信息不存在，准备检查是否有待绑定信息或直接创建新信息`)
       this.showStudentIsNew(openid)
       return
     }
@@ -164,13 +164,13 @@ Page({
       cancelText: '否',
       complete: (res) => {
         if (res.cancel) { //没在这学习过
-          log.info(`openid: ${openid} 是新学员，直接创建新号`)
+          logger.info(`openid: ${openid} 是新学员，直接创建新号`)
           this.createStudentInfo(openid)
           return
         }
         if (res.confirm) { //在这学习过
           //todo: 根据手机号绑定 已存在信息，若手机号也不存在 直接创建新号
-          log.info(`openid: ${openid} 是老学员，检查表中是否存在待绑定信息`)
+          logger.info(`openid: ${openid} 是老学员，检查表中是否存在待绑定信息`)
           this.gotoCheckBindStatus()
         }
       }
@@ -185,11 +185,11 @@ Page({
       data?.gender ||
       data?.birthday ||
       {})) { //todo: check more stu info
-      log.info('openid为：' + openid + '的学生基础信息不全，准备补充')
+      logger.info('openid为：' + openid + '的学生基础信息不全，准备补充')
       this.gotoFillAccount()
       return
     }
-    log.info('openid为：' + openid + '的学生基础信息完整')
+    logger.info('openid为：' + openid + '的学生基础信息完整')
     this.gotoStudentMain()
   },
 
@@ -207,7 +207,7 @@ Page({
       icon: 'success',
     })
     const info = result?.data
-    log.info(info)
+    logger.info(info)
     getApp().dataMgr.setStudentInfo(info)
     this.gotoFillAccount()
 	},
@@ -231,7 +231,7 @@ Page({
   },
 
   tryCustomLogin: function () {
-    log.info("try custom login")
+    logger.info("try custom login")
     this.customLogin();
     // wx.switchTab({
     //   url: '/pages/nbstudy/student-main/index',
@@ -244,8 +244,8 @@ Page({
       phoneNumber,
       password
     } = this.data;
-    log.info(phoneNumber)
-    log.info(password)
+    logger.info(phoneNumber)
+    logger.info(password)
     const response = await wx.cloud.callFunction({
       name: 'quickstartFunctions',
       data: {
@@ -257,7 +257,7 @@ Page({
       }
     });
     const result = response?.result;
-    log.info("登录回应：" + JSON.stringify(result))
+    logger.info("登录回应：" + JSON.stringify(result))
     if (result == null) {
       wx.showToast({
         title: '登录无效',
@@ -280,12 +280,12 @@ Page({
   },
 
   contactUs: function () {
-    log.info("contact us")
+    logger.info("contact us")
   },
 
   checkPhoneNumber: function (e) {
     const phone = e.detail.value
-    log.info(phone)
+    logger.info(phone)
     this.setData({
       phoneNumber: phone,
       phoneValid: phone.length == 11
@@ -294,7 +294,7 @@ Page({
 
   checkPassword(e) {
     const password = e.detail.value
-    log.info(password)
+    logger.info(password)
     this.setData({
       password: password
     })
@@ -305,7 +305,7 @@ Page({
   },
 
   adminLogin() {
-    log.info('管理员登录')
+    logger.info('管理员登录')
     this.tryWXLogin(true)
   },
 

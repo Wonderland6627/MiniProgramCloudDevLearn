@@ -1,6 +1,6 @@
 // pages/nbstudy/student-contact-us/index.js
 
-const log = require('../../../log.js')
+const logger = require('../../../logger.js')
 
 Page({
 
@@ -44,10 +44,10 @@ Page({
     wx.makePhoneCall({
       phoneNumber: phontNumber,
       success: () => {
-        log.info('电话调起成功')
+        logger.info('电话调起成功')
       },
       fail: (err) => {
-        log.error(`电话调起失败: ${JSON.stringify(err)}`)
+        logger.error(`电话调起失败: ${JSON.stringify(err)}`)
       }
     })
   },

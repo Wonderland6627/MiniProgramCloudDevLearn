@@ -1,6 +1,6 @@
 // pages/nbstudy/admin-editSeat/index.js
 
-const log = require('../../../log.js')
+const logger = require('../../../logger.js')
 
 Page({
 
@@ -20,11 +20,11 @@ Page({
       content: 'content',
       complete: (res) => {
         if (res.cancel) {
-          log.info('cancel')
+          logger.info('cancel')
         }
     
         if (res.confirm) {
-          log.info('confirm')
+          logger.info('confirm')
         }
       }
     })

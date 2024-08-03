@@ -1,7 +1,7 @@
 // commonFuntions.js
 
 const utils = require('./utils/utils.js')
-const log = require('./log.js')
+const logger = require('./logger.js')
 
 const commonFuntions = {
 
@@ -43,7 +43,7 @@ const commonFuntions = {
       }
     })
     wx.hideLoading()
-    log.info(`获取门禁密码回应: ${JSON.stringify(result)}`)
+    logger.info(`获取门禁密码回应: ${JSON.stringify(result)}`)
     const pwd = result?.data.accessControlPassword || ''
     if (pwd === '') {
       wx.showToast({
@@ -52,7 +52,7 @@ const commonFuntions = {
       })
       return
     }
-    log.info('当前门禁密码: ' + pwd)
+    logger.info('当前门禁密码: ' + pwd)
     wx.showModal({
       title: '门禁密码需保密，请不要随意告诉其他人哦～',
       content: `${pwd}#`,

@@ -1,6 +1,6 @@
 // pages/nbstudy/admin-edit/index.js
 
-const log = require('../../../log.js')
+const logger = require('../../../logger.js')
 
 Page({
 
@@ -40,28 +40,28 @@ Page({
   },
 
   onSeatCellClick(e) {
-    log.info("onSeatCellClick")
+    logger.info("onSeatCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editSeat/index',
     })
   },
 
   onPackageCellClick(e) {
-    log.info("onPackageCellClick")
+    logger.info("onPackageCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editPackage/index',
     })
   },
 
   onAccessControlPasswordCellClick(e) {
-    log.info("onAccessControlPasswordCellClick")
+    logger.info("onAccessControlPasswordCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editACPassword/index',
     })
   },
 
   onLogoutCellClick(e) {
-    log.info("onLogoutCellClick")
+    logger.info("onLogoutCellClick")
     getApp().logOut('正在退出登录')
   },
 

@@ -5,12 +5,12 @@ const { init } = require('@cloudbase/wx-cloud-client-sdk')
 const client = init(wx.cloud)
 const models = client.models
 const dataMgr = require('./dataMgr')
-const log = require('./log.js')
+const logger = require('./logger.js')
 
 App({
   onLaunch: function () {
     if (!wx.cloud) {
-      log.error('请使用 2.2.3 或以上的基础库以使用云能力');
+      logger.error('请使用 2.2.3 或以上的基础库以使用云能力');
     } else {
       wx.cloud.init({
         // env 参数说明：
@@ -45,7 +45,7 @@ App({
   setOpenID(openid) {
     this.globalData.openid = openid
     wx.setStorageSync('openid', openid)
-    log.info('[app.js] set openid: ' + openid)
+    logger.info('[app.js] set openid: ' + openid)
   },
 
   getOpenID() {
@@ -54,12 +54,12 @@ App({
       openid = wx.getStorageSync('openid')
       this.globalData.openid = openid
     }
-    log.info('[app.js] get openid: ' + openid)
+    logger.info('[app.js] get openid: ' + openid)
     return openid
   },
 
   logOut(toastStr) {
-    log.info(`[app.js] log out: ${toastStr}`)
+    logger.info(`[app.js] log out: ${toastStr}`)
     this.setAdmin(false)
     wx.showToast({
       title: toastStr,
