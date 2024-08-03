@@ -1,1 +1,3 @@
 云开发SDK小程序端的调用不支持修改他人创建的数据行，可以用云函数或控制台来修改
+API: https://cloud.tencent.com/document/product/1593/96738
+We分析: https://wedata.weixin.qq.com/mp2/basic-data/core-data
