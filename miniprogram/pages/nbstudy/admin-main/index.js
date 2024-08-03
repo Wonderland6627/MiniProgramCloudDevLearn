@@ -37,7 +37,7 @@ Page({
 	handleCellTap(e) {
 		const index = e.currentTarget.dataset.index
 		const studentInfo = this.data.students[index]
-		logger.info('选择学生: ' + JSON.stringify(studentInfo))
+		logger.info('[admin-main] 选择学生: ' + JSON.stringify(studentInfo))
 		wx.setStorageSync('selectedStudentInfo', studentInfo)
 		wx.navigateTo({
 			url: '/pages/nbstudy/admin-editStudent/index',

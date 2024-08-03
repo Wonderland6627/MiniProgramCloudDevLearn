@@ -44,10 +44,10 @@ Page({
     wx.makePhoneCall({
       phoneNumber: phontNumber,
       success: () => {
-        logger.info('电话调起成功')
+        logger.info('[student-contact-us] 电话调起成功')
       },
       fail: (err) => {
-        logger.error(`电话调起失败: ${JSON.stringify(err)}`)
+        logger.error(`[student-contact-us] 电话调起失败: ${JSON.stringify(err)}`)
       }
     })
   },

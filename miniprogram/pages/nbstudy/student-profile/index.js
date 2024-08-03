@@ -56,7 +56,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    logger.setFilterMsg('student-profile')
     let info = getApp().dataMgr.getStudentInfo(false)
     this.setData({
       studentInfo: info,
@@ -87,7 +86,7 @@ Page({
   },
 
   onLogoutCellClick(e) {
-    logger.info("onLogoutCellClick")
+    logger.info("[student-profile] onLogoutCellClick")
     getApp().logOut('正在退出登录')
   },
 

@@ -97,7 +97,7 @@ Page({
       pageSize: 20,
       getCount: true,
     })
-    logger.info('拉取所有套餐信息: ' + JSON.stringify(result))
+    logger.info('[admin-editPackage] 拉取所有套餐信息: ' + JSON.stringify(result))
     const records = result?.data.records || {}
     if (utils.isEmpty(records)) {
       wx.showToast({
@@ -193,7 +193,7 @@ Page({
     }
     modifiedPackages[seatType][durationType][key] = value
     if (JSON.stringify(modifiedPackages[seatType][durationType]) ===  JSON.stringify(currentPackages[seatType][durationType])) {
-      logger.info(`modifiedPackages[${seatType}][${durationType}]修改值重置`)
+      logger.info(`[admin-editPackage] modifiedPackages[${seatType}][${durationType}]修改值重置`)
       delete modifiedPackages[seatType][durationType]
       if (utils.isEmpty(modifiedPackages[seatType])) {
         delete modifiedPackages[seatType]
@@ -252,7 +252,7 @@ Page({
 		wx.showLoading({
 			title: `${modifiesCount}个修改保存中`,
 		})
-    logger.info(`本次修改内容: ${JSON.stringify(modifies)}`)
+    logger.info(`[admin-editPackage] 本次修改内容: ${JSON.stringify(modifies)}`)
     wx.cloud.callFunction({
       name: 'quickstartFunctions',
       data: {
@@ -260,9 +260,9 @@ Page({
         data: { modifies }
       }
     }).then(res => {
-			logger.info('套餐修改保存回应: ' + JSON.stringify(res))
+			logger.info('[admin-editPackage] 套餐修改保存回应: ' + JSON.stringify(res))
 			if (res.result.code != 0) {
-				logger.info('套餐修改保存失败: ' + res.result)
+				logger.info('[admin-editPackage] 套餐修改保存失败: ' + res.result)
 				wx.showToast({
           title: '保存失败',
           icon: 'error',
@@ -292,7 +292,7 @@ Page({
 				wx.navigateBack()
 			}, 2000)
 		}).catch(err => {
-			logger.error('套餐修改保存错误: ' + err)
+			logger.error('[admin-editPackage] 套餐修改保存错误: ' + err)
       wx.showToast({
         title: '保存错误',
         icon: 'error',

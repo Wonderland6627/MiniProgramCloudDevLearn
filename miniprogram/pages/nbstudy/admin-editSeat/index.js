@@ -15,19 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    wx.showModal({
-      title: 'title',
-      content: 'content',
-      complete: (res) => {
-        if (res.cancel) {
-          logger.info('cancel')
-        }
     
-        if (res.confirm) {
-          logger.info('confirm')
-        }
-      }
-    })
   },
 
   /**

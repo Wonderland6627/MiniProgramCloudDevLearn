@@ -38,7 +38,7 @@ Page({
 			phone: phone,
 			readyForQuery: phone.length === 11,
     })
-    logger.info('输入手机号: ' + phone)
+    logger.info('[student-checkBindStatus] 输入手机号: ' + phone)
 	},
 	
 	phoneJudge(phone) {
@@ -74,7 +74,7 @@ Page({
     })
 		const data = result?.data
 		if (utils.isEmpty(data)) {
-			logger.info('未查询到此手机号待绑定信息')
+			logger.info('[student-checkBindStatus] 未查询到此手机号待绑定信息')
 			wx.showToast({
 				title: '无匹配信息',
 				icon: 'error',
@@ -84,7 +84,7 @@ Page({
       })
 			return
 		}
-    logger.info(`待绑定信息查询成功: ${JSON.stringify(data)}`)
+    logger.info(`[student-checkBindStatus] 待绑定信息查询成功: ${JSON.stringify(data)}`)
     wx.showToast({
       title: '查询成功',
       icon: 'success',
@@ -117,9 +117,9 @@ Page({
         data: { phone, OPENID }
       }
     }).then(res => {
-      logger.info('绑定学生信息保存回应: ' + JSON.stringify(res))
+      logger.info('[student-checkBindStatus] 绑定学生信息保存回应: ' + JSON.stringify(res))
       if (res.result.code != 0) {
-        logger.error('绑定学生信息保存失败: ' + res.result)
+        logger.error('[student-checkBindStatus] 绑定学生信息保存失败: ' + res.result)
         wx.showToast({
           title: '绑定失败',
           icon: 'error',
@@ -127,7 +127,7 @@ Page({
         return
       }
       if (res.result.result.stats.updated == 0) {
-        logger.error('绑定学生信息保存重复: ' + res.result)
+        logger.error('[student-checkBindStatus] 绑定学生信息保存重复: ' + res.result)
         wx.showToast({
           title: '重复绑定',
           icon: 'error',
@@ -146,7 +146,7 @@ Page({
         }
       })
     }).catch(err => {
-      logger.error('绑定学生信息保存错误: ' + err)
+      logger.error('[student-checkBindStatus] 绑定学生信息保存错误: ' + err)
       wx.showToast({
         title: '绑定错误',
         icon: 'error',

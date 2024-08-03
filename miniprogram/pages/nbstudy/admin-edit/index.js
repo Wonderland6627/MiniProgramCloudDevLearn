@@ -40,28 +40,28 @@ Page({
   },
 
   onSeatCellClick(e) {
-    logger.info("onSeatCellClick")
+    logger.info("[admin-edit] onSeatCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editSeat/index',
     })
   },
 
   onPackageCellClick(e) {
-    logger.info("onPackageCellClick")
+    logger.info("[admin-edit] onPackageCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editPackage/index',
     })
   },
 
   onAccessControlPasswordCellClick(e) {
-    logger.info("onAccessControlPasswordCellClick")
+    logger.info("[admin-edit] onAccessControlPasswordCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editACPassword/index',
     })
   },
 
   onLogoutCellClick(e) {
-    logger.info("onLogoutCellClick")
+    logger.info("[admin-edit] onLogoutCellClick")
     getApp().logOut('正在退出登录')
   },
 

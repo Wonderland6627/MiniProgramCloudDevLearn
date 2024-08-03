@@ -33,7 +33,7 @@ Page({
     this.setData({
       studentInfo: info,
     })
-    logger.info('[EditBasicInfo] 获取studentBasicInfo: ' + JSON.stringify(info))
+    logger.info('[student-editBasicInfo] 获取studentBasicInfo: ' + JSON.stringify(info))
 
     if (!this.data.studentInfo.OPENID) {
       this.setData({
@@ -60,27 +60,27 @@ Page({
 
   onChooseAvatar(e) {
     var filePath = e.detail.avatarUrl
-    logger.info('获取头像变化: ' + filePath)
+    logger.info('[student-editBasicInfo] 获取头像变化: ' + filePath)
     var clouthPath = 'studentAvatars/avatar_' + this.data.studentInfo.OPENID + '.png'
     logger.info(clouthPath)
     wx.cloud.uploadFile({
       cloudPath: clouthPath,
       filePath: filePath
     }).then(res => {
-      logger.info('头像上传成功: ' + filePath)
+      logger.info('[student-editBasicInfo] 头像上传成功: ' + filePath)
       wx.cloud.getTempFileURL({
         fileList: [res.fileID]
       }).then(res => {
         var avatarUrl = res.fileList[0].tempFileURL + '?t=' + new Date().getTime()
-        logger.info('头像CloudURL: ' + avatarUrl)
+        logger.info('[student-editBasicInfo] 头像CloudURL: ' + avatarUrl)
         this.setData({
           'studentInfo.avatarUrl': avatarUrl
         })
       }).catch(e => {
-        logger.error('获取CloudURL失败: ' + e)
+        logger.error('[student-editBasicInfo] 获取CloudURL失败: ' + e)
       })
     }).catch(e => {
-      logger.error('头像上传失败: ' + e)
+      logger.error('[student-editBasicInfo] 头像上传失败: ' + e)
     })
   },
 
@@ -89,7 +89,7 @@ Page({
     this.setData({
       'studentInfo.studentName': name
     })
-    logger.info('修改学生名字: ' + name)
+    logger.info('[student-editBasicInfo] 修改学生名字: ' + name)
   },
 
   nameJudge(name) {
@@ -101,7 +101,7 @@ Page({
     this.setData({
       'studentInfo.phone': phone
     })
-    logger.info('修改电话: ' + phone)
+    logger.info('[student-editBasicInfo] 修改电话: ' + phone)
   },
 
   phoneJudge(phone) {
@@ -113,20 +113,20 @@ Page({
     this.setData({ 
       'studentInfo.birthdayFormat': birthdayFormat
     })
-    logger.info('修改生日Format: ' + birthdayFormat)
+    logger.info('[student-editBasicInfo] 修改生日Format: ' + birthdayFormat)
     this.birthdayParser(birthdayFormat)
   }, 
 
   birthdayParser(birthdayFormat) {
     if (!birthdayFormat) {
-      logger.error('检查选择的生日Format')
+      logger.error('[student-editBasicInfo] 检查选择的生日Format')
       return
     }
     const birthdayTimeStamp = timeUtils.dateFormat2TimeStamp(birthdayFormat)
     this.setData({
       'studentInfo.birthday': birthdayTimeStamp
     })
-    logger.info('修改生日TimeStamp: ' + birthdayTimeStamp)
+    logger.info('[student-editBasicInfo] 修改生日TimeStamp: ' + birthdayTimeStamp)
   },
 
   bindGenderChange(e) {
@@ -135,7 +135,7 @@ Page({
       'genderIndex': e.detail.value,
       'studentInfo.gender': e.detail.value,
     })
-    logger.info('修改性别: ' + this.data.genderArray[index])
+    logger.info('[student-editBasicInfo] 修改性别: ' + this.data.genderArray[index])
   },
 
   bindGenderTap(e) {
@@ -151,11 +151,11 @@ Page({
     this.setData({
       'studentInfo.school': name
     })
-    logger.info('修改学校名字: ' + name)
+    logger.info('[student-editBasicInfo] 修改学校名字: ' + name)
   },
 
   saveInfo() {
-    logger.info('save')
+    logger.info('[student-editBasicInfo] save')
     this.tryUpdateStudentInfo()
   },
 
@@ -212,22 +212,22 @@ Page({
         title: '保存错误',
         icon: 'error',
       })
-      logger.error('学生基础信息保存错误: ' + err)
+      logger.error('[student-editBasicInfo] 学生基础信息保存错误: ' + err)
     })
-    logger.info('学生基础信息保存回应: ' + result)
+    logger.info('[student-editBasicInfo] 学生基础信息保存回应: ' + result)
     if (result?.data.count != 1) {
       wx.showToast({
         title: '保存失败',
         icon: 'error',
       })
-      logger.info('学生基础信息保存失败')
+      logger.info('[student-editBasicInfo] 学生基础信息保存失败')
       return
     }
     wx.showToast({
       title: '保存成功',
       icon: 'success',
     })
-    logger.info('学生基础信息保存成功')
+    logger.info('[student-editBasicInfo] 学生基础信息保存成功')
     getApp().dataMgr.setStudentInfo(studentInfo)
     this.gotoStudentMain()
   },

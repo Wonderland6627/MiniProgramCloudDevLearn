@@ -60,10 +60,10 @@ Page({
       cancelText: '取消',
       success: function (res) {
         if (res.confirm) {
-          logger.info('用户点击确定');
-          logger.info('输入的内容为：', res.content);
+          logger.info('[admin-editStudent] 用户点击确定');
+          logger.info('[admin-editStudent] 输入的内容为：', res.content);
         } else if (res.cancel) {
-          logger.info('用户点击取消');
+          logger.info('[admin-editStudent] 用户点击取消');
         }
       }.bind(this)
     });
