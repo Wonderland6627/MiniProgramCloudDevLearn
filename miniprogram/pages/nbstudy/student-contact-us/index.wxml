@@ -19,6 +19,12 @@
     <text class="title">我们的邮箱</text>
     <text class="description">加入我们、合作或任何反馈，请联系邮箱:</text>
     <text class="contact-email">{{contactInfo.email}}</text>
-    <button class="common-btn" bindtap="onCopyEmailClick">复制</button>
+    <button class="common-btn" bindtap="onCopyEmailClick">复  制</button>
   </view>
+
+  <!-- <view class="card">
+    <text class="title">日志上报</text>
+    <text class="description">当遇到运行错误，请点击下方按钮上报运行日志，这将有助于我们发现并解决问题：</text>
+    <button class="common-btn" open-type="feedback">上  报  日  志</button>
+  </view> -->
 </view>
