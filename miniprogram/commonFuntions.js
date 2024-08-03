@@ -43,7 +43,7 @@ const commonFuntions = {
       }
     })
     wx.hideLoading()
-    logger.info(`获取门禁密码回应: ${JSON.stringify(result)}`)
+    logger.info(`[commonFunction] 获取门禁密码回应: ${JSON.stringify(result)}`)
     const pwd = result?.data.accessControlPassword || ''
     if (pwd === '') {
       wx.showToast({
@@ -52,7 +52,7 @@ const commonFuntions = {
       })
       return
     }
-    logger.info('当前门禁密码: ' + pwd)
+    logger.info('[commonFunction] 当前门禁密码: ' + pwd)
     wx.showModal({
       title: '门禁密码需保密，请不要随意告诉其他人哦～',
       content: `${pwd}#`,
