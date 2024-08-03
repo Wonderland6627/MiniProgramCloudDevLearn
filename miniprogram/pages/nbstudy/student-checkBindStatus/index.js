@@ -1,6 +1,7 @@
 // pages/nbstudy/student-checkBindStatus/index.js
 
 const utils = require('../../../utils/utils.js')
+const log = require('../../../log.js')
 
 Page({
 
@@ -37,7 +38,7 @@ Page({
 			phone: phone,
 			readyForQuery: phone.length === 11,
     })
-    console.log('输入手机号: ' + phone)
+    log.info('输入手机号: ' + phone)
 	},
 	
 	phoneJudge(phone) {
@@ -73,7 +74,7 @@ Page({
     })
 		const data = result?.data
 		if (utils.isEmpty(data)) {
-			console.log('未查询到此手机号待绑定信息')
+			log.info('未查询到此手机号待绑定信息')
 			wx.showToast({
 				title: '无匹配信息',
 				icon: 'error',
@@ -83,7 +84,7 @@ Page({
       })
 			return
 		}
-    console.log(`待绑定信息查询成功: ${JSON.stringify(data)}`)
+    log.info(`待绑定信息查询成功: ${JSON.stringify(data)}`)
     wx.showToast({
       title: '查询成功',
       icon: 'success',
@@ -108,7 +109,7 @@ Page({
       return
     }
     const { phone } = this.data
-    console.log(phone + ' ' + OPENID)
+    log.info(phone + ' ' + OPENID)
     wx.cloud.callFunction({
       name: 'quickstartFunctions',
       data: {
@@ -116,9 +117,9 @@ Page({
         data: { phone, OPENID }
       }
     }).then(res => {
-      console.log('绑定学生信息保存回应: ' + JSON.stringify(res))
+      log.info('绑定学生信息保存回应: ' + JSON.stringify(res))
       if (res.result.code != 0) {
-        console.error('绑定学生信息保存失败: ' + res.result)
+        log.error('绑定学生信息保存失败: ' + res.result)
         wx.showToast({
           title: '绑定失败',
           icon: 'error',
@@ -126,7 +127,7 @@ Page({
         return
       }
       if (res.result.result.stats.updated == 0) {
-        console.error('绑定学生信息保存重复: ' + res.result)
+        log.error('绑定学生信息保存重复: ' + res.result)
         wx.showToast({
           title: '重复绑定',
           icon: 'error',
@@ -145,7 +146,7 @@ Page({
         }
       })
     }).catch(err => {
-      console.error('绑定学生信息保存错误: ' + err)
+      log.error('绑定学生信息保存错误: ' + err)
       wx.showToast({
         title: '绑定错误',
         icon: 'error',

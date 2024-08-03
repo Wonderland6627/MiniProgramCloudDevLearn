@@ -22,7 +22,6 @@ exports.main = async (event, context) => {
       code: matched ? 0 : -2,
     };
   } catch (err) {
-    console.error("登录错误: " + err)
     return {
       code: -3,
     };

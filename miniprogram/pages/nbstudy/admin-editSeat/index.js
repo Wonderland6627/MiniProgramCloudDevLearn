@@ -1,4 +1,7 @@
 // pages/nbstudy/admin-editSeat/index.js
+
+const log = require('../../../log.js')
+
 Page({
 
   /**
@@ -17,11 +20,11 @@ Page({
       content: 'content',
       complete: (res) => {
         if (res.cancel) {
-          console.log('cancel')
+          log.info('cancel')
         }
     
         if (res.confirm) {
-          console.log('confirm')
+          log.info('confirm')
         }
       }
     })

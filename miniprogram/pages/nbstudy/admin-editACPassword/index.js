@@ -1,4 +1,7 @@
 // pages/nbstudy/admin-editACPassword/index.js
+
+const log = require('../../../log.js')
+
 Page({
 
   /**
@@ -33,7 +36,7 @@ Page({
     })
     wx.hideLoading()
     const data = result?.data
-    console.log('当前门禁密码: ' + data.accessControlPassword)
+    log.info('当前门禁密码: ' + data.accessControlPassword)
     this.setData({
       'currentPwd': data.accessControlPassword,
     })
@@ -45,7 +48,7 @@ Page({
       'newPwd': newPwd,
       'pwdValid': newPwd && newPwd.length === 6
     })
-    console.log('修改门禁密码: ' + newPwd)
+    log.info('修改门禁密码: ' + newPwd)
   },
 
   onSave() {
@@ -80,9 +83,9 @@ Page({
         data: { storeID, newPwd }
       }
     }).then(res => {
-      console.log('门禁密码保存回应: ' + JSON.stringify(res))
+      log.info('门禁密码保存回应: ' + JSON.stringify(res))
       if (res.result.code != 0) {
-        console.error('门禁密码保存失败: ' + res.result)
+        log.error('门禁密码保存失败: ' + res.result)
         wx.showToast({
           title: '保存失败',
           icon: 'error',
@@ -90,7 +93,7 @@ Page({
         return
       }
       if (res.result.result.stats.updated == 0) {
-        console.error('门禁密码保存重复: ' + res.result)
+        log.error('门禁密码保存重复: ' + res.result)
         wx.showToast({
           title: '重复保存',
           icon: 'error',
@@ -105,7 +108,7 @@ Page({
         currentPwd: newPwd,
       })
     }).catch(err => {
-      console.error('门禁密码保存错误: ' + err)
+      log.error('门禁密码保存错误: ' + err)
       wx.showToast({
         title: '保存错误',
         icon: 'error',

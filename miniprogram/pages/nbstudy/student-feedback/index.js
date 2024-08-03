@@ -32,7 +32,7 @@ Page({
   async createFeedback() {
     const openid = getApp().getOpenID()
     if (openid === '') {
-      console.error('openid为空，检查登录状态')
+      log.error('openid为空，检查登录状态')
       wx.showToast({
         title: '请检查登录状态',
         icon: 'error',

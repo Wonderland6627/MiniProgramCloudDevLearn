@@ -1,6 +1,7 @@
 // pages/nbstudy/admin-editStudent/index.js
 
 const timeUtils = require('../../../utils/timeUtils.js')
+const log = require('../../../log.js')
 const EditIconPath = '../../../images/icons/admin-edit-active.png'
 
 Page({
@@ -26,7 +27,7 @@ Page({
    */
   onLoad(options) {
 		let info = wx.getStorageSync('selectedStudentInfo')
-		console.log('学生信息: ' + JSON.stringify(info))
+		log.info('学生信息: ' + JSON.stringify(info))
 		this.onReceiveStudentInfo(info)
     wx.removeStorageSync('selectedStudentInfo')
 	},
@@ -59,10 +60,10 @@ Page({
       cancelText: '取消',
       success: function (res) {
         if (res.confirm) {
-          console.log('用户点击确定');
-          console.log('输入的内容为：', res.content);
+          log.info('用户点击确定');
+          log.info('输入的内容为：', res.content);
         } else if (res.cancel) {
-          console.log('用户点击取消');
+          log.info('用户点击取消');
         }
       }.bind(this)
     });

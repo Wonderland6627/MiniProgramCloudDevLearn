@@ -1,4 +1,7 @@
 // components/customTabBar/index.js
+
+const log = require('../log.js')
+
 Component({
 
   /**
@@ -64,7 +67,7 @@ Component({
     changeTabBarList() {
       const isAdmin = getApp().isAdmin
       const list = isAdmin ? this.data.adminTabList : this.data.studentTabList
-      console.log(`用户身份切换: ${ isAdmin ? '管理员' : '非管理员' }`)
+      log.info(`[custom-tab-bar] 用户身份切换: ${ isAdmin ? '管理员' : '非管理员' }`)
       this.setData({
         list: list
       })
@@ -73,7 +76,7 @@ Component({
     switchTab(e) {
       const data = e.currentTarget.dataset
       const url = data.path
-      console.log(url)
+      log.info(`[custom-tab-bar] switch tab: ${url}`)
       wx.switchTab({url})
     }
   }

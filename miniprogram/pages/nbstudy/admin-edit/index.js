@@ -1,4 +1,7 @@
 // pages/nbstudy/admin-edit/index.js
+
+const log = require('../../../log.js')
+
 Page({
 
   /**
@@ -37,28 +40,28 @@ Page({
   },
 
   onSeatCellClick(e) {
-    console.log("onSeatCellClick")
+    log.info("onSeatCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editSeat/index',
     })
   },
 
   onPackageCellClick(e) {
-    console.log("onPackageCellClick")
+    log.info("onPackageCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editPackage/index',
     })
   },
 
   onAccessControlPasswordCellClick(e) {
-    console.log("onAccessControlPasswordCellClick")
+    log.info("onAccessControlPasswordCellClick")
     wx.navigateTo({
       url: '/pages/nbstudy/admin-editACPassword/index',
     })
   },
 
   onLogoutCellClick(e) {
-    console.log("onLogoutCellClick")
+    log.info("onLogoutCellClick")
     getApp().logOut('正在退出登录')
   },
 

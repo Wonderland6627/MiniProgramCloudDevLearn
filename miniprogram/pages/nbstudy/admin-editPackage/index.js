@@ -1,6 +1,7 @@
 // pages/nbstudy/admin-editPackage/index.js
 
 const utils = require('../../../utils/utils.js')
+const log = require('../../../log.js')
 
 //与后台枚举选项内容要保持一致
 const SeatType = {
@@ -96,7 +97,7 @@ Page({
       pageSize: 20,
       getCount: true,
     })
-    console.log('拉取所有套餐信息: ' + JSON.stringify(result))
+    log.info('拉取所有套餐信息: ' + JSON.stringify(result))
     const records = result?.data.records || {}
     if (utils.isEmpty(records)) {
       wx.showToast({
@@ -127,7 +128,7 @@ Page({
         giftDayCount: record.giftDayCount,
       }
     })
-    console.log(packageMap) 
+    log.info(packageMap) 
     this.setData({
       currentPackages: packageMap
     })
@@ -192,13 +193,13 @@ Page({
     }
     modifiedPackages[seatType][durationType][key] = value
     if (JSON.stringify(modifiedPackages[seatType][durationType]) ===  JSON.stringify(currentPackages[seatType][durationType])) {
-      console.log(`modifiedPackages[${seatType}][${durationType}]修改值重置`)
+      log.info(`modifiedPackages[${seatType}][${durationType}]修改值重置`)
       delete modifiedPackages[seatType][durationType]
       if (utils.isEmpty(modifiedPackages[seatType])) {
         delete modifiedPackages[seatType]
       }
     }
-    console.log(modifiedPackages)
+    log.info(modifiedPackages)
     this.setData({
       modifiedPackages: modifiedPackages,
       modified: !utils.isEmpty(modifiedPackages),
@@ -251,7 +252,7 @@ Page({
 		wx.showLoading({
 			title: `${modifiesCount}个修改保存中`,
 		})
-    console.log(`本次修改内容: ${JSON.stringify(modifies)}`)
+    log.info(`本次修改内容: ${JSON.stringify(modifies)}`)
     wx.cloud.callFunction({
       name: 'quickstartFunctions',
       data: {
@@ -259,9 +260,9 @@ Page({
         data: { modifies }
       }
     }).then(res => {
-			console.log('套餐修改保存回应: ' + JSON.stringify(res))
+			log.info('套餐修改保存回应: ' + JSON.stringify(res))
 			if (res.result.code != 0) {
-				console.log('套餐修改保存失败: ' + res.result)
+				log.info('套餐修改保存失败: ' + res.result)
 				wx.showToast({
           title: '保存失败',
           icon: 'error',
@@ -291,7 +292,7 @@ Page({
 				wx.navigateBack()
 			}, 2000)
 		}).catch(err => {
-			console.error('套餐修改保存错误: ' + err)
+			log.error('套餐修改保存错误: ' + err)
       wx.showToast({
         title: '保存错误',
         icon: 'error',
