@@ -15,22 +15,44 @@
   margin-top: 10rpx;
 }
 
-.profile .avatar {
+.avatar {
   width: 160rpx;
   height: 160rpx;
   border-radius: 50%;
+  margin-bottom: 20rpx;
 }
 
-.profile .username {
+.username {
   font-size: 40rpx;
   font-weight: bold;
-  margin-top: 20rpx;
+  margin-bottom: 10rpx;
 }
 
-.profile .school {
-  font-size: 24rpx;
+.school {
+  font-size: 28rpx;
   color: #ff9800;
   text-align: center;
+  margin-bottom: 10rpx;
+}
+
+.target-school-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.target-text {
+  font-size: 26rpx;
+  color: #0080ff;
+  margin-right: 4rpx;
+}
+
+.target-school {
+  font-size: 26rpx;
+  color: #0080ff;
+  border: 1px solid #0080ff;
+  border-radius: 8rpx;
+  padding: 2rpx 4rpx;
 }
 
 .stats {

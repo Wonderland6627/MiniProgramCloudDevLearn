@@ -4,6 +4,10 @@
     <image class="avatar" src="{{studentInfo.avatarUrl}}" />
     <text class="username">{{studentInfo.studentName}}</text>
     <text class="school">{{studentInfo.school}}</text>
+    <view class="target-school-container">
+      <text class="target-text">我的目标:</text>
+      <text class="target-school">{{studentInfo.targetSchool}}</text>
+    </view>
     <view class="stats">
       <view class="stat">
         <text class="stat-value">0天</text>
