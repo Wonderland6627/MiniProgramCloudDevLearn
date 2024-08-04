@@ -13,19 +13,13 @@ exports.main = async (event, context) => {
 			.update({
 				data: modifies,
 			})
-		if (!result) {
-			return {
-        code: -1,
-        errMsg: "empty update result"
-      }
-		}
 		return {
 			code: 0,
       result: result
 		}
 	} catch (err) {
     return {
-      code: -2,
+      code: -1,
       errMsg: err
     };
   }

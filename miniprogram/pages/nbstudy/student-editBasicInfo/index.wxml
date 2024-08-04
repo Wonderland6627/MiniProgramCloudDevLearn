@@ -2,7 +2,7 @@
 <view class="container">
   <button class="avatar-container" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
     <image class="avatar" src="{{studentInfo.avatarUrl}}" />
-    <text class="avatar-tips">点击此处上传头像</text>
+    <text class="avatar-tips">点击此处修改头像</text>
   </button>
 
   <view class='edit-container'>
