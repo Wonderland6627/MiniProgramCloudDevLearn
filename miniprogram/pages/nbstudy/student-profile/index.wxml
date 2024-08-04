@@ -1,7 +1,7 @@
 <!--pages/nbstudy/student-profile/index.wxml-->
 <view class="container">
   <view class="profile">
-    <image class="avatar" src="{{studentInfo.avatarUrl}}" />
+    <image class="avatar" src="{{studentInfo.avatarUrl}}" bindtap="onEditBasicInfoCellClick"/>
     <text class="username">{{studentInfo.studentName}}</text>
     <text class="school">{{studentInfo.school}}</text>
     <view class="target-school-container">
