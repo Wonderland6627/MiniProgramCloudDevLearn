@@ -58,29 +58,70 @@ Page({
     }
   },
 
-  onChooseAvatar(e) {
-    var filePath = e.detail.avatarUrl
-    logger.info('[student-editBasicInfo] 获取头像变化: ' + filePath)
-    var clouthPath = 'studentAvatars/avatar_' + this.data.studentInfo.OPENID + '.png'
-    logger.info(clouthPath)
-    wx.cloud.uploadFile({
-      cloudPath: clouthPath,
-      filePath: filePath
-    }).then(res => {
-      logger.info('[student-editBasicInfo] 头像上传成功: ' + filePath)
-      wx.cloud.getTempFileURL({
-        fileList: [res.fileID]
+  async onChooseAvatar(e) {
+    const OPENID = this.data.studentInfo.OPENID;
+    const filePath = e.detail.avatarUrl;
+    const cloudPath = 'studentAvatars/avatar_' + OPENID + '.png';
+    logger.info(`[student-editBasicInfo] 用户选择本地头像路径: ${filePath} 头像云存储保存路径: ${cloudPath}`);
+    try { 
+      wx.showLoading({ title: '正在上传头像' });
+      const uploadRes = await this.uploadAvatar(filePath, cloudPath);
+
+      wx.showLoading({ title: '获取临时链接' });
+      const tempFileRes = await this.getTempFileURL(uploadRes.fileID);
+      const avatarUrl = tempFileRes.fileList[0].tempFileURL + '?t=' + new Date().getTime();
+      logger.info(`[student-editBasicInfo] 获取到头像临时链接: ${avatarUrl}`)
+
+      wx.showLoading({ title: '正在更新头像' });
+      const modifies = { 'avatarUrl': avatarUrl };
+      await this.updateStudent(OPENID, modifies);
+
+      wx.showToast({ title: '头像更新成功', icon: 'success' });
+      this.setData({ 'studentInfo.avatarUrl': avatarUrl });
+    } catch (error) {
+      logger.error(`[student-editBasicInfo] 头像更新错误: ${error}`);
+      wx.showToast({ title: '头像更新错误', icon: 'error' });
+    }
+  },
+
+  uploadAvatar(filePath, cloudPath) {
+    return new Promise((resolve, reject) => {
+      wx.cloud.uploadFile({
+        cloudPath: cloudPath,
+        filePath: filePath
       }).then(res => {
-        var avatarUrl = res.fileList[0].tempFileURL + '?t=' + new Date().getTime()
-        logger.info('[student-editBasicInfo] 头像CloudURL: ' + avatarUrl)
-        this.setData({
-          'studentInfo.avatarUrl': avatarUrl
-        })
-      }).catch(e => {
-        logger.error('[student-editBasicInfo] 获取CloudURL失败: ' + e)
-      })
-    }).catch(e => {
-      logger.error('[student-editBasicInfo] 头像上传失败: ' + e)
+        logger.info(`[student-editBasicInfo] 上传头像回应: ${JSON.stringify(res)}`);
+        resolve(res);
+      }).catch(reject);
+    })
+  },
+
+  getTempFileURL(fileID) {
+    return new Promise((resolve, reject) => {
+      wx.cloud.getTempFileURL({
+        fileList: [fileID]
+      }).then(res => {
+        logger.info(`[student-editBasicInfo] 获取头像临时链接回应: ${JSON.stringify(res)}`);
+        resolve(res);
+      }).catch(reject);
+    })
+  },
+
+  updateStudent(OPENID, modifies) {
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'quickstartFunctions',
+        data: {
+          type: 'updateStudent',
+          data: {
+            OPENID,
+            modifies
+          },
+        }
+      }).then(res => {
+        logger.info(`[student-editBasicInfo] 更新学生个人信息回应: ${JSON.stringify(res)}`);
+        resolve(res)
+      }).catch(reject);
     })
   },
 
