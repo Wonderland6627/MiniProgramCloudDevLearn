@@ -243,7 +243,7 @@ Page({
     })
     const result = await getApp().getModels().students.update({
       data: {
-        avatarUrl: studentInfo.avatarUrl,
+        // avatarUrl: studentInfo.avatarUrl, // 头像链接已在选择完成后更新 此处不再重复更新
         studentName: studentInfo.studentName,
         phone: studentInfo.phone,
         gender: studentInfo.gender,
