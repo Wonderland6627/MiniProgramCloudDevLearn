@@ -154,6 +154,14 @@ Page({
     logger.info('[student-editBasicInfo] 修改学校名字: ' + name)
   },
 
+  bindInputStudyGoal(e) {
+    const goal = e.detail.value
+    this.setData({
+      'studentInfo.studyGoal': goal
+    })
+    logger.info('[student-editBasicInfo] 修改学习目标: ' + goal)
+  },
+
   saveInfo() {
     logger.info('[student-editBasicInfo] save')
     this.tryUpdateStudentInfo()
@@ -199,6 +207,9 @@ Page({
         phone: studentInfo.phone,
         gender: studentInfo.gender,
         birthday: studentInfo.birthday,
+
+        school: studentInfo.school,
+        studyGoal: studentInfo.studyGoal,
       },
       filter: {
         where: {
@@ -214,7 +225,7 @@ Page({
       })
       logger.error('[student-editBasicInfo] 学生基础信息保存错误: ' + err)
     })
-    logger.info('[student-editBasicInfo] 学生基础信息保存回应: ' + result)
+    logger.info('[student-editBasicInfo] 学生基础信息保存回应: ' + JSON.stringify(result))
     if (result?.data.count != 1) {
       wx.showToast({
         title: '保存失败',

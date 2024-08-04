@@ -46,6 +46,11 @@
       <text class="title">学校:</text>
       <input class='edit-input' bindinput="bindInputSchool" placeholder='请输入学校' value="{{studentInfo.school}}"></input>
     </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/target-school.svg"></image>
+      <text class="title">我的目标:</text>
+      <input class='edit-input' bindinput="bindInputStudyGoal" placeholder='给自己设定一个学习目标吧' value="{{studentInfo.studyGoal}}"></input>
+    </view>
   </view>
 
   <button class="common-btn" bindtap='saveInfo'>保  存</button>
