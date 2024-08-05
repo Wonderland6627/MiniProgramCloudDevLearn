@@ -10,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isNewUser: false,
+
     genderIndex: -1,
     genderArray: [
       '女生', '男生',
@@ -31,12 +33,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    let isNewUser = options.isNewUser
     let info = getApp().dataMgr.getStudentInfo()
     this.setData({
+      isNewUser: isNewUser,
       currentStudentInfo: utils.cloneWithJSON(info),
       studentInfo: info,
     })
-    logger.info('[student-editBasicInfo] 获取studentBasicInfo: ' + JSON.stringify(info))
+    logger.info(`[student-editBasicInfo] isNewUser: ${isNewUser} 获取studentBasicInfo: ${JSON.stringify(info)}`)
 
     if (!this.data.studentInfo.OPENID) {
       this.setData({
@@ -252,7 +256,13 @@ Page({
       logger.info('[student-editBasicInfo] 学生基础信息保存成功')
       wx.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
       getApp().dataMgr.setStudentInfo(studentInfo)
-      setTimeout(() => { wx.navigateBack() }, 1500)
+      setTimeout(() => {
+        if (this.data.isNewUser) {
+          wx.switchTab({ url: '/pages/nbstudy/student-main/index' })      
+          return
+        }
+        wx.navigateBack()
+      }, 1500)
     } catch (error) {
       logger.error(`[student-editBasicInfo] 更新学生基础信息错误: ${error}`)
       wx.showToast({ title: '更新信息错误', icon: 'error' })

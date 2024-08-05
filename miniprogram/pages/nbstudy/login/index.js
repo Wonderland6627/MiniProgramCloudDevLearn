@@ -220,7 +220,7 @@ Page({
 
   gotoFillAccount() {
     wx.navigateTo({
-      url: '/pages/nbstudy/student-editBasicInfo/index',
+      url: '/pages/nbstudy/student-editBasicInfo/index?isNewUser=true',
     })
   },
 
