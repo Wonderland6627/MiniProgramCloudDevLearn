@@ -9,17 +9,17 @@
     <text class="edit-title">基础信息</text>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/name.svg"></image>
-      <text class="title">姓名:</text>
+      <text class="title">{{titles.studentName}}</text>
       <input class='edit-input' bindinput="bindInputName" placeholder='请输入姓名' value="{{studentInfo.studentName}}"></input>
     </view>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/phone.svg"></image>
-      <text class="title">电话:</text>
+      <text class="title">{{titles.phone}}</text>
       <input class='edit-input' bindinput="bindInputPhone" placeholder='请输入手机' type="number" maxlength="11" value="{{studentInfo.phone}}"></input>
     </view>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/gender.svg"></image>
-      <text class="title">性别:</text>
+      <text class="title">{{titles.gender}}</text>
       <picker class="edit-picker" range="{{genderArray}}" value="{{genderIndex}}" bindchange="bindGenderChange" bindtap="bindGenderTap">
         <view class="picker">
           <text class="edit-picker-placeholder-text" wx:if="{{genderIndex == -1}}">请输入性别</text>
@@ -29,7 +29,7 @@
     </view>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/birthday.svg"></image>
-      <text class="title">生日:</text>
+      <text class="title">{{titles.birthday}}</text>
       <picker class="edit-picker" mode="date" start="{{birthdaySelectRange[0]}}" end="{{birthdaySelectRange[1]}}" value="{{studentInfo.birthdayFormat}}" bindchange="bindBirthdayChange"> 
         <view class="picker">
           <text wx:if="{{studentInfo.birthdayFormat}}">{{studentInfo.birthdayFormat}}</text>
@@ -43,12 +43,12 @@
     <text class="edit-title">教育信息</text>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/school.svg"></image>
-      <text class="title">学校:</text>
+      <text class="title">{{titles.school}}</text>
       <input class='edit-input' bindinput="bindInputSchool" placeholder='请输入学校' value="{{studentInfo.school}}"></input>
     </view>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/target-school.svg"></image>
-      <text class="title">我的目标:</text>
+      <text class="title">{{titles.studyGoal}}</text>
       <input class='edit-input' bindinput="bindInputStudyGoal" placeholder='给自己设定一个学习目标吧' value="{{studentInfo.studyGoal}}"></input>
     </view>
   </view>

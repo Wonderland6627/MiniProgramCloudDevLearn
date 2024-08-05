@@ -1,7 +1,12 @@
-export function isEmpty(obj) {
+function isEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
 
-export function cloneWithJSON(obj) {
+function cloneWithJSON(obj) {
   return JSON.parse(JSON.stringify(obj))
+}
+
+module.exports = {
+  isEmpty: isEmpty,
+  cloneWithJSON: cloneWithJSON
 }

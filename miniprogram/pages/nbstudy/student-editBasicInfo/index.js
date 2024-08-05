@@ -12,6 +12,15 @@ Page({
   data: {
     isNewUser: false,
 
+    titles: {
+      studentName: '姓名',
+      phone: '电话',
+      gender: '性别',
+      birthday: '生日',
+
+      school: '学校',
+      studyGoal: '我的目标',
+    },
     genderIndex: -1,
     genderArray: [
       '女生', '男生',
@@ -19,7 +28,6 @@ Page({
     currentStudentInfo: {}, //初始值
     modifies: {}, //修改值
     studentInfo: { //显示值
-      avatarUrl: getApp().globalData.defaultAvatarUrl,
       //birthday：远端数据 timestamp
       //birthdayFormat: 本地数据 dateformat
     },
@@ -79,7 +87,28 @@ Page({
     this.setData({
       modifies: modifies
     })
+    this.updateModifyMark()
     logger.info(`[student-editBasicInfo] modifies: ${JSON.stringify(modifies)}`)
+  },
+
+  updateModifyMark() {
+    const { titles, modifies } = this.data
+    Object.keys(titles).forEach(key => {
+      titles[key] = this.setModifyMark(titles[key], false)
+    })
+    Object.keys(modifies).forEach(key => {
+      titles[key] = this.setModifyMark(titles[key], true)
+    })
+    this.setData({
+      titles: titles
+    })
+  },
+
+  setModifyMark(label, enable) {
+    if (enable) {
+      return label.replace(/\*+$/, '') + '*'
+    }
+    return label.replace(/\*/g, '')
   },
 
   async onChooseAvatar(e) {
@@ -137,13 +166,14 @@ Page({
         name: 'quickstartFunctions',
         data: {
           type: 'updateStudent',
-          data: {
-            OPENID,
-            modifies
-          },
+          data: { OPENID, modifies },
         }
       }).then(res => {
         logger.info(`[student-editBasicInfo] 更新学生基础信息回应: ${JSON.stringify(res)}`);
+        if (res.result.code !== 0) {
+          reject(JSON.stringify(res))
+          return
+        }
         resolve(res)
       }).catch(reject);
     })
