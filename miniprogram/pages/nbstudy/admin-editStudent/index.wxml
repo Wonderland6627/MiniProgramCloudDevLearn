@@ -1,38 +1,57 @@
 <!--pages/nbstudy/admin-editStudent/index.wxml-->
-<view class="top-section">
-	<view class="info-section">
-		<view class="info-item">
-			<view class="title">姓名:</view>
-			<view class="info-label">{{studentInfo.studentName}}</view>
-			<image class="edit-icon" src="{{editIconPath}}"></image>
-		</view>
-		<view class="info-item">
-			<view class="title">年龄:</view>
-			<view class="info-label">{{age}}</view>
-			<image class="edit-icon" src="{{editIconPath}}"></image>
-		</view>
-		<view class="info-item">
-			<view class="title">性别:</view>
-			<view class="info-label">{{genderArray[genderIndex]}}</view>
-			<image class="edit-icon" src="{{editIconPath}}"></image>
-		</view>
-	</view>
-	<view class="avatar-container">
-		<image class="avatar" src="{{studentInfo.avatarUrl}}"></image>
-	</view>
-</view>
+<view class="container">
+  <button class="avatar-container" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{studentInfo.avatarUrl}}" />
+    <text class="avatar-tips">点击此处修改头像</text>
+  </button>
 
-<view class="bottom-section">
-	<view class="info-section">
-		<view class="info-item">
-			<view class="title">学校:</view>
-			<view class="info-label">{{studentInfo.school}}</view>
-			<image class="edit-icon" src="{{editIconPath}}"></image>
-		</view>
-		<view class="info-item">
-			<view class="title">电话:</view>
-			<view class="info-label">{{studentInfo.phone}}</view>
-			<image class="edit-icon" src="{{editIconPath}}"></image>
-		</view>
-	</view>
+  <view class='edit-container'>
+    <text class="edit-title">基础信息</text>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/name.svg"></image>
+      <text class="title">姓名:</text>
+      <input class='edit-input' bindinput="bindInputName" placeholder='请输入姓名' value="{{studentInfo.studentName}}"></input>
+    </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/phone.svg"></image>
+      <text class="title">电话:</text>
+      <input class='edit-input' bindinput="bindInputPhone" placeholder='请输入手机' type="number" maxlength="11" value="{{studentInfo.phone}}"></input>
+    </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/gender.svg"></image>
+      <text class="title">性别:</text>
+      <picker class="edit-picker" range="{{genderArray}}" value="{{genderIndex}}" bindchange="bindGenderChange" bindtap="bindGenderTap">
+        <view class="picker">
+          <text class="edit-picker-placeholder-text" wx:if="{{genderIndex == -1}}">请输入性别</text>
+          <text wx:else>{{genderArray[genderIndex]}}</text>
+        </view>
+      </picker>
+    </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/birthday.svg"></image>
+      <text class="title">生日:</text>
+      <picker class="edit-picker" mode="date" start="{{birthdaySelectRange[0]}}" end="{{birthdaySelectRange[1]}}" value="{{studentInfo.birthdayFormat}}" bindchange="bindBirthdayChange"> 
+        <view class="picker">
+          <text wx:if="{{studentInfo.birthdayFormat}}">{{studentInfo.birthdayFormat}}</text>
+          <text class="edit-picker-placeholder-text" wx:else>请输入生日</text>
+        </view>
+      </picker> 
+    </view>
+  </view>
+
+  <view class='edit-container'>
+    <text class="edit-title">教育信息</text>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/school.svg"></image>
+      <text class="title">学校:</text>
+      <input class='edit-input' bindinput="bindInputSchool" placeholder='请输入学校' value="{{studentInfo.school}}"></input>
+    </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/target-school.svg"></image>
+      <text class="title">我的目标:</text>
+      <input class='edit-input' bindinput="bindInputStudyGoal" placeholder='给自己设定一个学习目标吧' value="{{studentInfo.studyGoal}}"></input>
+    </view>
+  </view>
+
+  <button class="common-btn" bindtap='saveInfo'>保  存</button>
 </view>

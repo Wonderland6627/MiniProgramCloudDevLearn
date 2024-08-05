@@ -1,8 +1,8 @@
 // pages/nbstudy/admin-editStudent/index.js
 
+const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 const logger = require('../../../logger.js')
-const EditIconPath = '../../../images/icons/admin-edit-active.png'
 
 Page({
 
@@ -10,64 +10,264 @@ Page({
    * 页面的初始数据
    */
   data: {
-		genderIndex: -1,
+    isNewUser: false,
+
+    genderIndex: -1,
     genderArray: [
       '女生', '男生',
-		],
-		age: -1,
-    studentInfo: {
-			avatarUrl: getApp().globalData.defaultAvatarUrl,
-		},
-
-		editIconPath: EditIconPath,
+    ],
+    currentStudentInfo: {}, //初始值
+    modifies: {}, //修改值
+    studentInfo: { //显示值
+      avatarUrl: getApp().globalData.defaultAvatarUrl,
+      //birthday：远端数据 timestamp
+      //birthdayFormat: 本地数据 dateformat
+    },
+    birthdaySelectRange: [
+      "1900-01-01",
+      timeUtils.timeStamp2DateFormat(Date.now()) //Date.now() 返回的是时间戳
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-		let info = wx.getStorageSync('selectedStudentInfo')
-		logger.info('学生信息: ' + JSON.stringify(info))
-		this.onReceiveStudentInfo(info)
-    wx.removeStorageSync('selectedStudentInfo')
-	},
-	
-	onReceiveStudentInfo(studentInfo) {
-		if (studentInfo.gender) {
-      this.setData({
-        genderIndex: studentInfo.gender
-			})
-		}
-		if (studentInfo.birthday) {
-			const age = timeUtils.calculateAgeFromTimeStamp(studentInfo.birthday)
-			this.setData({
-        age: age
-			})
-		}
-		this.setData({
-			studentInfo: studentInfo
-		})
-		this.showModalWithInput()
-	},
+    let isNewUser = options.isNewUser
+    let info = getApp().dataMgr.getStudentInfo()
+    this.setData({
+      isNewUser: isNewUser,
+      currentStudentInfo: utils.cloneWithJSON(info),
+      studentInfo: info,
+    })
+    logger.info(`[student-editBasicInfo] isNewUser: ${isNewUser} 获取studentBasicInfo: ${JSON.stringify(info)}`)
 
-	showModalWithInput: function () {
-    wx.showModal({
-      title: '输入框弹窗',
-			editable: true,
-			placeholderText: '123',
-      showCancel: true,
-      confirmText: '确定',
-      cancelText: '取消',
-      success: function (res) {
-        if (res.confirm) {
-          logger.info('[admin-editStudent] 用户点击确定');
-          logger.info('[admin-editStudent] 输入的内容为：', res.content);
-        } else if (res.cancel) {
-          logger.info('[admin-editStudent] 用户点击取消');
+    if (!this.data.studentInfo.OPENID) {
+      this.setData({
+        'studentInfo.OPENID': getApp().getOpenID(),
+      })
+    }
+    if (this.data.studentInfo.gender) {
+      this.setData({
+        'genderIndex': this.data.studentInfo.gender
+      })
+    }
+    if (this.data.studentInfo.birthday) {
+      const birthdayFormat = timeUtils.timeStamp2DateFormat(this.data.studentInfo.birthday)
+      this.setData({
+        'studentInfo.birthdayFormat': birthdayFormat
+      })
+    }
+    if (!this.data.studentInfo.avatarUrl) {
+      this.setData({
+        'studentInfo.avatarUrl': getApp().globalData.defaultAvatarUrl
+      })
+    }
+  },
+
+  modifiesData(newData) {
+    this.setData({
+      modifies: Object.assign({}, this.data.modifies, newData)
+    })
+    const { currentStudentInfo, modifies } = this.data
+    Object.keys(newData).forEach(key => {
+      if (modifies[key] === currentStudentInfo[key]) {
+        logger.info(`[student-editBasicInfo] {'${key}': '${modifies[key]}'} 与初始值相同 移除此key`)
+        delete modifies[key]
+      }
+    })
+    this.setData({
+      modifies: modifies
+    })
+    logger.info(`[student-editBasicInfo] modifies: ${JSON.stringify(modifies)}`)
+  },
+
+  async onChooseAvatar(e) {
+    const OPENID = this.data.studentInfo.OPENID;
+    const filePath = e.detail.avatarUrl;
+    const cloudPath = 'studentAvatars/avatar_' + OPENID + '.png';
+    logger.info(`[student-editBasicInfo] 用户选择本地头像路径: ${filePath} 头像云存储保存路径: ${cloudPath}`);
+    try { 
+      wx.showLoading({ title: '正在上传头像' });
+      const uploadRes = await this.uploadAvatar(filePath, cloudPath);
+
+      wx.showLoading({ title: '获取临时链接' });
+      const tempFileRes = await this.getTempFileURL(uploadRes.fileID);
+      const avatarUrl = tempFileRes.fileList[0].tempFileURL + '?t=' + new Date().getTime();
+      logger.info(`[student-editBasicInfo] 获取到头像临时链接: ${avatarUrl}`)
+
+      wx.showLoading({ title: '正在更新头像' });
+      const modifies = { 'avatarUrl': avatarUrl };
+      await this.updateStudent(OPENID, modifies);
+
+      wx.showToast({ title: '头像更新成功', icon: 'success' });
+      this.setData({ 'studentInfo.avatarUrl': avatarUrl });
+    } catch (error) {
+      logger.error(`[student-editBasicInfo] 头像更新错误: ${error}`);
+      wx.showToast({ title: '头像更新错误', icon: 'error' });
+    }
+  },
+
+  uploadAvatar(filePath, cloudPath) {
+    return new Promise((resolve, reject) => {
+      wx.cloud.uploadFile({
+        cloudPath: cloudPath,
+        filePath: filePath
+      }).then(res => {
+        logger.info(`[student-editBasicInfo] 上传头像回应: ${JSON.stringify(res)}`);
+        resolve(res);
+      }).catch(reject);
+    })
+  },
+
+  getTempFileURL(fileID) {
+    return new Promise((resolve, reject) => {
+      wx.cloud.getTempFileURL({
+        fileList: [fileID]
+      }).then(res => {
+        logger.info(`[student-editBasicInfo] 获取头像临时链接回应: ${JSON.stringify(res)}`);
+        resolve(res);
+      }).catch(reject);
+    })
+  },
+
+  updateStudent(OPENID, modifies) {
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'quickstartFunctions',
+        data: {
+          type: 'updateStudent',
+          data: {
+            OPENID,
+            modifies
+          },
         }
-      }.bind(this)
-    });
-	},
+      }).then(res => {
+        logger.info(`[student-editBasicInfo] 更新学生基础信息回应: ${JSON.stringify(res)}`);
+        resolve(res)
+      }).catch(reject);
+    })
+  },
+
+  bindInputName(e) {
+    const name = this.nameJudge(e.detail.value)
+    this.setData({ 'studentInfo.studentName': name })
+    this.modifiesData({ 'studentName': name })
+    logger.info('[student-editBasicInfo] 修改学生名字: ' + name)
+  },
+
+  nameJudge(name) {
+    return name.toString().replace(/[^\u4e00-\u9fa5\w]/g,'')
+  },
+
+  bindInputPhone(e) {
+    const phone = this.phoneJudge(e.detail.value)
+    this.setData({ 'studentInfo.phone': phone })
+    this.modifiesData({ 'phone': phone })
+    logger.info('[student-editBasicInfo] 修改电话: ' + phone)
+  },
+
+  phoneJudge(phone) {
+    return phone.toString().replace(/\D/g, '')
+  },
+
+  bindBirthdayChange(e) { 
+    const birthdayFormat = e.detail.value 
+    this.setData({ 
+      'studentInfo.birthdayFormat': birthdayFormat
+    }) //这个值用于转换时间 不要上传
+    logger.info('[student-editBasicInfo] 修改生日Format: ' + birthdayFormat)
+    this.birthdayParser(birthdayFormat)
+  }, 
+
+  birthdayParser(birthdayFormat) {
+    if (!birthdayFormat) {
+      logger.error('[student-editBasicInfo] 检查选择的生日Format')
+      return
+    }
+    const birthdayTimeStamp = timeUtils.dateFormat2TimeStamp(birthdayFormat)
+    this.setData({ 'studentInfo.birthday': birthdayTimeStamp })
+    this.modifiesData({ 'birthday': birthdayTimeStamp })
+    logger.info('[student-editBasicInfo] 修改生日TimeStamp: ' + birthdayTimeStamp)
+  },
+
+  bindGenderChange(e) {
+    const index = e.detail.value
+    this.setData({
+      'genderIndex': index,
+      'studentInfo.gender': index,
+    })
+    this.modifiesData({ 'gender': index })
+    logger.info('[student-editBasicInfo] 修改性别: ' + this.data.genderArray[index])
+  },
+
+  bindGenderTap(e) {
+    if (this.data.genderIndex == -1) { //防止第一次点击默认选中的位置不对
+      this.setData({
+        'genderIndex': 0
+      })
+    }
+  },
+
+  bindInputSchool(e) {
+    const school = e.detail.value
+    this.setData({ 'studentInfo.school': school })
+    this.modifiesData({ 'school': school })
+    logger.info('[student-editBasicInfo] 修改学校名字: ' + school)
+  },
+
+  bindInputStudyGoal(e) {
+    const goal = e.detail.value
+    this.setData({ 'studentInfo.studyGoal': goal })
+    this.modifiesData({ 'studyGoal': goal })
+    logger.info('[student-editBasicInfo] 修改学习目标: ' + goal)
+  },
+
+  saveInfo() {
+    logger.info('[student-editBasicInfo] 保存个人信息')
+    this.tryUpdateStudentInfo()
+  },
+
+  async tryUpdateStudentInfo() {
+    const { studentInfo } = this.data
+    //必填信息 start
+    if (!studentInfo.studentName) {
+      wx.showToast({ title: '请输入学生姓名', icon: 'error' })
+      return
+    }
+    if (!studentInfo.phone || studentInfo.phone.length != 11) {
+      wx.showToast({ title: '请输入手机号', icon: 'error' })
+      return
+    }
+    if (!(this.data.genderIndex == 0 || this.data.genderIndex == 1)) {
+      wx.showToast({ title: '请选择性别', icon: 'error' })
+      return
+    }
+    if (!studentInfo.birthday) {
+      wx.showToast({ title: '请输入生日', icon: 'error' })
+      return
+    }
+    //必填信息 end
+    wx.showLoading({ title: '正在保存' })
+    try { 
+      const { modifies } = this.data
+      const OPENID = studentInfo.OPENID
+      await this.updateStudent(OPENID, modifies)
+      logger.info('[student-editBasicInfo] 学生基础信息保存成功')
+      wx.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
+      getApp().dataMgr.setStudentInfo(studentInfo)
+      setTimeout(() => {
+        if (this.data.isNewUser) {
+          wx.switchTab({ url: '/pages/nbstudy/student-main/index' })      
+          return
+        }
+        wx.navigateBack()
+      }, 1500)
+    } catch (error) {
+      logger.error(`[student-editBasicInfo] 更新学生基础信息错误: ${error}`)
+      wx.showToast({ title: '更新信息错误', icon: 'error' })
+    }
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
