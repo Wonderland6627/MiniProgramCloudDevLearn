@@ -22,9 +22,9 @@ Page({
         onTap: "onViewWiFiClick"
       },
       {
-        title: "打卡记录",
-        icon: "../../../images/icons/sign-in.svg",
-        onTap: "onViewSignInClick"
+        title: "工具箱",
+        icon: "../../../images/icons/tools.svg",
+        onTap: "onToolsClick"
       },
     ],
 
