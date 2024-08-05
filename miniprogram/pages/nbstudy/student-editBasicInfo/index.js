@@ -14,7 +14,9 @@ Page({
     genderArray: [
       '女生', '男生',
     ],
-    studentInfo: {
+    currentStudentInfo: {}, //初始值
+    modifies: {}, //修改值
+    studentInfo: { //显示值
       avatarUrl: getApp().globalData.defaultAvatarUrl,
       //birthday：远端数据 timestamp
       //birthdayFormat: 本地数据 dateformat
@@ -31,6 +33,7 @@ Page({
   onLoad(options) {
     let info = getApp().dataMgr.getStudentInfo()
     this.setData({
+      currentStudentInfo: utils.cloneWithJSON(info),
       studentInfo: info,
     })
     logger.info('[student-editBasicInfo] 获取studentBasicInfo: ' + JSON.stringify(info))
@@ -56,6 +59,23 @@ Page({
         'studentInfo.avatarUrl': getApp().globalData.defaultAvatarUrl
       })
     }
+  },
+
+  modifiesData(newData) {
+    this.setData({
+      modifies: Object.assign({}, this.data.modifies, newData)
+    })
+    const { currentStudentInfo, modifies } = this.data
+    Object.keys(newData).forEach(key => {
+      if (modifies[key] === currentStudentInfo[key]) {
+        logger.info(`[student-editBasicInfo] {'${key}': '${modifies[key]}'} 与初始值相同 移除此key`)
+        delete modifies[key]
+      }
+    })
+    this.setData({
+      modifies: modifies
+    })
+    logger.info(`[student-editBasicInfo] modifies: ${JSON.stringify(modifies)}`)
   },
 
   async onChooseAvatar(e) {
@@ -119,7 +139,7 @@ Page({
           },
         }
       }).then(res => {
-        logger.info(`[student-editBasicInfo] 更新学生个人信息回应: ${JSON.stringify(res)}`);
+        logger.info(`[student-editBasicInfo] 更新学生基础信息回应: ${JSON.stringify(res)}`);
         resolve(res)
       }).catch(reject);
     })
@@ -127,9 +147,8 @@ Page({
 
   bindInputName(e) {
     const name = this.nameJudge(e.detail.value)
-    this.setData({
-      'studentInfo.studentName': name
-    })
+    this.setData({ 'studentInfo.studentName': name })
+    this.modifiesData({ 'studentName': name })
     logger.info('[student-editBasicInfo] 修改学生名字: ' + name)
   },
 
@@ -139,9 +158,8 @@ Page({
 
   bindInputPhone(e) {
     const phone = this.phoneJudge(e.detail.value)
-    this.setData({
-      'studentInfo.phone': phone
-    })
+    this.setData({ 'studentInfo.phone': phone })
+    this.modifiesData({ 'phone': phone })
     logger.info('[student-editBasicInfo] 修改电话: ' + phone)
   },
 
@@ -153,7 +171,7 @@ Page({
     const birthdayFormat = e.detail.value 
     this.setData({ 
       'studentInfo.birthdayFormat': birthdayFormat
-    })
+    }) //这个值用于转换时间 不要上传
     logger.info('[student-editBasicInfo] 修改生日Format: ' + birthdayFormat)
     this.birthdayParser(birthdayFormat)
   }, 
@@ -164,18 +182,18 @@ Page({
       return
     }
     const birthdayTimeStamp = timeUtils.dateFormat2TimeStamp(birthdayFormat)
-    this.setData({
-      'studentInfo.birthday': birthdayTimeStamp
-    })
+    this.setData({ 'studentInfo.birthday': birthdayTimeStamp })
+    this.modifiesData({ 'birthday': birthdayTimeStamp })
     logger.info('[student-editBasicInfo] 修改生日TimeStamp: ' + birthdayTimeStamp)
   },
 
   bindGenderChange(e) {
     const index = e.detail.value
     this.setData({
-      'genderIndex': e.detail.value,
-      'studentInfo.gender': e.detail.value,
+      'genderIndex': index,
+      'studentInfo.gender': index,
     })
+    this.modifiesData({ 'gender': index })
     logger.info('[student-editBasicInfo] 修改性别: ' + this.data.genderArray[index])
   },
 
@@ -188,106 +206,57 @@ Page({
   },
 
   bindInputSchool(e) {
-    const name = e.detail.value
-    this.setData({
-      'studentInfo.school': name
-    })
-    logger.info('[student-editBasicInfo] 修改学校名字: ' + name)
+    const school = e.detail.value
+    this.setData({ 'studentInfo.school': school })
+    this.modifiesData({ 'school': school })
+    logger.info('[student-editBasicInfo] 修改学校名字: ' + school)
   },
 
   bindInputStudyGoal(e) {
     const goal = e.detail.value
-    this.setData({
-      'studentInfo.studyGoal': goal
-    })
+    this.setData({ 'studentInfo.studyGoal': goal })
+    this.modifiesData({ 'studyGoal': goal })
     logger.info('[student-editBasicInfo] 修改学习目标: ' + goal)
   },
 
   saveInfo() {
-    logger.info('[student-editBasicInfo] save')
+    logger.info('[student-editBasicInfo] 保存个人信息')
     this.tryUpdateStudentInfo()
   },
 
   async tryUpdateStudentInfo() {
     const { studentInfo } = this.data
+    //必填信息 start
     if (!studentInfo.studentName) {
-      wx.showToast({
-        title: '请输入学生姓名',
-        icon: 'error',
-      })
+      wx.showToast({ title: '请输入学生姓名', icon: 'error' })
       return
     }
     if (!studentInfo.phone || studentInfo.phone.length != 11) {
-      wx.showToast({
-        title: '请输入手机号',
-        icon: 'error',
-      })
+      wx.showToast({ title: '请输入手机号', icon: 'error' })
       return
     }
     if (!(this.data.genderIndex == 0 || this.data.genderIndex == 1)) {
-      wx.showToast({
-        title: '请选择性别',
-        icon: 'error',
-      })
+      wx.showToast({ title: '请选择性别', icon: 'error' })
       return
     }
     if (!studentInfo.birthday) {
-      wx.showToast({
-        title: '请输入生日',
-        icon: 'error',
-      })
+      wx.showToast({ title: '请输入生日', icon: 'error' })
       return
     }
-    wx.showLoading({
-      title: '正在保存',
-    })
-    const result = await getApp().getModels().students.update({
-      data: {
-        // avatarUrl: studentInfo.avatarUrl, // 头像链接已在选择完成后更新 此处不再重复更新
-        studentName: studentInfo.studentName,
-        phone: studentInfo.phone,
-        gender: studentInfo.gender,
-        birthday: studentInfo.birthday,
-
-        school: studentInfo.school,
-        studyGoal: studentInfo.studyGoal,
-      },
-      filter: {
-        where: {
-          OPENID: {
-            $eq: studentInfo.OPENID
-          }
-        }
-      }
-    }).catch(err => {
-      wx.showToast({
-        title: '保存错误',
-        icon: 'error',
-      })
-      logger.error('[student-editBasicInfo] 学生基础信息保存错误: ' + err)
-    })
-    logger.info('[student-editBasicInfo] 学生基础信息保存回应: ' + JSON.stringify(result))
-    if (result?.data.count != 1) {
-      wx.showToast({
-        title: '保存失败',
-        icon: 'error',
-      })
-      logger.info('[student-editBasicInfo] 学生基础信息保存失败')
-      return
+    //必填信息 end
+    wx.showLoading({ title: '正在保存' })
+    try { 
+      const { modifies } = this.data
+      const OPENID = studentInfo.OPENID
+      await this.updateStudent(OPENID, modifies)
+      logger.info('[student-editBasicInfo] 学生基础信息保存成功')
+      wx.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
+      getApp().dataMgr.setStudentInfo(studentInfo)
+      setTimeout(() => { wx.navigateBack() }, 1500)
+    } catch (error) {
+      logger.error(`[student-editBasicInfo] 更新学生基础信息错误: ${error}`)
+      wx.showToast({ title: '更新信息错误', icon: 'error' })
     }
-    wx.showToast({
-      title: '保存成功',
-      icon: 'success',
-    })
-    logger.info('[student-editBasicInfo] 学生基础信息保存成功')
-    getApp().dataMgr.setStudentInfo(studentInfo)
-    this.gotoStudentMain()
-  },
-
-  gotoStudentMain() {
-    wx.switchTab({
-      url: '/pages/nbstudy/student-main/index',
-    })
   },
 
   /**
