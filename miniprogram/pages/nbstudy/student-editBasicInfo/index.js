@@ -88,7 +88,7 @@ Page({
       modifies: modifies
     })
     this.updateModifyMark()
-    logger.info(`[student-editBasicInfo] modifies: ${JSON.stringify(modifies)}`)
+    // logger.info(`[student-editBasicInfo] modifies: ${JSON.stringify(modifies)}`)
   },
 
   updateModifyMark() {
@@ -281,6 +281,7 @@ Page({
     wx.showLoading({ title: '正在保存' })
     try { 
       const { modifies } = this.data
+      logger.info(`[student-editBasicInfo] 本次修改内容 modifies: ${JSON.stringify(modifies)}`)
       const OPENID = studentInfo.OPENID
       await this.updateStudent(OPENID, modifies)
       logger.info('[student-editBasicInfo] 学生基础信息保存成功')
