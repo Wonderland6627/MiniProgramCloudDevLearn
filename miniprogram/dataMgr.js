@@ -7,7 +7,7 @@ const dataMgr = {
 	studentInfo: {},
 	
 	setStudentInfo(info) {
-    this.studentInfo = info
+    this.studentInfo = utils.cloneWithJSON(info)
     logger.info('[dataMgr] set student info')
   },
 
@@ -19,7 +19,7 @@ const dataMgr = {
         throw new Error('[dataMgr] get student info null, back to login')
       }
     }
-    return this.studentInfo
+    return utils.cloneWithJSON(this.studentInfo)
   },
 
   fetchStudentInfo() {
