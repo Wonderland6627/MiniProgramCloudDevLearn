@@ -301,6 +301,7 @@ Page({
       logger.info('[student-editBasicInfo] 学生基础信息保存成功')
       wx.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
       getApp().dataMgr.setStudentInfo(studentInfo)
+      this.enableAlertBeforeUnload(false)
       setTimeout(() => {
         if (this.data.isNewUser) {
           wx.switchTab({ url: '/pages/nbstudy/student-main/index' })      
