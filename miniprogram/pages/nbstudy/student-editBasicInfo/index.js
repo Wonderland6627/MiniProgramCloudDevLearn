@@ -73,6 +73,19 @@ Page({
     }
   },
 
+  enableAlertBeforeUnload(enable) {
+    logger.info(`[student-editBasicInfo] 退出前显示未保存修改提示: ${enable}`)
+    if (!enable) {
+      wx.disableAlertBeforeUnload()
+      return
+    }
+    const { modifies } = this.data
+    const modifiesCount = Object.keys(modifies).length
+    wx.enableAlertBeforeUnload({
+      message: `你有 ${modifiesCount} 条信息修改未保存，确定要退出吗？`,
+    })
+  },
+
   modifiesData(newData) {
     this.setData({
       modifies: Object.assign({}, this.data.modifies, newData)
@@ -88,6 +101,7 @@ Page({
       modifies: modifies
     })
     this.updateModifyMark()
+    this.enableAlertBeforeUnload(!utils.isEmpty(modifies))
     // logger.info(`[student-editBasicInfo] modifies: ${JSON.stringify(modifies)}`)
   },
 
