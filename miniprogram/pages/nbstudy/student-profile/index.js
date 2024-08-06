@@ -2,6 +2,8 @@
 
 const cf = require('../../../commonFuntions.js')
 const logger = require('../../../logger.js')
+const utils = require('../../../utils/utils.js')
+const timeUtils = require('../../../utils/timeUtils.js')
 
 Page({
 
@@ -9,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    joinedDays: 0,
     studentInfo: {},
 
     toolInfos: [
@@ -61,6 +64,12 @@ Page({
       studentInfo: info,
     })
     logger.info('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
+
+    if (info.joinedDate) {
+      this.setData({
+        joinedDays: timeUtils.calculateDaysDifference(info.joinedDate),
+      })
+    }
   },
 
   onViewAccessControlClick(e) {

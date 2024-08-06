@@ -46,3 +46,11 @@ export function calculateAgeFromTimeStamp(timeStamp) {
 	}
 	return age;
 }
+
+//获取传入时间到现在的天数
+export function calculateDaysDifference(timestamp) {
+    const currentDate = new Date().getTime();
+    const timeDiff = currentDate - timestamp;
+    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    return daysDiff;
+}

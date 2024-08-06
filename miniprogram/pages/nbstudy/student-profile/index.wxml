@@ -6,11 +6,11 @@
     <text class="school">{{studentInfo.school}}</text>
     <view class="target-school-container">
       <text class="target-text">我的目标:</text>
-      <text class="target-school">{{studentInfo.studyGoal}}</text>
+      <text class="target-school">{{studentInfo.studyGoal||'给自己设定个小目标吧!'}}</text>
     </view>
     <view class="stats">
       <view class="stat">
-        <text class="stat-value">0天</text>
+        <text class="stat-value">{{joinedDays}}天</text>
         <text class="stat-label">已加入宁博</text>
       </view>
       <view class="stat">
