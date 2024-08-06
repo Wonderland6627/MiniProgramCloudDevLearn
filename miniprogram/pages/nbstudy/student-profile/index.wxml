@@ -13,9 +13,17 @@
         <text class="stat-value">{{joinedDays}}天</text>
         <text class="stat-label">已加入宁博</text>
       </view>
-      <view class="stat">
+      <!-- <view class="stat">
         <text class="stat-value">0次</text>
         <text class="stat-label">打卡次数</text>
+      </view> -->
+      <view class="stat">
+        <text class="stat-value">{{studentInfo.seatName}}</text>
+        <text class="stat-label">我的座位</text>
+      </view>
+      <view class="stat">
+        <text class="stat-value">{{expirationDate}}</text>
+        <text class="stat-label">座位到期</text>
       </view>
     </view>
   </view>

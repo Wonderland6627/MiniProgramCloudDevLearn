@@ -12,6 +12,8 @@ Page({
    */
   data: {
     joinedDays: 0,
+    startDate: null,
+    expirationDate: null,
     studentInfo: {},
 
     toolInfos: [
@@ -65,9 +67,23 @@ Page({
     })
     logger.info('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
 
+    this.onGetStudentInfo(info)
+  },
+
+  onGetStudentInfo(info) {
     if (info.joinedDate) {
       this.setData({
         joinedDays: timeUtils.calculateDaysDifference(info.joinedDate),
+      })
+    }
+    if (info.packageStartDate) {
+      this.setData({
+        startDate: timeUtils.timeStamp2DateFormat(info.packageStartDate),
+      })
+    }
+    if (info.packageExpirationDate) {
+      this.setData({
+        expirationDate: timeUtils.timeStamp2DateFormat(info.packageExpirationDate),
       })
     }
   },
@@ -142,6 +158,7 @@ Page({
         this.setData({
           studentInfo: info
         })
+        this.onGetStudentInfo(info)
         wx.stopPullDownRefresh()
       })
       .catch(error => {
