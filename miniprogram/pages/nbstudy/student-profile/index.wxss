@@ -45,10 +45,10 @@
 .target-text {
   font-size: 26rpx;
   color: #0080ff;
-  margin-right: 4rpx;
+  margin-right: 6px;
 }
 
-.target-school {
+.target-study-goal {
   font-size: 26rpx;
   color: #0080ff;
   border: 1px solid #0080ff;

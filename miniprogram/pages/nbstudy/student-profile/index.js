@@ -15,11 +15,11 @@ Page({
     studentInfo: {},
 
     toolInfos: [
-      {
-        title: "打卡记录",
-        icon: "../../../images/icons/sign-in.svg",
-        onTap: "onViewSignInClick"
-      },
+      // { //后期能否通过日历来实现
+      //   title: "打卡记录",
+      //   icon: "../../../images/icons/sign-in.svg",
+      //   onTap: "onViewSignInClick"
+      // },
       {
         title: "查看门禁",
         icon: "../../../images/icons/lock.svg",

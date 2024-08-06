@@ -6,7 +6,7 @@
     <text class="school">{{studentInfo.school}}</text>
     <view class="target-school-container">
       <text class="target-text">我的目标:</text>
-      <text class="target-school">{{studentInfo.studyGoal||'给自己设定个小目标吧!'}}</text>
+      <text class="target-study-goal">{{studentInfo.studyGoal||'给自己设定个小目标吧!'}}</text>
     </view>
     <view class="stats">
       <view class="stat">
