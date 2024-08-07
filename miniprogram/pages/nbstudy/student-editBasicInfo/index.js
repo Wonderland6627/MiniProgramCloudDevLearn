@@ -14,7 +14,7 @@ Page({
 
     titles: {
       studentName: '姓名',
-      phone: '电话',
+      phone: '手机号',
       gender: '性别',
       birthday: '生日',
 
@@ -293,6 +293,21 @@ Page({
     }
     //必填信息 end
     wx.showLoading({ title: '正在保存' })
+    const result = await getApp().getModels().students.list({
+      filter: {
+        where: {
+          phone: {
+            $eq: studentInfo.phone
+          },
+        }
+      },
+      getCount: true,
+    })
+    logger.info(`[student-editBasicInfo] 查询手机号是否重复回应: ${JSON.stringify(result)}`)
+    if (result.data.total !== 0) {
+      wx.showToast({ title: '该手机号已注册，请联系管理员！', icon: 'none'})
+      return
+    }
     try { 
       const { modifies } = this.data
       logger.info(`[student-editBasicInfo] 本次修改内容 modifies: ${JSON.stringify(modifies)}`)

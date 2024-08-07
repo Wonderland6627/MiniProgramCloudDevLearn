@@ -13,11 +13,6 @@
       <input class='edit-input' bindinput="bindInputName" placeholder='请输入姓名' value="{{studentInfo.studentName}}"></input>
     </view>
     <view class="edit-cell">
-      <image class="icon" src="../../../images/icons/phone.svg"></image>
-      <text class="title">{{titles.phone}}</text>
-      <input class='edit-input' bindinput="bindInputPhone" placeholder='请输入手机' type="number" maxlength="11" value="{{studentInfo.phone}}"></input>
-    </view>
-    <view class="edit-cell">
       <image class="icon" src="../../../images/icons/gender.svg"></image>
       <text class="title">{{titles.gender}}</text>
       <picker class="edit-picker" range="{{genderArray}}" value="{{genderIndex}}" bindchange="bindGenderChange" bindtap="bindGenderTap">
@@ -36,6 +31,11 @@
           <text class="edit-picker-placeholder-text" wx:else>请输入生日</text>
         </view>
       </picker> 
+    </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/phone.svg"></image>
+      <text class="title">{{titles.phone}}</text>
+      <input class='edit-input' bindinput="bindInputPhone" placeholder='请输入手机号' type="number" maxlength="11" value="{{studentInfo.phone}}"></input>
     </view>
   </view>
 
