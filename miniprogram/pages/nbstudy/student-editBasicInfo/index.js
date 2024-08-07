@@ -301,11 +301,21 @@ Page({
           },
         }
       },
+      select: {
+        OPENID: true,
+        studentName: true,
+        phone: true,
+      },
       getCount: true,
     })
     logger.info(`[student-editBasicInfo] 查询手机号是否重复回应: ${JSON.stringify(result)}`)
     if (result.data.total !== 0) {
-      wx.showToast({ title: '该手机号已注册，请联系管理员！', icon: 'none'})
+      wx.showToast({ 
+        title: '该手机号已注册，请联系管理员处理！',
+        icon: 'none',
+        mask: true,
+        duration: 2000,
+      })
       return
     }
     try { 
