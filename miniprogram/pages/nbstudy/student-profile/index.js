@@ -92,6 +92,18 @@ Page({
     cf.fetchAccessControlPwd(this.data.studentInfo.storeID)
   },
 
+  onViewCardKeyClick(e) {
+    const { studentInfo } = this.data
+    const cardKeyID = studentInfo.cardKeyID
+    console.log(cardKeyID)
+    const content = cardKeyID === 'UNKNOWN' ? '你还没有领取钥匙扣' : cardKeyID
+    wx.showModal({
+      title: '我的钥匙扣',
+      content: content,
+      showCancel: false,
+    })
+  },
+
   onEditBasicInfoCellClick(e) {
     wx.navigateTo({
       url: '/pages/nbstudy/student-editBasicInfo/index',
