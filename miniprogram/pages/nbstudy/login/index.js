@@ -197,9 +197,14 @@ Page({
     wx.showLoading({
       title: '创建信息',
     })
+    const unknownKey = 'UNKNOWN'
     const result = await getApp().getModels().students.create({
       data: {
-        OPENID: openid
+        OPENID: openid,
+        seatName: unknownKey,
+        cardKeyID: unknownKey,
+        storeID: 1,
+        avatarUrl: getApp().globalData.defaultAvatarUrl,
       },
     })
     wx.showToast({
