@@ -62,6 +62,7 @@ App({
   logOut(toastStr) {
     logger.info(`[app.js] log out: ${toastStr}`)
     this.setAdmin(false)
+    dataMgr.logOut()
     wx.showToast({
       title: toastStr,
       icon: 'loading',

@@ -57,6 +57,11 @@ const dataMgr = {
       }
     }) 
   },
+
+  logOut() {
+    logger.info('[dataMgr] log out, clear datas');
+    this.studentInfo = {}
+  },
 }
 
 module.exports = dataMgr
