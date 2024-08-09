@@ -1,8 +1,5 @@
 {
   "navigationBarBackgroundColor": "#ff8533",
   "navigationBarTitleText": "Begin Your Academic Odyssey",
-  "usingComponents": {
-    "i-input-with-title": "../../../components/inputWithTitle/index"
-  },
   "disableScroll": true
 }

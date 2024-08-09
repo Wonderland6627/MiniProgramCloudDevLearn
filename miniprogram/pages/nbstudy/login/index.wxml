@@ -1,31 +1,19 @@
 <!--pages/nbstudy/login/index.wxml-->
 <view class="container">
-  <view class="content">
-    <view class="content-wave" style="transform: rotateZ({{angle}}deg)">
-      <image class="logo" src="../../../images/app_icon.png" bind:longpress="onIconLongPress"></image>
-      <image class="wave" src="../../../images/wave.png" mode="aspectFit"></image>
-      <image class="wave wave-bg" src="../../../images/wave.png" mode="aspectFit"></image>
-    </view>
-    <view class="form-bd">
-      <!-- <i-input-with-title title="手机号" placeholder="点我输入手机号" type="number" bind:change="checkPhoneNumber"/>
-      <i-input-with-title title="密码" placeholder="点我输入密码" type="password" bind:change="checkPassword"/>
-      <view class="option-select">
-        <view class="phonevalidtips" wx:if="{{!phoneValid}}">
-          <text>请输入有效手机号</text>
-        </view>
-        <view class="contactus">
-          <text bindtap="contactUs">联系我们</text>
-        </view>
-      </view>
-      <button wx:if="{{phoneValid}}" class="confirm-btn" bindtap="tryCustomLogin">
-        <text>登  录</text>
-      </button>
-      <button wx:else class="confirm-btn" disabled>
-        <text>登  录</text>
-      </button> -->
-      <button class="common-btn" bindtap="studentLogin">
-        <text>微信登录</text>
-      </button>
-    </view>
+  <image class="logo" src="../../../images/app_icon.png" mode="aspectFit" bind:longpress="onIconLongPress"></image>
+  <text class="title">与宁博一起，开启你的学习之旅</text>
+  
+  <button class="common-btn" bindtap="studentLogin" disabled="{{!agree}}">
+    <text>微 信 登 录</text>
+  </button>
+  
+  <view class="agreement">
+    <checkbox-group bindchange="checkboxChange">
+      <checkbox value="{{agree}}"/>
+    </checkbox-group>
+    <text>我已阅读并同意</text>
+    <navigator url="/pages/agreement/agreement">《用户协议》</navigator>
+    <text>及</text>
+    <navigator url="/pages/privacy/privacy">《隐私协议》</navigator>
   </view>
 </view>

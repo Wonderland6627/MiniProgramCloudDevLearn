@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    angle: 0,
+    agree: false,
     phoneValid: false,
     phoneNumber: '',
     password: '',
@@ -24,7 +24,11 @@ Page({
   },
 
   studentLogin() {
-    logger.info('[login] 学生登录')
+    logger.info('[login] 点击学生登录')
+    if(!this.data.agree) {
+      logger.error('[login] 未阅读协议，不能登录')
+      return
+    }
     getApp().setAdmin(false)
     this.tryWXLogin(false)
   },
@@ -215,8 +219,8 @@ Page({
     logger.info(info)
     getApp().dataMgr.setStudentInfo(info)
     this.gotoFillAccount()
-	},
-	
+  },
+  
 	gotoCheckBindStatus() {
     wx.navigateTo({
       url: '/pages/nbstudy/student-checkBindStatus/index',
@@ -319,6 +323,14 @@ Page({
     wx.switchTab({
       url: '/pages/nbstudy/admin-edit/index',
     })
+  },
+
+  checkboxChange(e) {
+    const agree = e.detail.value.length > 0
+    logger.info(`[login] 阅读协议: ${agree}`)
+    this.setData({
+      agree: agree
+    });
   },
 
   /**
