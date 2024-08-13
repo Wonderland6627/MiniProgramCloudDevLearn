@@ -74,6 +74,11 @@
   color: #888;
 }
 
+.stat-date-value {
+  font-size: 36rpx;
+  color: #888;
+}
+
 .stat-label {
   font-size: 24rpx;
   color: #888;

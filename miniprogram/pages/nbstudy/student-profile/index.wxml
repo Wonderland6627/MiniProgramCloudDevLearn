@@ -23,7 +23,7 @@
           <text class="stat-label">我的座位</text>
         </view>
         <view class="stat">
-          <text class="stat-value">{{expirationDate}}</text>
+          <text class="stat-date-value">{{expirationDate}}</text>
           <text class="stat-label">座位到期</text>
         </view>
       </block>
