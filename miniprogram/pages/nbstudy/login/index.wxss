@@ -39,7 +39,7 @@
   margin-top: 60rpx;
 }
 
-.agreement navigator {
-  color: #00aaff;
-  margin: 0 5rpx;
+.agreement-text {
+  color: #007bff;
+  text-decoration: underline;
 }

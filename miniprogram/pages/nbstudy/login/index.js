@@ -32,6 +32,17 @@ Page({
     getApp().setAdmin(false)
     this.tryWXLogin(false)
   },
+	
+  handleUserAgreementTap() {
+    wx.openPrivacyContract({
+      success: () => {
+        logger.info('[login] 隐私协议打开成功')
+      },
+      fail: () => {
+        logger.error('[login] 隐私协议打开失败')
+       }
+    })
+  },
 
   tryWXLogin(isAdmin = false) {
     wx.showLoading({

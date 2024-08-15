@@ -12,8 +12,6 @@
       <checkbox value="{{agree}}"/>
     </checkbox-group>
     <text>我已阅读并同意</text>
-    <navigator url="/pages/agreement/agreement">《用户协议》</navigator>
-    <text>及</text>
-    <navigator url="/pages/privacy/privacy">《隐私协议》</navigator>
+    <text class="agreement-text" bindtap="handleUserAgreementTap">《用户协议》及《隐私协议》</text>
   </view>
 </view>
