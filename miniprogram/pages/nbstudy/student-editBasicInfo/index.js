@@ -310,13 +310,16 @@ Page({
     })
     logger.info(`[student-editBasicInfo] 查询手机号是否重复回应: ${JSON.stringify(result)}`)
     if (result.data.total !== 0) {
-      wx.showToast({ 
-        title: '该手机号已注册，请联系管理员处理！',
-        icon: 'none',
-        mask: true,
-        duration: 2000,
-      })
-      return
+      logger.info(`[student-editBasicInfo] 查询手机号: [${studentInfo.phone}]所属OPENID: [${result.data.records[0].OPENID}]，当前修改用户OPENID: [${studentInfo.OPENID}]`)
+      if (result.data.records[0].OPENID !== studentInfo.OPENID) { //查询同样的手机号 且不是当前用户的
+        wx.showToast({ 
+          title: '该手机号已注册，请联系管理员处理！',
+          icon: 'none',
+          mask: true,
+          duration: 2000,
+        })
+        return
+      }
     }
     try { 
       const { modifies } = this.data
