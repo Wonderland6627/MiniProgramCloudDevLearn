@@ -2,52 +2,7 @@
 
 const utils = require('../../../utils/utils.js')
 const logger = require('../../../logger.js')
-
-//与后台枚举选项内容要保持一致
-const SeatType = {
-  A: 'A',
-  B: 'B',
-  C: 'C',
-  VIP: 'VIP',
-}
-
-const DurationType = {
-  Temp: 'Temp',
-  Week: 'Week',
-  Month: 'Month',
-  Season: 'Season',
-  Year: 'Year',
-}
-
-const SeatTypeRemote2Local = {
-  1: 'A',
-  2: 'B',
-  3: 'C',
-  4: 'VIP',
-}
-
-const DurationTypeRemote2Local = {
-  1: 'Temp',
-  2: 'Week',
-  3: 'Month',
-  4: 'Season',
-  5: 'Year',
-}
-
-const SeatTypeLocal2Remote = {
-  'A': '1',
-  'B': '2',
-  'C': '3',
-  'VIP': '4',
-}
-
-const DurationTypeLocal2Remote = {
-  'Temp': '1',
-  'Week': '2',
-  'Month': '3',
-  'Season': '4',
-  'Year': '5',
-}
+const consts = require('../../../consts.js')
 
 Page({
 
@@ -56,21 +11,21 @@ Page({
    */
   data: {
     seatInfosTable: [
-      { type: SeatType.VIP, label: 'VIP单间' },
-      { type: SeatType.B, label: 'B座位' },
-      { type: SeatType.C, label: 'C座位' },
+      { type: consts.SeatType.VIP, label: 'VIP单间' },
+      { type: consts.SeatType.B, label: 'B座位' },
+      { type: consts.SeatType.C, label: 'C座位' },
     ],
     durationInfosTable: [
-      { type: DurationType.Temp, label: '次卡' },
-      { type: DurationType.Week, label: '周卡' },
-      { type: DurationType.Month, label: '月卡' },
-      { type: DurationType.Season, label: '季卡' },
-      { type: DurationType.Year, label: '年卡' }
+      { type: consts.DurationType.Temp, label: '次卡' },
+      { type: consts.DurationType.Week, label: '周卡' },
+      { type: consts.DurationType.Month, label: '月卡' },
+      { type: consts.DurationType.Season, label: '季卡' },
+      { type: consts.DurationType.Year, label: '年卡' }
     ],
 
     selected: {
-      seat: SeatType.B,
-      duration: DurationType.Month,
+      seat: consts.SeatType.B,
+      duration: consts.DurationType.Month,
     },
     price: 0,
     giftDayCount: 0,
@@ -118,8 +73,8 @@ Page({
     const packageMap = []
     records.forEach(record => {
       const { seatType, durationType } = record
-      const seatKey = SeatTypeRemote2Local[seatType]
-      const durationKey = DurationTypeRemote2Local[durationType]
+      const seatKey = consts.SeatTypeRemote2Local[seatType]
+      const durationKey = consts.DurationTypeRemote2Local[durationType]
       if (!packageMap[seatKey]) {
         packageMap[seatKey] = {}
       }
@@ -309,8 +264,8 @@ Page({
         const pack = packages[durationKey]
         if (!pack) { continue }
         modifies.push({
-          seatType: SeatTypeLocal2Remote[seatKey],
-          durationType: DurationTypeLocal2Remote[durationKey],
+          seatType: consts.SeatTypeLocal2Remote[seatKey],
+          durationType: consts.DurationTypeLocal2Remote[durationKey],
           price: pack.price,
           giftDayCount: pack.giftDayCount
         })
