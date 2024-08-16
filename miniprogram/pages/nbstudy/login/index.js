@@ -11,9 +11,6 @@ Page({
    */
   data: {
     agree: false,
-    phoneValid: false,
-    phoneNumber: '',
-    password: '',
     js_code: '',
   },
 
@@ -251,76 +248,6 @@ Page({
   gotoStudentMain() {
     wx.switchTab({
       url: '/pages/nbstudy/student-main/index',
-    })
-  },
-
-  tryCustomLogin: function () {
-    logger.info("[login] try custom login")
-    this.customLogin();
-    // wx.switchTab({
-    //   url: '/pages/nbstudy/student-main/index',
-    // })
-  },
-
-  async customLogin() {
-    // this.setData({ isLoading: true });
-    const {
-      phoneNumber,
-      password
-    } = this.data;
-    logger.info(phoneNumber)
-    logger.info(password)
-    const response = await wx.cloud.callFunction({
-      name: 'quickstartFunctions',
-      data: {
-        type: 'checkLogin',
-        data: {
-          phoneNumber,
-          password
-        }
-      }
-    });
-    const result = response?.result;
-    logger.info("[login] 登录回应：" + JSON.stringify(result))
-    if (result == null) {
-      wx.showToast({
-        title: '登录无效',
-        icon: 'error',
-      });
-      return
-    }
-    const success = result.code == 0;
-    if (!success) {
-      wx.showToast({
-        title: '登录无效: ' + result.code,
-        icon: 'error',
-      });
-      return;
-    }
-    wx.showToast({
-      title: '登录成功',
-      icon: 'success',
-    });
-  },
-
-  contactUs: function () {
-    logger.info("[login] contact us")
-  },
-
-  checkPhoneNumber: function (e) {
-    const phone = e.detail.value
-    logger.info(phone)
-    this.setData({
-      phoneNumber: phone,
-      phoneValid: phone.length == 11
-    })
-  },
-
-  checkPassword(e) {
-    const password = e.detail.value
-    logger.info(password)
-    this.setData({
-      password: password
     })
   },
 
