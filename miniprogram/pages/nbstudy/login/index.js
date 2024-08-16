@@ -2,6 +2,7 @@
 
 const logger = require('../../../logger.js')
 const utils = require('../../../utils/utils.js')
+const timeUtils = require('../../../utils/timeUtils.js')
 
 Page({
 
@@ -217,9 +218,12 @@ Page({
       data: {
         OPENID: openid,
         seatName: unknownKey,
+        seatType: 'Empty',
+        durationType: 'Temp',
         cardKeyID: unknownKey,
         storeID: 1,
         avatarUrl: getApp().globalData.defaultAvatarUrl,
+        joinedDate: Date.now(),
       },
     })
     wx.showToast({

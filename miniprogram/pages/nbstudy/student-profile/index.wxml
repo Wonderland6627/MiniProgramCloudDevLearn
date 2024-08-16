@@ -10,7 +10,7 @@
     </view>
     <view class="stats">
       <view class="stat">
-        <text class="stat-value">{{joinedDays}}天</text>
+        <text class="stat-value">{{joinedDays + 1}}天</text>
         <text class="stat-label">已加入宁博</text>
       </view>
       <!-- <view class="stat">
