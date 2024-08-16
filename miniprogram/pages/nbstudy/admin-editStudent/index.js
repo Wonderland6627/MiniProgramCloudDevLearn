@@ -3,6 +3,7 @@
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 const logger = require('../../../logger.js')
+const consts = require('../../../consts.js')
 
 Page({
 
@@ -18,11 +19,19 @@ Page({
 
       school: '学校',
       studyGoal: '我的目标',
+
+      seatName: '座位名称',
+      seatType: '座位类型',
     },
+
     genderIndex: -1,
     genderArray: [
       '女生', '男生',
     ],
+
+    seatTypeIndex: -1,
+    seatTypeArray: consts.SeatArray,
+
     currentStudentInfo: {}, //初始值
     modifies: {}, //修改值
     studentInfo: { //显示值
@@ -65,6 +74,11 @@ Page({
     if (!this.data.studentInfo.avatarUrl) {
       this.setData({
         'studentInfo.avatarUrl': getApp().globalData.defaultAvatarUrl
+      })
+    }
+    if (this.data.studentInfo.seatType) {
+      this.setData({
+        'seatTypeIndex': this.data.studentInfo.seatType
       })
     }
   },
@@ -263,6 +277,31 @@ Page({
     logger.info('[admin-editStudent] 修改学习目标: ' + goal)
   },
 
+  bindSeatName(e) {
+    const seatName = e.detail.value
+    this.setData({ 'studentInfo.seatName': seatName })
+    this.modifiesData({ 'seatName': seatName })
+    logger.info('[admin-editStudent] 修改座位名称: ' + seatName)
+  },
+
+  bindSeatTypeChange(e) {
+    const index = e.detail.value
+    this.setData({
+      'seatTypeIndex': index,
+      'studentInfo.seatType': index,
+    })
+    this.modifiesData({ 'seatType': index })
+    logger.info('[admin-editStudent] 修改座位类型: ' + this.data.seatTypeArray[index])
+  },
+
+  bindSeatTypeTap(e) {
+    if (this.data.genderIndex == -1) { //防止第一次点击默认选中的位置不对
+      this.setData({
+        'genderIndex': 0
+      })
+    }
+  },
+
   saveInfo() {
     logger.info('[admin-editStudent] 保存个人信息')
     this.tryUpdateStudentInfo()
@@ -324,7 +363,6 @@ Page({
       await this.updateStudent(OPENID, modifies)
       logger.info('[admin-editStudent] 学生基础信息保存成功')
       wx.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
-      getApp().dataMgr.setStudentInfo(studentInfo)
       this.enableAlertBeforeUnload(false)
       setTimeout(() => {
         wx.navigateBack()

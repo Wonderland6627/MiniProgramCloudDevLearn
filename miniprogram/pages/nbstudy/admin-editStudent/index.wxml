@@ -53,5 +53,24 @@
     </view>
   </view>
 
+  <view class='edit-container'>
+    <text class="edit-title">座位信息</text>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/seat.svg"></image>
+      <text class="title">{{titles.seatName}}</text>
+      <input class='edit-input' bindinput="bindSeatName" placeholder='请输入座位名称' value="{{studentInfo.seatName}}"></input>
+    </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/seat.svg"></image>
+      <text class="title">{{titles.seatType}}</text>
+      <picker class="edit-picker" range="{{seatTypeArray}}" value="{{seatTypeIndex}}" bindchange="bindSeatTypeChange" bindtap="bindSeatTypeTap">
+        <view class="picker">
+          <text class="edit-picker-placeholder-text" wx:if="{{seatTypeIndex == -1}}">请选择座位类型</text>
+          <text wx:else>{{seatTypeArray[seatTypeIndex]}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
   <button class="common-btn" bindtap='saveInfo'>保  存</button>
 </view>
