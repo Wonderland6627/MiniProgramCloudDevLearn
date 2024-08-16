@@ -22,6 +22,7 @@ Page({
 
       seatName: '座位名称',
       seatType: '座位类型',
+      durationType: '时长类型',
     },
 
     genderIndex: -1,
@@ -30,7 +31,10 @@ Page({
     ],
 
     seatTypeIndex: -1,
-    seatTypeArray: consts.SeatArray,
+    seatTypeArray: consts.SeatTypeArray,
+
+    durationTypeIndex: -1,
+    durationTypeArray: consts.DurationTypeArray,
 
     currentStudentInfo: {}, //初始值
     modifies: {}, //修改值
@@ -79,6 +83,11 @@ Page({
     if (this.data.studentInfo.seatType) {
       this.setData({
         'seatTypeIndex': this.data.studentInfo.seatType
+      })
+    }
+    if (this.data.studentInfo.durationType) {
+      this.setData({
+        'durationTypeIndex': this.data.studentInfo.durationType
       })
     }
   },
@@ -295,9 +304,27 @@ Page({
   },
 
   bindSeatTypeTap(e) {
-    if (this.data.genderIndex == -1) { //防止第一次点击默认选中的位置不对
+    if (this.data.seatTypeIndex == -1) { //防止第一次点击默认选中的位置不对
       this.setData({
-        'genderIndex': 0
+        'seatTypeIndex': 0
+      })
+    }
+  },
+
+  bindDurationTypeChange(e) {
+    const index = e.detail.value
+    this.setData({
+      'durationTypeIndex': index,
+      'studentInfo.durationType': index,
+    })
+    this.modifiesData({ 'durationType': index })
+    logger.info('[admin-editStudent] 修改时长类型: ' + this.data.durationTypeArray[index])
+  },
+
+  bindDurationTypeTap(e) {
+    if (this.data.seatTypeIndex == -1) { //防止第一次点击默认选中的位置不对
+      this.setData({
+        'seatTypeIndex': 0
       })
     }
   },

@@ -10,7 +10,7 @@ const SeatType = {
   B: 'B',
   C: 'C',
 }
-const SeatArray = [
+const SeatTypeArray = [
 	SeatType.Empty,
 	SeatType.VIP,
 	SeatType.A,
@@ -40,6 +40,13 @@ const DurationType = {
   Season: 'Season',
   Year: 'Year',
 }
+const DurationTypeArray = [
+	DurationType.Temp,
+	DurationType.Week,
+	DurationType.Month,
+	DurationType.Season,
+	DurationType.Year,
+]
 const DurationTypeRemote2Local = {
   0: 'Temp',
   1: 'Week',
@@ -57,10 +64,12 @@ const DurationTypeLocal2Remote = {
 
 module.exports = {
   SeatType,
-	DurationType,
-	SeatArray,
+	SeatTypeArray,
   SeatTypeRemote2Local,
-  DurationTypeRemote2Local,
   SeatTypeLocal2Remote,
+
+  DurationType,
+  DurationTypeArray,
+  DurationTypeRemote2Local,
   DurationTypeLocal2Remote,
 };

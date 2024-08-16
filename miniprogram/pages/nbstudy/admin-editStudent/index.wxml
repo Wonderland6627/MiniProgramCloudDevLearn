@@ -70,6 +70,16 @@
         </view>
       </picker>
     </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/seat.svg"></image>
+      <text class="title">{{titles.durationType}}</text>
+      <picker class="edit-picker" range="{{durationTypeArray}}" value="{{durationTypeIndex}}" bindchange="bindDurationTypeChange" bindtap="bindDurationTypeTap">
+        <view class="picker">
+          <text class="edit-picker-placeholder-text" wx:if="{{durationTypeIndex == -1}}">请选择时长类型</text>
+          <text wx:else>{{durationTypeArray[durationTypeIndex]}}</text>
+        </view>
+      </picker>
+    </view>
   </view>
 
   <button class="common-btn" bindtap='saveInfo'>保  存</button>
