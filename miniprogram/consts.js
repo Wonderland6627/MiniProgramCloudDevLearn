@@ -17,6 +17,13 @@ const SeatTypeArray = [
 	SeatType.B,
 	SeatType.C,
 ]
+const SeatTypeLabelMap = [
+  { type: SeatType.Empty, label: '无座位' },
+  { type: SeatType.VIP, label: 'VIP单间' },
+  { type: SeatType.A, label: 'A座位' },
+  { type: SeatType.B, label: 'B座位' },
+  { type: SeatType.C, label: 'C座位' },
+]
 const SeatTypeRemote2Local = {
 	0: 'Empty',
   1: 'VIP',
@@ -47,6 +54,13 @@ const DurationTypeArray = [
 	DurationType.Season,
 	DurationType.Year,
 ]
+const DurationTypeLabelMap = [
+  { type: DurationType.Temp, label: '次卡' },
+  { type: DurationType.Week, label: '周卡' },
+  { type: DurationType.Month, label: '月卡' },
+  { type: DurationType.Season, label: '季卡' },
+  { type: DurationType.Year, label: '年卡' }
+]
 const DurationTypeRemote2Local = {
   0: 'Temp',
   1: 'Week',
@@ -64,12 +78,14 @@ const DurationTypeLocal2Remote = {
 
 module.exports = {
   SeatType,
-	SeatTypeArray,
+  SeatTypeArray,
+  SeatTypeLabelMap,
   SeatTypeRemote2Local,
   SeatTypeLocal2Remote,
 
   DurationType,
   DurationTypeArray,
+  DurationTypeLabelMap,
   DurationTypeRemote2Local,
   DurationTypeLocal2Remote,
 };

@@ -31,10 +31,10 @@ Page({
     ],
 
     seatTypeIndex: -1,
-    seatTypeArray: consts.SeatTypeArray,
+    seatTypeArray: [],
 
     durationTypeIndex: -1,
-    durationTypeArray: consts.DurationTypeArray,
+    durationTypeArray: [],
 
     currentStudentInfo: {}, //初始值
     modifies: {}, //修改值
@@ -53,6 +53,11 @@ Page({
    */
   onLoad(options) {
     let info = wx.getStorageSync('selectedStudentInfo')
+    this.onGetStudentInfo(info)
+    this.setUpEnumMap()
+  },
+
+  onGetStudentInfo(info) {
     this.setData({
       currentStudentInfo: utils.cloneWithJSON(info),
       studentInfo: info,
@@ -90,6 +95,13 @@ Page({
         'durationTypeIndex': this.data.studentInfo.durationType
       })
     }
+  },
+
+  setUpEnumMap() {
+    this.setData({
+      'seatTypeArray': consts.SeatTypeLabelMap.map(item => item.label),
+      'durationTypeArray': consts.DurationTypeLabelMap.map(item => item.label),
+    })
   },
 
   enableAlertBeforeUnload(enable) {
@@ -300,7 +312,7 @@ Page({
       'studentInfo.seatType': index,
     })
     this.modifiesData({ 'seatType': index })
-    logger.info('[admin-editStudent] 修改座位类型: ' + this.data.seatTypeArray[index])
+    logger.info(`[admin-editStudent] 修改座位类型: [${index}: ${this.data.seatTypeArray[index]}]`)
   },
 
   bindSeatTypeTap(e) {
@@ -318,7 +330,7 @@ Page({
       'studentInfo.durationType': index,
     })
     this.modifiesData({ 'durationType': index })
-    logger.info('[admin-editStudent] 修改时长类型: ' + this.data.durationTypeArray[index])
+    logger.info(`[admin-editStudent] 修改时长类型: [${index}: ${this.data.durationTypeArray[index]}]`)
   },
 
   bindDurationTypeTap(e) {

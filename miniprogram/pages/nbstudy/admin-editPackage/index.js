@@ -10,18 +10,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    seatInfosTable: [
-      { type: consts.SeatType.VIP, label: 'VIP单间' },
-      { type: consts.SeatType.B, label: 'B座位' },
-      { type: consts.SeatType.C, label: 'C座位' },
+    visibleSeats: [
+      consts.SeatType.VIP,
+      consts.SeatType.B,
+      consts.SeatType.C,
     ],
-    durationInfosTable: [
-      { type: consts.DurationType.Temp, label: '次卡' },
-      { type: consts.DurationType.Week, label: '周卡' },
-      { type: consts.DurationType.Month, label: '月卡' },
-      { type: consts.DurationType.Season, label: '季卡' },
-      { type: consts.DurationType.Year, label: '年卡' }
+    visibleDurations: [
+      consts.DurationType.Temp,
+      consts.DurationType.Week,
+      consts.DurationType.Month,
+      consts.DurationType.Season,
+      consts.DurationType.Year,
     ],
+
+    seatInfosTable: [],
+    durationInfosTable: [],
 
     selected: {
       seat: consts.SeatType.B,
@@ -38,7 +41,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setUpPackagesUI()
     this.fetchPackages()
+  },
+
+  setUpPackagesUI() {
+    this.setData({
+      'seatInfosTable': consts.SeatTypeLabelMap.filter(item => {
+        return this.data.visibleSeats.includes(item.type)
+      }),
+      'durationInfosTable': consts.DurationTypeLabelMap.filter(item => {
+        return this.data.visibleDurations.includes(item.type)
+      })
+    })
   },
 
   async fetchPackages() {
