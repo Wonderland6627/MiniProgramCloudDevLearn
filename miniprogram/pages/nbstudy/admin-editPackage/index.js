@@ -47,12 +47,12 @@ Page({
 
   setUpPackagesUI() {
     this.setData({
-      'seatInfosTable': consts.SeatTypeLabelMap.filter(item => {
+      'seatInfosTable': utils.cloneWithJSON(consts.SeatTypeLabelMap.filter(item => {
         return this.data.visibleSeats.includes(item.type)
-      }),
-      'durationInfosTable': consts.DurationTypeLabelMap.filter(item => {
+      })),
+      'durationInfosTable': utils.cloneWithJSON(consts.DurationTypeLabelMap.filter(item => {
         return this.data.visibleDurations.includes(item.type)
-      })
+      })),
     })
   },
 
