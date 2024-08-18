@@ -26,7 +26,6 @@ App({
   globalData: {
     openid: '',
     pendingOPENID: 'UNKNOWN', //OPENID为 'UNKNOWN' 的表数据视为待绑定数据
-    emptySeatName: 'UNKNOWN', //seatName为 'UNKNOWN' 的表数据视为无座位
     defaultAvatarUrl: 'https://636c-cloud1-1gv3jdz41b34d301-1327447321.tcb.qcloud.la/nbstudy/default_avatar.png?sign=750b4fecbff49b9e2bbeb62e2436a44f&t=1722594682',
   },
 

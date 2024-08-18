@@ -17,7 +17,7 @@
         <text class="stat-value">0次</text>
         <text class="stat-label">打卡次数</text>
       </view> -->
-      <block wx:if="{{studentInfo.seatName !== 'UNKNOWN'}}">
+      <block wx:if="{{studentInfo.seatName !== ''}}">
         <view class="stat">
           <text class="stat-value">{{studentInfo.seatName}}</text>
           <text class="stat-label">我的座位</text>

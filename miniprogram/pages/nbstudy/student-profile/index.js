@@ -96,7 +96,7 @@ Page({
     const { studentInfo } = this.data
     const cardKeyID = studentInfo.cardKeyID
     console.log(cardKeyID)
-    const content = cardKeyID === 'UNKNOWN' ? '你还没有领取钥匙扣' : cardKeyID
+    const content = cardKeyID === '' ? '你还没有领取钥匙扣' : cardKeyID
     wx.showModal({
       title: '我的钥匙扣',
       content: content,

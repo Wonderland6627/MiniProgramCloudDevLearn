@@ -45,7 +45,7 @@ const dataMgr = {
         if (utils.isEmpty(data)) {
           logger.error(`openid: ${openid} 的学生信息不存在`)
           reject(`[dataMgr] fetch student info failed: not exists: ${openid}`);
-          //todo: back to login
+          getApp().logOut()
           return
         }
         this.studentInfo = data
