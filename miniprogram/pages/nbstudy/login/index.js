@@ -210,14 +210,11 @@ Page({
     wx.showLoading({
       title: '创建信息',
     })
-    const unknownKey = 'UNKNOWN'
     const result = await getApp().getModels().students.create({
       data: {
         OPENID: openid,
-        seatName: unknownKey,
-        seatType: 'Empty',
-        durationType: 'Temp',
-        cardKeyID: unknownKey,
+        seatType: '0',
+        durationType: '0',
         storeID: 1,
         avatarUrl: getApp().globalData.defaultAvatarUrl,
         joinedDate: Date.now(),
@@ -228,7 +225,7 @@ Page({
       icon: 'success',
     })
     const info = result?.data
-    logger.info(info)
+    logger.info(`[login] login success: ${JSON.stringify(info)}`)
     getApp().dataMgr.setStudentInfo(info)
     this.gotoFillAccount()
   },
