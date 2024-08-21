@@ -28,7 +28,7 @@
       <picker class="edit-picker" mode="date" start="{{birthdaySelectRange[0]}}" end="{{birthdaySelectRange[1]}}" value="{{studentInfo.birthdayFormat}}" bindchange="bindBirthdayChange"> 
         <view class="picker">
           <text wx:if="{{studentInfo.birthdayFormat}}">{{studentInfo.birthdayFormat}}</text>
-          <text class="edit-picker-placeholder-text" wx:else>请输入生日</text>
+          <text class="edit-picker-placeholder-text" wx:else>请输入出生日期</text>
         </view>
       </picker> 
     </view>

@@ -15,7 +15,7 @@ Page({
       studentName: '姓名',
       phone: '手机号',
       gender: '性别',
-      birthday: '生日',
+      birthday: '出生日期',
 
       school: '学校',
       studyGoal: '我的目标',
