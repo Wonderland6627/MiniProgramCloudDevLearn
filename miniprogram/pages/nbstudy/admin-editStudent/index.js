@@ -23,6 +23,8 @@ Page({
       seatName: '座位名称',
       seatType: '座位类型',
       durationType: '时长类型',
+      packageStartDate: '起始日期',
+      packageExpirationDate: '到期日期',
     },
 
     genderIndex: -1,
@@ -45,6 +47,10 @@ Page({
     birthdaySelectRange: [
       "1900-01-01",
       timeUtils.timeStamp2DateFormat(Date.now()) //Date.now() 返回的是时间戳
+    ],
+    packageSelectRange: [
+      "2024-01-01",
+      "2025-01-01"
     ]
   },
 
@@ -93,6 +99,12 @@ Page({
     if (this.data.studentInfo.durationType) {
       this.setData({
         'durationTypeIndex': this.data.studentInfo.durationType
+      })
+    }
+    if (this.data.studentInfo.packageStartDate) {
+      const packageStartDateFormat = timeUtils.timeStamp2DateFormat(this.data.studentInfo.packageStartDate)
+      this.setData({
+        'studentInfo.packageStartDateFormat': packageStartDateFormat
       })
     }
   },
@@ -341,6 +353,26 @@ Page({
     }
   },
 
+  bindPackageStartDateChange(e) { 
+    const startDateFormat = e.detail.value 
+    this.setData({ 
+      'studentInfo.packageStartDateFormat': startDateFormat
+    }) //这个值用于转换时间 不要上传
+    logger.info('[admin-editStudent] 修改套餐起始日期Format: ' + startDateFormat)
+    this.packageStartDateParser(startDateFormat)
+  },
+
+  packageStartDateParser(dateFormat) {
+    if (!dateFormat) {
+      logger.error('[admin-editStudent] 检查选择的套餐起始日期Format')
+      return
+    }
+    const startDateFormatTimeStamp = timeUtils.dateFormat2TimeStamp(dateFormat)
+    this.setData({ 'studentInfo.packageStartDate': startDateFormatTimeStamp })
+    this.modifiesData({ 'packageStartDate': startDateFormatTimeStamp })
+    logger.info('[admin-editStudent] 修改套餐起始日期TimeStamp: ' + startDateFormatTimeStamp)
+  },
+
   saveInfo() {
     logger.info('[admin-editStudent] 保存个人信息')
     this.tryUpdateStudentInfo()
@@ -384,7 +416,7 @@ Page({
     })
     logger.info(`[admin-editStudent] 查询手机号是否重复回应: ${JSON.stringify(result)}`)
     if (result.data.total !== 0) {
-      logger.info(`[admin-editStudent] 查询手机号: [${studentInfo.phone}]所属OPENID: [${result.data.records[0].OPENID}]，当前修改用户OPENID: [${studentInfo.OPENID}]`)
+      logger.info(`[admin-editStudent] 查询手机号: [${studentInfo.phone}] 所属OPENID: [${result.data.records[0].OPENID}]，当前修改用户OPENID: [${studentInfo.OPENID}]`)
       if (result.data.records[0].OPENID !== studentInfo.OPENID) { //查询同样的手机号 且不是当前用户的
         wx.showToast({ 
           title: '该手机号已注册，请联系管理员处理！',
