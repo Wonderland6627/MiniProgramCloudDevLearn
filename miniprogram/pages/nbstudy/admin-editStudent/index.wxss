@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 40rpx;
+  padding-bottom: 300rpx;
 }
 
 .avatar-container {
