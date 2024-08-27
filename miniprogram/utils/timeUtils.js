@@ -54,3 +54,11 @@ export function calculateDaysDifference(timestamp) {
     const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     return daysDiff;
 }
+
+//起始日期时间戳 + 天数 返回加上天数后的日期时间戳
+export function addDaysToTimeStamp(startTimeStamp, days) {
+  const startDate = new Date(startTimeStamp);
+  const endDate = new Date(startDate);
+  endDate.setDate(startDate.getDate() + days);
+  return endDate.getTime();
+}

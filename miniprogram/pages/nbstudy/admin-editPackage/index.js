@@ -47,10 +47,10 @@ Page({
 
   setUpPackagesUI() {
     this.setData({
-      'seatInfosTable': utils.cloneWithJSON(consts.SeatTypeLabelMap.filter(item => {
+      'seatInfosTable': utils.cloneWithJSON(consts.SeatTypeInfoMap.filter(item => {
         return this.data.visibleSeats.includes(item.type)
       })),
-      'durationInfosTable': utils.cloneWithJSON(consts.DurationTypeLabelMap.filter(item => {
+      'durationInfosTable': utils.cloneWithJSON(consts.DurationTypeInfoMap.filter(item => {
         return this.data.visibleDurations.includes(item.type)
       })),
     })

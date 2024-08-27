@@ -118,8 +118,8 @@ Page({
 
   setUpEnumMap() {
     this.setData({
-      'seatTypeArray': consts.SeatTypeLabelMap.map(item => item.label),
-      'durationTypeArray': consts.DurationTypeLabelMap.map(item => item.label),
+      'seatTypeArray': consts.SeatTypeInfoMap.map(item => item.label),
+      'durationTypeArray': consts.DurationTypeInfoMap.map(item => item.label),
     })
   },
 
@@ -367,6 +367,8 @@ Page({
     }) //这个值用于转换时间 不要上传
     logger.info('[admin-editStudent] 修改套餐起始日期Format: ' + startDateFormat)
     this.packageStartDateParser(startDateFormat)
+
+    this.addDaysToStartDateForExpirationDate(startDateFormat)
   },
 
   packageStartDateParser(dateFormat) {
@@ -378,6 +380,22 @@ Page({
     this.setData({ 'studentInfo.packageStartDate': startDateFormatTimeStamp })
     this.modifiesData({ 'packageStartDate': startDateFormatTimeStamp })
     logger.info('[admin-editStudent] 修改套餐起始日期TimeStamp: ' + startDateFormatTimeStamp)
+  },
+
+  //修改起始日期后 根据时长类型 自动修改到期日期
+  addDaysToStartDateForExpirationDate(startDateFormat) {
+    const index = this.data.durationTypeIndex
+    if (index == -1) { return }
+    const addDays = consts.DurationTypeInfoMap[index].duration
+    const startDateFormatTimeStamp = timeUtils.dateFormat2TimeStamp(startDateFormat)
+    const addedDateTimeStamp = timeUtils.addDaysToTimeStamp(startDateFormatTimeStamp, addDays)
+    const addedDateFormat = timeUtils.timeStamp2DateFormat(addedDateTimeStamp)
+    logger.info(`[admin-editStudent] 给起始日期: ${startDateFormat} 添加${addDays}天 到期日期: ${addedDateFormat}`)
+
+    this.setData({ 
+      'studentInfo.packageExpirationDateFormat': addedDateFormat
+    })
+    this.packageExpirationDateParser(addedDateFormat)
   },
 
   bindPackageExpirationDateChange(e) { 
