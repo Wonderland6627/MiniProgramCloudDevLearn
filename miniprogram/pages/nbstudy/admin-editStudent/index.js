@@ -108,6 +108,12 @@ Page({
         'studentInfo.packageStartDateFormat': packageStartDateFormat
       })
     }
+    if (this.data.studentInfo.packageExpirationDate) {
+      const packageExpirationDateFormat = timeUtils.timeStamp2DateFormat(this.data.studentInfo.packageExpirationDate)
+      this.setData({
+        'studentInfo.packageExpirationDateFormat': packageExpirationDateFormat
+      })
+    }
   },
 
   setUpEnumMap() {
@@ -372,6 +378,26 @@ Page({
     this.setData({ 'studentInfo.packageStartDate': startDateFormatTimeStamp })
     this.modifiesData({ 'packageStartDate': startDateFormatTimeStamp })
     logger.info('[admin-editStudent] 修改套餐起始日期TimeStamp: ' + startDateFormatTimeStamp)
+  },
+
+  bindPackageExpirationDateChange(e) { 
+    const expirationDateFormat = e.detail.value 
+    this.setData({ 
+      'studentInfo.packageExpirationDateFormat': expirationDateFormat
+    }) //这个值用于转换时间 不要上传
+    logger.info('[admin-editStudent] 修改套餐到期日期Format: ' + expirationDateFormat)
+    this.packageExpirationDateParser(expirationDateFormat)
+  },
+
+  packageExpirationDateParser(dateFormat) {
+    if (!dateFormat) {
+      logger.error('[admin-editStudent] 检查选择的套餐到期日期Format')
+      return
+    }
+    const expirationDateFormatTimeStamp = timeUtils.dateFormat2TimeStamp(dateFormat)
+    this.setData({ 'studentInfo.packageExpirationDate': expirationDateFormatTimeStamp })
+    this.modifiesData({ 'packageExpirationDate': expirationDateFormatTimeStamp })
+    logger.info('[admin-editStudent] 修改套餐到期日期TimeStamp: ' + expirationDateFormatTimeStamp)
   },
 
   saveInfo() {
