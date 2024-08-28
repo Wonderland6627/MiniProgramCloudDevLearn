@@ -26,20 +26,43 @@ Page({
     this.fetchStudents()
   },
 
-  async fetchStudents() {
-    const result = await getApp().getModels().students.list({
-      filter: {
-        where: {}
-      },
-      getCount: true,
+  fetchStudents() {
+    return new Promise((resolve, reject) => {
+      wx.showLoading({ title: '拉取列表中', mask: true })
+      getApp().getModels().students.list({
+        filter: {
+          where: {}
+        },
+        getCount: true,
+      }).then(result => {
+        const list = result?.data.records || []
+        logger.info(`[admin-main] 拉取所有学生列表 长度: ${list.length}`)
+        if (list.length == 0) {
+          wx.showToast({ title: '无数据', mask: true })
+          reject('无数据')
+          return
+        }
+        wx.showToast({
+          title: '拉取成功',
+          icon: 'success',
+          mask: true,
+        })
+        this.setData({
+          allStudents: list
+        })
+        this.onSwitchTabChanged(0)
+        resolve(list)
+      }).catch(error => {
+        logger.error(`[admin-main] 拉取所有学生列表错误: ${error}`)
+        wx.showToast({
+          title: '拉取错误',
+          icon: 'error',
+          mask: true,
+        })
+        reject(error)
+      })
     })
-    const list = result?.data.records || {}
-    this.setData({
-      allStudents: list
-    })
-    logger.info(`[admin-main] 获取所有学生列表 长度: ${list.length}`)
-    this.onSwitchTabChanged(0)
-	},
+  },
 	
 	handleCellTap(e) {
 		const index = e.currentTarget.dataset.index
@@ -106,7 +129,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.fetchStudents()
+    .then(infos => wx.stopPullDownRefresh())
+    .catch(error => wx.stopPullDownRefresh())
   },
 
   /**
