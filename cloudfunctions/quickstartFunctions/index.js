@@ -6,6 +6,7 @@ const getJSCode2Session = require('./getJScode2Session/index');
 const createStudent = require('./students/createStudent/index');
 const bindStudent = require('./students/bindStudent/index');
 const updateStudent = require('./students/updateStudent/index');
+const updateStudentByDocID = require('./students/updateStudentByDocID');
 
 const updatePwd = require('./stores/updatePwd/index');
 
@@ -28,6 +29,8 @@ exports.main = async (event, context) => {
       return await bindStudent.main(event, context);
     case 'updateStudent':
       return await updateStudent.main(event, context);
+    case 'updateStudentByDocID':
+      return await updateStudentByDocID.main(event, context);
 
     case 'updatePwd': 
       return await updatePwd.main(event, context);
