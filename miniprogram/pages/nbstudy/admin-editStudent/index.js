@@ -463,8 +463,8 @@ Page({
     })
     logger.info(`[admin-editStudent] 查询手机号是否重复回应: ${JSON.stringify(result)}`)
     if (result.data.total !== 0) {
-      logger.info(`[admin-editStudent] 查询手机号: [${studentInfo.phone}] 所属OPENID: [${result.data.records[0].OPENID}]，当前修改用户OPENID: [${studentInfo.OPENID}]`)
-      if (result.data.records[0].OPENID !== studentInfo.OPENID) { //查询同样的手机号 且不是当前用户的
+      logger.info(`[admin-editStudent] 查询手机号: [${studentInfo.phone}] 所属OPENID&_id: [${result.data.records[0].OPENID} -- ${result.data.records[0]._id}]，当前修改用户OPENID&_id: [${studentInfo.OPENID} -- ${studentInfo._id}]`)
+      if (result.data.records[0]._id !== studentInfo._id) { //查询同样的手机号 且不是当前用户的
         wx.showToast({ 
           title: '该手机号已注册，请联系管理员处理！',
           icon: 'none',
