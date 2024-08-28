@@ -8,9 +8,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    students: [
+    selectedTabIndex: 0,
+    tabs: [
+      { title: '所有学生', filter: student => true },
+      { title: '套餐内学生', filter: student => new Date(student.packageExpirationDate) >= new Date() },
+      { title: '待绑定学生', filter: student => student.OPENID == getApp().globalData.pendingOPENID },
+    ],
 
-    ]
+    selectedTabStudents: [],
+    allStudents: [],
   },
 
   /**
@@ -29,20 +35,39 @@ Page({
     })
     const list = result?.data.records || {}
     this.setData({
-      students: list
+      allStudents: list
     })
-    logger.info(result)
+    logger.info(`[admin-main] 获取所有学生列表 长度: ${list.length}`)
+    this.onSwitchTabChanged(0)
 	},
 	
 	handleCellTap(e) {
 		const index = e.currentTarget.dataset.index
-		const studentInfo = this.data.students[index]
+		const studentInfo = this.data.selectedTabStudents[index]
 		logger.info('[admin-main] 选择学生: ' + JSON.stringify(studentInfo))
 		wx.setStorageSync('selectedStudentInfo', studentInfo)
 		wx.navigateTo({
 			url: '/pages/nbstudy/admin-editStudent/index',
 		})
-	},
+  },
+
+  switchTab: function(e) {
+    const index = e.currentTarget.dataset.index;
+    const tab = this.data.tabs[index]
+    this.setData({
+      selectedTabIndex: index,
+    });
+    logger.info(`[adming-main] 切换学生列表tab: [${index}, ${tab.title}]`)
+    this.onSwitchTabChanged(index)
+  },
+
+  onSwitchTabChanged(index) {
+    const tab = this.data.tabs[index]
+    const filtedList = this.data.allStudents.filter(tab.filter)
+    this.setData({
+      selectedTabStudents: filtedList,
+    });
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

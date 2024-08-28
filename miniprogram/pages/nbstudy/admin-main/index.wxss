@@ -1,4 +1,30 @@
 /* pages/nbstudy/admin-main/index.wxss */
+
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f0f0f0;
+  height: 80rpx;
+}
+
+.tab-item {
+  padding: 10rpx 20rpx;
+  font-size: 32rpx;
+  color: #888;
+}
+
+.tab-item.active {
+  font-weight: bold;
+  color: #ff8533;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .scrollview {
   height: 100vh;
 }
