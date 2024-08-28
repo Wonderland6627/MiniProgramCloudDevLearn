@@ -47,9 +47,7 @@ Page({
           icon: 'success',
           mask: true,
         })
-        this.setData({
-          allStudents: list
-        })
+        this.onGetStudentInfosList(list)
         this.onSwitchTabChanged(0)
         resolve(list)
       }).catch(error => {
@@ -61,6 +59,27 @@ Page({
         })
         reject(error)
       })
+    })
+  },
+
+  onGetStudentInfosList(list) {
+    const allStudents = list
+    allStudents.sort((a, b) => {
+      if (a.seatType !== b.seatType) {
+        return a.seatType - b.seatType
+      }
+      const seatNameA = a.seatName || ""
+      const seatNameB = b.seatName || ""
+      if (seatNameA !== seatNameB) {
+        return seatNameB.localeCompare(seatNameA)
+      }
+      if (a.durationType !== b.durationType) {
+        return a.durationType - b.durationType
+      }
+      return a.studentName.localeCompare(b.studentName)
+    })
+    this.setData({
+      allStudents: allStudents
     })
   },
 	
@@ -79,7 +98,7 @@ Page({
     const tab = this.data.tabs[index]
     this.setData({
       selectedTabIndex: index,
-    });
+    })
     logger.info(`[adming-main] 切换学生列表tab: [${index}, ${tab.title}]`)
     this.onSwitchTabChanged(index)
   },
@@ -89,7 +108,7 @@ Page({
     const filtedList = this.data.allStudents.filter(tab.filter)
     this.setData({
       selectedTabStudents: filtedList,
-    });
+    })
   },
 
   /**
