@@ -177,6 +177,7 @@ Page({
 
   async onChooseAvatar(e) {
     const OPENID = this.data.studentInfo.OPENID;
+    const _id = this.data.studentInfo._id
     const filePath = e.detail.avatarUrl;
     const cloudPath = 'studentAvatars/avatar_' + OPENID + '.png';
     logger.info(`[admin-editStudent] 用户选择本地头像路径: ${filePath} 头像云存储保存路径: ${cloudPath}`);
@@ -191,7 +192,7 @@ Page({
 
       wx.showLoading({ title: '正在更新头像' });
       const modifies = { 'avatarUrl': avatarUrl };
-      await this.updateStudent(OPENID, modifies);
+      await this.updateStudent(_id, modifies);
 
       wx.showToast({ title: '头像更新成功', icon: 'success' });
       this.setData({ 'studentInfo.avatarUrl': avatarUrl });
@@ -224,13 +225,13 @@ Page({
     })
   },
 
-  updateStudent(OPENID, modifies) {
+  updateStudent(_id, modifies) {
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
         name: 'quickstartFunctions',
         data: {
-          type: 'updateStudent',
-          data: { OPENID, modifies },
+          type: 'updateStudentByDocID',
+          data: { _id, modifies },
         }
       }).then(res => {
         logger.info(`[admin-editStudent] 更新学生基础信息回应: ${JSON.stringify(res)}`);
@@ -453,6 +454,7 @@ Page({
         }
       },
       select: {
+        _id: true,
         OPENID: true,
         studentName: true,
         phone: true,
@@ -475,8 +477,8 @@ Page({
     try { 
       const { modifies } = this.data
       logger.info(`[admin-editStudent] 本次修改内容 modifies: ${JSON.stringify(modifies)}`)
-      const OPENID = studentInfo.OPENID
-      await this.updateStudent(OPENID, modifies)
+      const _id = studentInfo._id
+      await this.updateStudent(_id, modifies)
       logger.info('[admin-editStudent] 学生基础信息保存成功')
       wx.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
       this.enableAlertBeforeUnload(false)
