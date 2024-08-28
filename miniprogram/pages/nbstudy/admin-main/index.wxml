@@ -14,7 +14,7 @@
         <view class="info">
           <view class="name">{{item.studentName}}</view>
           <!-- <view class="message">{{item.gender}}</view> -->
-          <view class="message">{{item.seatName}} - {{item.durationType}} - {{item.school}}</view>
+          <view class="message">{{item.seatName}} - {{item.durationType}}<!-- - {{item.school}}--></view>
         </view>
       </view>
     </scroll-view>

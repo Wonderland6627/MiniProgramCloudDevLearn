@@ -65,11 +65,24 @@ Page({
   onGetStudentInfosList(list) {
     const allStudents = list
     allStudents.sort((a, b) => {
-      if (a.seatType !== b.seatType) {
-        return a.seatType - b.seatType
+      const seatTypeA = a.seatType
+      const seatTypeB = b.seatType
+      if (seatTypeA === '0') {
+        return 1
+      }
+      if (seatTypeB === '0') {
+        return -1
+      }
+      if (seatTypeA !== seatTypeB) {
+        return seatTypeA - seatTypeB
       }
       const seatNameA = a.seatName || ""
       const seatNameB = b.seatName || ""
+      if (seatNameA === "" && seatNameB !== "") {
+        return 1
+      } else if (seatNameA !== "" && seatNameB === "") {
+        return -1
+      }
       if (seatNameA !== seatNameB) {
         return seatNameB.localeCompare(seatNameA)
       }
