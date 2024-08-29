@@ -13,8 +13,10 @@
         </view>
         <view class="info">
           <view class="name">{{item.studentName}}</view>
-          <!-- <view class="message">{{item.gender}}</view> -->
-          <view class="message">{{item.seatName}} - {{item.durationType}}<!-- - {{item.school}}--></view>
+          <view class="packageInfo">{{item.seatName}} - {{constsInfo.durations[item.durationType].label}}</view>
+          <block wx:if="{{item.isInPackage}}">
+            <view class="packageDate">到期日期: {{item.packageExpirationDateFormat}}</view>
+          </block>
         </view>
       </view>
     </scroll-view>

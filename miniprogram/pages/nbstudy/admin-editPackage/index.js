@@ -108,7 +108,7 @@ Page({
         giftDayCount: record.giftDayCount,
       }
     })
-    logger.info('[admin-editPackage] set up packages data:') 
+    logger.info('[admin-editPackage] set up packages data: ↓') 
     logger.info(packageMap) 
     this.setData({
       currentPackages: packageMap

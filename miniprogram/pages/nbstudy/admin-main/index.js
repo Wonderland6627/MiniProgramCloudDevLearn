@@ -1,6 +1,8 @@
 // pages/nbstudy/admin-main/index.js
 
 const logger = require('../../../logger.js')
+const consts = require('../../../consts.js')
+const timeUtils = require('../../../utils/timeUtils.js')
 
 Page({
 
@@ -14,6 +16,11 @@ Page({
       { title: '套餐内学生', filter: student => new Date(student.packageExpirationDate) >= new Date() },
       { title: '待绑定学生', filter: student => student.OPENID == getApp().globalData.pendingOPENID },
     ],
+
+    constsInfo: {
+      durations: consts.DurationTypeInfoMap,
+      seats: consts.SeatTypeInfoMap,
+    },
 
     selectedTabStudents: [],
     allStudents: [],
@@ -33,10 +40,21 @@ Page({
         filter: {
           where: {}
         },
+        select: {
+          _id: true,
+          OPENID: true,
+          avatarUrl: true,
+          studentName: true,
+          seatName: true,
+          seatType: true,
+          durationType: true,
+          packageExpirationDate: true,
+        },
         getCount: true,
       }).then(result => {
         const list = result?.data.records || []
-        logger.info(`[admin-main] 拉取所有学生列表 长度: ${list.length}`)
+        logger.info(`[admin-main] 拉取所有学生列表 长度: ${list.length} ↓`)
+        logger.info(list)
         if (list.length == 0) {
           wx.showToast({ title: '无数据', mask: true })
           reject('无数据')
@@ -63,8 +81,27 @@ Page({
   },
 
   onGetStudentInfosList(list) {
-    const allStudents = list
-    allStudents.sort((a, b) => {
+    let allStudents = list
+    allStudents = this.sortStudents(allStudents)
+    allStudents = this.setupStudents(allStudents)
+    this.setData({
+      allStudents: allStudents
+    })
+  },
+
+  setupStudents(list) {
+    list.forEach((student) => {
+      const packageExpirationDate = student.packageExpirationDate
+      if (packageExpirationDate) {
+        student['packageExpirationDateFormat'] = timeUtils.timeStamp2DateFormat(packageExpirationDate)
+        student['isInPackage'] = new Date(packageExpirationDate) >= new Date()
+      }
+    })
+    return list
+  },
+
+  sortStudents(list) {
+    list.sort((a, b) => {
       const seatTypeA = a.seatType
       const seatTypeB = b.seatType
       if (seatTypeA === '0') {
@@ -91,9 +128,7 @@ Page({
       }
       return a.studentName.localeCompare(b.studentName)
     })
-    this.setData({
-      allStudents: allStudents
-    })
+    return list
   },
 	
 	handleCellTap(e) {

@@ -61,6 +61,10 @@
   margin-bottom: 10rpx;
 }
 
-.message {
+.packageInfo {
+  color: #888;
+}
+
+.packageDate {
   color: #888;
 }
