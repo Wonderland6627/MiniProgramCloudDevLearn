@@ -74,6 +74,7 @@ Page({
         discount: true,
         giftDayCount: true,
       },
+      pageSize: 24, //VIP、B、C * 8种时长
       getCount: true,
     })
     logger.info('[admin-editPackage] 拉取所有套餐信息: ' + JSON.stringify(result))
@@ -107,6 +108,7 @@ Page({
         giftDayCount: record.giftDayCount,
       }
     })
+    logger.info('[admin-editPackage] set up packages data:') 
     logger.info(packageMap) 
     this.setData({
       currentPackages: packageMap
