@@ -133,7 +133,7 @@ Page({
 	
 	handleCellTap(e) {
 		const index = e.currentTarget.dataset.index
-		const studentInfo = this.data.selectedTabStudents[index]
+    const studentInfo = this.data.selectedTabStudents[index]
 		logger.info('[admin-main] 选择学生: ' + JSON.stringify(studentInfo))
 		wx.setStorageSync('selectedStudentInfo', studentInfo)
 		wx.navigateTo({
@@ -141,8 +141,40 @@ Page({
 		})
   },
 
+  fetchStudentInfo(_id) {
+    return new Promise((resolve, reject) => {
+      wx.showLoading({ title: '拉取信息中' })
+      const result = getApp().getModels().students.get({
+        filter: {
+          where: {
+            _id: {
+              $eq: _id,
+            }
+          }
+        }
+      })
+      const data = result?.data
+      if (utils.isEmpty(data)) {
+        const log = `[admin-main] fetch student info failed: not exists: ${_id}`
+        logger.error(log)
+        wx.showToast({
+          title: '拉取失败',
+          icon: 'error',
+        })
+        reject(log)
+        return
+      }
+      logger.info('[admin-main] fetch student info success')
+      wx.showToast({
+        title: '拉取失败',
+        icon: 'error',
+      })
+      resolve(data)
+    })
+  },
+
   switchTab: function(e) {
-    const index = e.currentTarget.dataset.index;
+    const index = e.currentTarget.dataset.index
     const tab = this.data.tabs[index]
     this.setData({
       selectedTabIndex: index,
