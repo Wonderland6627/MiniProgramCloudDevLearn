@@ -11,12 +11,12 @@
 }
 
 .optiontab {
-  padding: 20rpx 40rpx;
+  padding: 20rpx 30rpx;
   background-color: #eee;
   border-radius: 8rpx;
   cursor: pointer;
   text-align: center;
-  font-size: 32rpx;
+  font-size: 30rpx;
 }
 
 .optiontab.selected {

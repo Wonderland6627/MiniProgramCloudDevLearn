@@ -43,37 +43,52 @@ const SeatTypeLocal2Remote = {
 const DurationType = {
   Temp: 'Temp',
   Week: 'Week',
+  HalfMonth: 'HalfMonth',
   Month: 'Month',
+  DoubleMonth: 'DoubleMonth',
   Season: 'Season',
+  HalfYear: 'HalfYear',
   Year: 'Year',
 }
 const DurationTypeArray = [
 	DurationType.Temp,
-	DurationType.Week,
-	DurationType.Month,
-	DurationType.Season,
+  DurationType.Week,
+  DurationType.HalfMonth,
+  DurationType.Month,
+  DurationType.DoubleMonth,
+  DurationType.Season,
+  DurationType.HalfYear,
 	DurationType.Year,
 ]
 const DurationTypeInfoMap = [
   { type: DurationType.Temp, label: '次卡', duration: 1 },
   { type: DurationType.Week, label: '周卡', duration: 7 },
+  { type: DurationType.HalfMonth, label: '半月卡', duration: 15 },
   { type: DurationType.Month, label: '月卡', duration: 31 },
-  { type: DurationType.Season, label: '季卡', duration: 91 },
+  { type: DurationType.DoubleMonth, label: '双月卡', duration: 61 },
+  { type: DurationType.Season, label: '季度卡', duration: 91 },
+  { type: DurationType.HalfYear, label: '半年卡', duration: 181 },
   { type: DurationType.Year, label: '年卡', duration: 365 },
 ]
 const DurationTypeRemote2Local = {
   0: 'Temp',
   1: 'Week',
-  2: 'Month',
-  3: 'Season',
-  4: 'Year',
+  2: 'HalfMonth',
+  3: 'Month',
+  4: 'DoubleMonth',
+  5: 'Season',
+  6: 'HalfYear',
+  7: 'Year',
 }
 const DurationTypeLocal2Remote = {
   'Temp': '0',
   'Week': '1',
-  'Month': '2',
-  'Season': '3',
-  'Year': '4',
+  'HalfMonth': '2',
+  'Month': '3',
+  'DoubleMonth': '4',
+  'Season': '5',
+  'HalfYear': '6',
+  'Year': '7',
 }
 
 module.exports = {

@@ -18,8 +18,11 @@ Page({
     visibleDurations: [
       consts.DurationType.Temp,
       consts.DurationType.Week,
+      consts.DurationType.HalfMonth,
       consts.DurationType.Month,
+      consts.DurationType.DoubleMonth,
       consts.DurationType.Season,
+      consts.DurationType.halfYear,
       consts.DurationType.Year,
     ],
 
@@ -64,7 +67,13 @@ Page({
       filter: {
         where: {}
       },
-      pageSize: 20,
+      select: {
+        seatType: true,
+        durationType: true,
+        price: true,
+        discount: true,
+        giftDayCount: true,
+      },
       getCount: true,
     })
     logger.info('[admin-editPackage] 拉取所有套餐信息: ' + JSON.stringify(result))
@@ -120,7 +129,13 @@ Page({
     if (modifiedPackages[seatKey] && modifiedPackages[seatKey][durationKey]) {
       return modifiedPackages[seatKey][durationKey]
     }
-    return currentPackages[seatKey][durationKey]
+    if (currentPackages[seatKey] && currentPackages[seatKey][durationKey]) {
+      return currentPackages[seatKey][durationKey]
+    }
+    return {
+      price: 0,
+      giftDayCount: 0,
+    }
   },
 
   selectSeat(e) {
