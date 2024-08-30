@@ -23,6 +23,7 @@ Page({
       seats: consts.SeatTypeInfoMap,
     },
 
+    scrollTop: 0,
     selectedTabStudents: [],
     allStudents: [],
   },
@@ -51,6 +52,7 @@ Page({
           durationType: true,
           packageExpirationDate: true,
         },
+        pageSize: 100,
         getCount: true,
       }).then(result => {
         const list = result?.data.records || []
@@ -131,6 +133,12 @@ Page({
     })
     return list
   },
+
+  scrollToTop() {
+    this.setData({
+      scrollTop: 0,
+    })
+  },
 	
 	handleCellTap(e) {
 		const index = e.currentTarget.dataset.index
@@ -205,6 +213,7 @@ Page({
   },
 
   onSwitchTabChanged(index) {
+    this.scrollToTop()
     const tab = this.data.tabs[index]
     const filtedList = this.data.allStudents.filter(tab.filter)
     this.setData({
