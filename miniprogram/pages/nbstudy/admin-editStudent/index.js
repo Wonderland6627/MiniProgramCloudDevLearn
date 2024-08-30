@@ -186,23 +186,23 @@ Page({
     const cloudPath = 'studentAvatars/avatar_' + OPENID + '.png';
     logger.info(`[admin-editStudent] 用户选择本地头像路径: ${filePath} 头像云存储保存路径: ${cloudPath}`);
     try { 
-      wx.showLoading({ title: '正在上传头像' });
+      wx.showLoading({ title: '正在上传头像', mask: true });
       const uploadRes = await this.uploadAvatar(filePath, cloudPath);
 
-      wx.showLoading({ title: '获取临时链接' });
+      wx.showLoading({ title: '获取临时链接', mask: true });
       const tempFileRes = await this.getTempFileURL(uploadRes.fileID);
       const avatarUrl = tempFileRes.fileList[0].tempFileURL + '?t=' + new Date().getTime();
       logger.info(`[admin-editStudent] 获取到头像临时链接: ${avatarUrl}`)
 
-      wx.showLoading({ title: '正在更新头像' });
+      wx.showLoading({ title: '正在更新头像', mask: true });
       const modifies = { 'avatarUrl': avatarUrl };
       await this.updateStudent(_id, modifies);
 
-      wx.showToast({ title: '头像更新成功', icon: 'success' });
+      wx.showToast({ title: '头像更新成功', icon: 'success', mask: true });
       this.setData({ 'studentInfo.avatarUrl': avatarUrl });
     } catch (error) {
       logger.error(`[admin-editStudent] 头像更新错误: ${error}`);
-      wx.showToast({ title: '头像更新错误', icon: 'error' });
+      wx.showToast({ title: '头像更新错误', icon: 'error', mask: true });
     }
   },
 
@@ -448,7 +448,7 @@ Page({
       return
     }
     //必填信息 end
-    wx.showLoading({ title: '正在保存' })
+    wx.showLoading({ title: '正在保存', mask: true })
     const result = await getApp().getModels().students.list({
       filter: {
         where: {
@@ -484,14 +484,14 @@ Page({
       const _id = studentInfo._id
       await this.updateStudent(_id, modifies)
       logger.info('[admin-editStudent] 学生基础信息保存成功')
-      wx.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
+      wx.showToast({ title: '保存成功', icon: 'success', mask: true, duration: 1500 })
       this.enableAlertBeforeUnload(false)
       setTimeout(() => {
         wx.navigateBack()
       }, 1500)
     } catch (error) {
       logger.error(`[admin-editStudent] 更新学生基础信息错误: ${error}`)
-      wx.showToast({ title: '更新信息错误', icon: 'error' })
+      wx.showToast({ title: '更新信息错误', icon: 'error', mask: true })
     }
   },
 
