@@ -5,7 +5,9 @@
     <view>{{item.title}}</view>
   </view>
 </view>
-
+<view class="mid-container">
+  <view class="number-text">学生数量: {{selectedTabStudents.length}}/{{allStudents.length}}</view>
+</view>
 <view class="scroll-container">
   <scroll-view 
     class="scroll-ui" 

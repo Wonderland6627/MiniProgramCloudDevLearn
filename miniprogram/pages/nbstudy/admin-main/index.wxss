@@ -19,10 +19,25 @@
   color: #ff8533;
 }
 
+.mid-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #f0f0f0;
+  padding: 10rpx;
+  margin: 10rpx 0;
+}
+
+.number-text {
+  font-size: 30rpx;
+  color: #888;
+  margin-right: 10rpx;
+}
+
 .scroll-container {
   display: flex; 
   flex-direction: column; 
-  height: calc(100vh - 450rpx);
+  height: calc(100vh - 300rpx - 50rpx - 125rpx - 50rpx);
 }
 
 .scroll-ui {
