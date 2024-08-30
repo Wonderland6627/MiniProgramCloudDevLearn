@@ -67,7 +67,7 @@ Page({
           mask: true,
         })
         this.onGetStudentInfosList(list)
-        this.onSwitchTabChanged(0)
+        this.onSwitchTabChanged(this.data.selectedTabIndex)
         resolve(list)
       }).catch(error => {
         logger.error(`[admin-main] 拉取所有学生列表错误: ${error}`)
@@ -249,6 +249,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    logger.info(`[admin-main] pull down refresh`)
     this.fetchStudents()
     .then(infos => wx.stopPullDownRefresh())
     .catch(error => wx.stopPullDownRefresh())
