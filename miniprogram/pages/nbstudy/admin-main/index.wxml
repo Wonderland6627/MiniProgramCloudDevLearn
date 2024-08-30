@@ -1,24 +1,24 @@
 <!--pages/nbstudy/admin-main/index.wxml-->
+<navigation-bar title="NBStudy" back="{{false}}"></navigation-bar>
 <view class="tab-container">
   <view class="tab-item {{selectedTabIndex === index ? 'active' : ''}}" wx:for="{{tabs}}" wx:for-index="index" wx:key="index" bindtap="switchTab" data-index="{{index}}">
     <view>{{item.title}}</view>
   </view>
 </view>
-<view class="container">
-  <view class="scrollview">
-    <scroll-view scroll-y="true" style="height: 100%;">
-      <view class="cell" wx:for="{{selectedTabStudents}}" wx:key="index" bindtap="handleCellTap" data-index="{{index}}">
-        <view class="avatar-container">
-          <image class="avatar" src="{{item.avatarUrl}}"></image>
-        </view>
-        <view class="info">
-          <view class="name">{{item.studentName}}</view>
-          <block wx:if="{{item.isInPackage}}">
-            <view class="packageInfo">{{item.seatName}} - {{constsInfo.durations[item.durationType].label}}</view>
-            <view class="packageDate">到期日期: {{item.packageExpirationDateFormat}}</view>
-          </block>
-        </view>
+
+<view class="scroll-container">
+  <scroll-view class="scroll-ui" type="list" scroll-y>
+    <view class="cell" wx:for="{{selectedTabStudents}}" wx:key="index" bindtap="handleCellTap" data-index="{{index}}">
+      <view class="avatar-container">
+        <image class="avatar" src="{{item.avatarUrl}}"></image>
       </view>
-    </scroll-view>
-  </view>
+      <view class="info">
+        <view class="name">{{item.studentName}}</view>
+        <block wx:if="{{item.isInPackage}}">
+          <view class="packageInfo">{{item.seatName}} - {{constsInfo.durations[item.durationType].label}}</view>
+          <view class="packageDate">到期日期: {{item.packageExpirationDateFormat}}</view>
+        </block>
+      </view>
+    </view>
+  </scroll-view>
 </view>
