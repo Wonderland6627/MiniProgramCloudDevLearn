@@ -7,7 +7,15 @@
 </view>
 
 <view class="scroll-container">
-  <scroll-view class="scroll-ui" type="list" scroll-y scroll-top="{{scrollTop}}" show-scrollbar="{{false}}" refresher-enabled="{{true}}">
+  <scroll-view 
+    class="scroll-ui" 
+    type="list" 
+    scroll-y 
+    scroll-top="{{scroll.scrollTop}}"
+    show-scrollbar="{{false}}" 
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{scroll.refresherTriggered}}"
+    bind:refresherrefresh="onScrollRefresh">
     <view class="cell" wx:for="{{selectedTabStudents}}" wx:key="index" bindtap="handleCellTap" data-index="{{index}}">
       <view class="avatar-container">
         <image class="avatar" src="{{item.avatarUrl}}"></image>

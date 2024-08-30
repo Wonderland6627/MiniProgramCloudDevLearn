@@ -23,7 +23,10 @@ Page({
       seats: consts.SeatTypeInfoMap,
     },
 
-    scrollTop: 0,
+    scroll: {
+      scrollTop: 0,
+      refresherTriggered: false,
+    },
     selectedTabStudents: [],
     allStudents: [],
   },
@@ -133,12 +136,6 @@ Page({
     })
     return list
   },
-
-  scrollToTop() {
-    this.setData({
-      scrollTop: 0,
-    })
-  },
 	
 	handleCellTap(e) {
 		const index = e.currentTarget.dataset.index
@@ -221,6 +218,24 @@ Page({
     })
   },
 
+  scrollToTop() {
+    this.setData({
+      'scroll.scrollTop': 0,
+    })
+  },
+
+  onScrollRefresh() {
+    logger.info(`[admin-main] pull down refresh`)
+    const endRefresh = () => {
+      this.setData({
+        'scroll.refresherTriggered': false,
+      })
+    }
+    this.fetchStudents()
+    .then(info => endRefresh())
+    .catch(error => endRefresh())
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -258,10 +273,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    logger.info(`[admin-main] pull down refresh`)
-    this.fetchStudents()
-    .then(infos => wx.stopPullDownRefresh())
-    .catch(error => wx.stopPullDownRefresh())
+    
   },
 
   /**
