@@ -2,6 +2,7 @@
 
 const logger = require('../../../logger.js')
 const consts = require('../../../consts.js')
+const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 
 Page({
@@ -134,17 +135,29 @@ Page({
 	handleCellTap(e) {
 		const index = e.currentTarget.dataset.index
     const studentInfo = this.data.selectedTabStudents[index]
-		logger.info('[admin-main] 选择学生: ' + JSON.stringify(studentInfo))
-		wx.setStorageSync('selectedStudentInfo', studentInfo)
-		wx.navigateTo({
-			url: '/pages/nbstudy/admin-editStudent/index',
-		})
+    const _id = studentInfo?._id
+    if (_id == '') {
+      logger.info(`[admin-main] 选择学生_id为空`)
+      wx.showToast({
+        title: `所选_id为空，请联系管理员处理`,
+        icon: 'none',
+      })
+      return
+    }
+    logger.info('[admin-main] 选择学生: ' + JSON.stringify(studentInfo))
+    this.fetchStudentInfo(_id)
+    .then(info => {
+      wx.setStorageSync('selectedStudentInfo', info)
+		  wx.navigateTo({
+		  	url: '/pages/nbstudy/admin-editStudent/index',
+		  })
+    })
   },
 
   fetchStudentInfo(_id) {
     return new Promise((resolve, reject) => {
-      wx.showLoading({ title: '拉取信息中' })
-      const result = getApp().getModels().students.get({
+      wx.showLoading({ title: '拉取信息中', mask: true, })
+      getApp().getModels().students.get({
         filter: {
           where: {
             _id: {
@@ -153,23 +166,31 @@ Page({
           }
         }
       })
-      const data = result?.data
-      if (utils.isEmpty(data)) {
-        const log = `[admin-main] fetch student info failed: not exists: ${_id}`
-        logger.error(log)
+      .then(result => {
+        const data = result?.data
+        if (utils.isEmpty(data)) {
+          const log = `[admin-main] fetch student info failed: not exists: ${_id}`
+          logger.error(log)
+          wx.showToast({
+            title: `拉取数据为空，请联系管理员处理`,
+            icon: 'none',
+          })
+          reject(log)
+          return
+        }
+        logger.info(`[admin-main] fetch student info success: ${_id}`)
+        wx.hideLoading()
+        resolve(data)
+      })
+      .catch(error => {
+        const log = `[admin-main] fetch student info error: ${error}`
+        logger.error(log);
         wx.showToast({
-          title: '拉取失败',
-          icon: 'error',
+          title: `数据拉取错误，请联系管理员处理`,
+          icon: 'none',
         })
         reject(log)
-        return
-      }
-      logger.info('[admin-main] fetch student info success')
-      wx.showToast({
-        title: '拉取失败',
-        icon: 'error',
       })
-      resolve(data)
     })
   },
 

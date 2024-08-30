@@ -65,6 +65,10 @@ Page({
   },
 
   onGetStudentInfo(info) {
+    wx.showToast({
+      title: '拉取成功',
+      icon: 'success',
+    })
     this.setData({
       currentStudentInfo: utils.cloneWithJSON(info),
       studentInfo: info,
