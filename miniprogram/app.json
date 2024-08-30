@@ -27,6 +27,13 @@
 	"sitemapLocation": "sitemap.json",
 	"style": "v2",
 	"lazyCodeLoading": "requiredComponents",
+	"rendererOptions": {
+		"skyline": {
+			"defaultDisplayBlock": true,
+			"defaultContentBox": true,
+			"disableABTest": true
+		}
+	},
 	"tabBar": {
 		"color": "#bfbfbf",
 		"selectedColor": "#ff8533",
