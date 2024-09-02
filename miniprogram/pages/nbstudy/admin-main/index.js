@@ -125,7 +125,7 @@ Page({
         return -1
       }
       if (seatNameA !== seatNameB) {
-        return seatNameB.localeCompare(seatNameA)
+        return seatNameA.localeCompare(seatNameB)
       }
       if (a.durationType !== b.durationType) {
         return a.durationType - b.durationType
