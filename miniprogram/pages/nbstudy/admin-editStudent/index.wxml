@@ -102,5 +102,19 @@
     </view>
   </view>
 
+  <view class='edit-container'>
+    <text class="edit-title">数据信息</text>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/target-school.svg"></image>
+      <text class="title">_id</text>
+      <input class='edit-input' placeholder='_id' value="{{studentInfo._id}}"></input>
+    </view>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/target-school.svg"></image>
+      <text class="title">OPENID</text>
+      <input class='edit-input' placeholder='OPENID' value="{{studentInfo.OPENID}}"></input>
+    </view>
+  </view>
+
   <button class="common-btn" bindtap='saveInfo'>保  存</button>
 </view>
