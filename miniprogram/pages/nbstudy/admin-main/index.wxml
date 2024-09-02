@@ -30,5 +30,6 @@
         </block>
       </view>
     </view>
+    <view class="extra-space"></view>
   </scroll-view>
 </view>

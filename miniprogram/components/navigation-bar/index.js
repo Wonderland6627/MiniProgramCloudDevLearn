@@ -60,7 +60,7 @@ Component({
           this.setData({
             innerPaddingRight: `padding-right:${res.windowWidth - rect.left}px`,
             leftWidth: `width:${res.windowWidth - rect.left}px`,
-            navBarHeight: rect.bottom + rect.top - res.statusBarHeight + 5,
+            navBarHeight: rect.bottom + rect.top - res.statusBarHeight + 25,
           })
         }
       })

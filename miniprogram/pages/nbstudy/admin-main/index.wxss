@@ -37,13 +37,17 @@
 .scroll-container {
   display: flex; 
   flex-direction: column; 
-  height: calc(100vh - 300rpx - 50rpx - 125rpx - 50rpx);
+  height: 100vh;
 }
 
 .scroll-ui {
   flex: 1;
   width: 100%;
   overflow: hidden;
+}
+
+.extra-space {
+  height: 400rpx;
 }
 
 .cell {
