@@ -30,6 +30,14 @@ const commonFuntions = {
 	},
 
 	async fetchAccessControlPwd(storeID) {
+    if (!getApp().dataMgr.getStudentInfo().isVIP) {
+      wx.showToast({
+        title: '无权限查看',
+        icon: 'error',
+      })
+      return
+    }
+
     wx.showLoading({
       title: '拉取中...',
     })
