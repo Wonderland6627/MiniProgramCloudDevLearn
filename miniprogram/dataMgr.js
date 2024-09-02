@@ -48,8 +48,9 @@ const dataMgr = {
           getApp().logOut()
           return
         }
+        data.isVIP = new Date(data.packageExpirationDate) > new Date() && data.seatName !== '' //套餐没到期、有座位名称 就认为是VIP
         this.studentInfo = data
-        logger.info('[dataMgr] update student info success');
+        logger.info(`[dataMgr] fetch & update student info success, isVIP: ${data.isVIP}`);
         resolve(data);
       } catch (error) {
         logger.error('[dataMgr] fetch student info with error:', error);

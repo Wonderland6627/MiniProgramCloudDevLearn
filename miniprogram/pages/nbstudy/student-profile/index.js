@@ -61,13 +61,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let info = getApp().dataMgr.getStudentInfo(false)
-    this.setData({
-      studentInfo: info,
-    })
-    logger.info('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
-
-    this.onGetStudentInfo(info)
+    getApp().dataMgr
+      .fetchStudentInfo()
+      .then(info => {
+        logger.info('[student-profile] 获取studentBasicInfo: ' + JSON.stringify(info))
+        this.setData({
+          studentInfo: info
+        })
+        this.onGetStudentInfo(info)
+      })
+      .catch(error => {
+        logger.error(error)
+      })
   },
 
   onGetStudentInfo(info) {
