@@ -88,22 +88,20 @@ Page({
 
   onGetStudentInfosList(list) {
     let allStudents = list
-    allStudents = this.sortStudents(allStudents)
     allStudents = this.setupStudents(allStudents)
+    allStudents = this.sortStudents(allStudents)
     this.setData({
       allStudents: allStudents
     })
   },
 
   setupStudents(list) {
+    let newList = []
     list.forEach((student) => {
-      const packageExpirationDate = student.packageExpirationDate
-      if (packageExpirationDate) {
-        student['packageExpirationDateFormat'] = timeUtils.timeStamp2DateFormat(packageExpirationDate)
-        student['isInPackage'] = new Date(packageExpirationDate) >= new Date()
-      }
+      let parsedInfo = getApp().dataMgr.parseStudentInfo(student)
+      newList.push(parsedInfo)
     })
-    return list
+    return newList
   },
 
   sortStudents(list) {

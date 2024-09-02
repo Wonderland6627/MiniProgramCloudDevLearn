@@ -24,7 +24,7 @@
       </view>
       <view class="info">
         <view class="name">{{item.studentName}}</view>
-        <block wx:if="{{item.isInPackage}}">
+        <block wx:if="{{item.isVIP}}">
           <view class="packageInfo">{{item.seatName}} - {{constsInfo.durations[item.durationType].label}}</view>
           <view class="packageDate">到期日期: {{item.packageExpirationDateFormat}}</view>
         </block>
