@@ -71,7 +71,7 @@ Page({
     })
     this.setData({
       currentStudentInfo: utils.cloneWithJSON(info),
-      studentInfo: info,
+      studentInfo: getApp().dataMgr.parseStudentInfo(info),
     })
     logger.info(`[admin-editStudent] 获取studentBasicInfo: ${JSON.stringify(info)}`)
 
@@ -85,17 +85,6 @@ Page({
         'genderIndex': this.data.studentInfo.gender
       })
     }
-    if (this.data.studentInfo.birthday) {
-      const birthdayFormat = timeUtils.timeStamp2DateFormat(this.data.studentInfo.birthday)
-      this.setData({
-        'studentInfo.birthdayFormat': birthdayFormat
-      })
-    }
-    if (!this.data.studentInfo.avatarUrl) {
-      this.setData({
-        'studentInfo.avatarUrl': getApp().globalData.defaultAvatarUrl
-      })
-    }
     if (this.data.studentInfo.seatType) {
       this.setData({
         'seatTypeIndex': this.data.studentInfo.seatType
@@ -104,18 +93,6 @@ Page({
     if (this.data.studentInfo.durationType) {
       this.setData({
         'durationTypeIndex': this.data.studentInfo.durationType
-      })
-    }
-    if (this.data.studentInfo.packageStartDate) {
-      const packageStartDateFormat = timeUtils.timeStamp2DateFormat(this.data.studentInfo.packageStartDate)
-      this.setData({
-        'studentInfo.packageStartDateFormat': packageStartDateFormat
-      })
-    }
-    if (this.data.studentInfo.packageExpirationDate) {
-      const packageExpirationDateFormat = timeUtils.timeStamp2DateFormat(this.data.studentInfo.packageExpirationDate)
-      this.setData({
-        'studentInfo.packageExpirationDateFormat': packageExpirationDateFormat
       })
     }
   },

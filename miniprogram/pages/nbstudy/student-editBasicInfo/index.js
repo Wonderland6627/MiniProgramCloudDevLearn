@@ -46,7 +46,7 @@ Page({
     this.setData({
       isNewUser: isNewUser,
       currentStudentInfo: utils.cloneWithJSON(info),
-      studentInfo: info,
+      studentInfo: getApp().dataMgr.parseStudentInfo(info),
     })
     logger.info(`[student-editBasicInfo] isNewUser: ${isNewUser} 获取studentBasicInfo: ${JSON.stringify(info)}`)
 
@@ -58,17 +58,6 @@ Page({
     if (this.data.studentInfo.gender) {
       this.setData({
         'genderIndex': this.data.studentInfo.gender
-      })
-    }
-    if (this.data.studentInfo.birthday) {
-      const birthdayFormat = timeUtils.timeStamp2DateFormat(this.data.studentInfo.birthday)
-      this.setData({
-        'studentInfo.birthdayFormat': birthdayFormat
-      })
-    }
-    if (!this.data.studentInfo.avatarUrl) {
-      this.setData({
-        'studentInfo.avatarUrl': getApp().globalData.defaultAvatarUrl
       })
     }
   },

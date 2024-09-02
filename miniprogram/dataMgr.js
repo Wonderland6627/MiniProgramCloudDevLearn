@@ -1,6 +1,7 @@
 // dataMgr.js
 
 const utils = require('./utils/utils.js')
+const timeUtils = require('./utils/timeUtils.js')
 const logger = require('./logger.js')
 
 const dataMgr = {
@@ -48,15 +49,33 @@ const dataMgr = {
           getApp().logOut()
           return
         }
-        data.isVIP = new Date(data.packageExpirationDate) > new Date() && data.seatName !== '' //套餐没到期、有座位名称 就认为是VIP
-        this.studentInfo = data
-        logger.info(`[dataMgr] fetch & update student info success, isVIP: ${data.isVIP}`);
-        resolve(data);
+        let parsedData = this.parseStudentInfo(data)
+        logger.info(`[dataMgr] fetch & update student info success, isVIP: ${parsedData.isVIP}`);
+        this.studentInfo = parsedData
+        resolve(parsedData);
       } catch (error) {
         logger.error('[dataMgr] fetch student info with error:', error);
         reject(error);
       }
     }) 
+  },
+
+  parseStudentInfo(info) {
+    let studentInfo = utils.cloneWithJSON(info)
+    if (!studentInfo.avatarUrl) {
+      studentInfo.avatarUrl = getApp().globalData.defaultAvatarUrl
+    }
+    if (studentInfo.birthday) {
+      studentInfo.birthdayFormat = timeUtils.timeStamp2DateFormat(studentInfo.birthday)
+    }
+    if (studentInfo.packageStartDate) {
+      studentInfo.packageStartDateFormat = timeUtils.timeStamp2DateFormat(studentInfo.packageStartDate)
+    }
+    if (studentInfo.packageExpirationDate) {
+      studentInfo.packageExpirationDateFormat = timeUtils.timeStamp2DateFormat(studentInfo.packageExpirationDate)
+    }
+    studentInfo.isVIP = new Date(studentInfo.packageExpirationDate) > new Date() && studentInfo.seatName !== '' //套餐没到期、有座位名称 就认为是VIP
+    return studentInfo
   },
 
   logOut() {
