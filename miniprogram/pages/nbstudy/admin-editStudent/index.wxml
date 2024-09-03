@@ -107,12 +107,12 @@
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/target-school.svg"></image>
       <text class="title">_id</text>
-      <input class='edit-input' placeholder='_id' value="{{studentInfo._id}}"></input>
+      <view class='edit-readonly'>{{studentInfo._id}}</view>
     </view>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/target-school.svg"></image>
       <text class="title">OPENID</text>
-      <input class='edit-input' placeholder='OPENID' value="{{studentInfo.OPENID}}"></input>
+      <view class='edit-readonly'>{{studentInfo.OPENID}}</view>
     </view>
   </view>
 

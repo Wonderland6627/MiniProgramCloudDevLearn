@@ -71,6 +71,11 @@
   color: #808080;
 }
 
+.edit-readonly {
+  font-size: 28rpx;
+  width: 500rpx;
+}
+
 .common-btn {
   background-color: #ff8533;
   color: #ffffff;
