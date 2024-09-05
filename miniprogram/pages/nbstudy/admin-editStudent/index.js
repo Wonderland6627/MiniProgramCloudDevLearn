@@ -400,6 +400,23 @@ Page({
     logger.info('[admin-editStudent] 修改套餐到期日期TimeStamp: ' + expirationDateFormatTimeStamp)
   },
 
+  bindCopyTap(e) {
+    this.copyValue(JSON.stringify(this.data, null, 2))
+  },
+
+  copyValue(value) {
+    wx.setClipboardData({
+      data: value,
+      success: () => {
+        wx.showToast({
+          title: '已复制',
+          icon: 'none',
+          duration: 1000,
+        })
+      }
+    })
+  },
+
   saveInfo() {
     logger.info('[admin-editStudent] 保存个人信息')
     this.tryUpdateStudentInfo()

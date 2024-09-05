@@ -107,12 +107,12 @@
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/target-school.svg"></image>
       <text class="title">_id</text>
-      <view class='edit-readonly'>{{studentInfo._id}}</view>
+      <view class='edit-readonly' bindtap="bindCopyTap">{{studentInfo._id}}</view>
     </view>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/target-school.svg"></image>
       <text class="title">OPENID</text>
-      <view class='edit-readonly'>{{studentInfo.OPENID}}</view>
+      <view class='edit-readonly' bindtap="bindCopyTap">{{studentInfo.OPENID}}</view>
     </view>
   </view>
 
