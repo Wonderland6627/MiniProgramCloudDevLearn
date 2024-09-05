@@ -409,7 +409,7 @@ Page({
       data: value,
       success: () => {
         wx.showToast({
-          title: '已复制',
+          title: '已复制所有信息',
           icon: 'none',
           duration: 1000,
         })

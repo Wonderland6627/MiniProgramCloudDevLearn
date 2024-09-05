@@ -56,7 +56,7 @@
   <view class='edit-container'>
     <text class="edit-title">座位信息</text>
     <view class="edit-cell">
-      <image class="icon" src="../../../images/icons/seat.svg"></image>
+      <image class="icon" src="../../../images/icons/record.svg"></image>
       <text class="title">{{titles.seatName}}</text>
       <input class='edit-input' bindinput="bindSeatName" placeholder='请输入座位名称' value="{{studentInfo.seatName}}"></input>
     </view>
@@ -71,7 +71,7 @@
       </picker>
     </view>
     <view class="edit-cell">
-      <image class="icon" src="../../../images/icons/seat.svg"></image>
+      <image class="icon" src="../../../images/icons/duration.svg"></image>
       <text class="title">{{titles.durationType}}</text>
       <picker class="edit-picker" range="{{durationTypeArray}}" value="{{durationTypeIndex}}" bindchange="bindDurationTypeChange" bindtap="bindDurationTypeTap">
         <view class="picker">
@@ -105,12 +105,12 @@
   <view class='edit-container'>
     <text class="edit-title">数据信息</text>
     <view class="edit-cell">
-      <image class="icon" src="../../../images/icons/target-school.svg"></image>
+      <image class="icon" src="../../../images/icons/id.svg"></image>
       <text class="title">_id</text>
       <view class='edit-readonly' bindtap="bindCopyTap">{{studentInfo._id}}</view>
     </view>
     <view class="edit-cell">
-      <image class="icon" src="../../../images/icons/target-school.svg"></image>
+      <image class="icon" src="../../../images/icons/id.svg"></image>
       <text class="title">OPENID</text>
       <view class='edit-readonly' bindtap="bindCopyTap">{{studentInfo.OPENID}}</view>
     </view>
