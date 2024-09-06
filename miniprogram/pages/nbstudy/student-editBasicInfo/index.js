@@ -11,6 +11,7 @@ Page({
    */
   data: {
     isNewUser: false,
+    showNeedHelp: false,
 
     titles: {
       studentName: '姓名',
@@ -262,6 +263,19 @@ Page({
     logger.info('[student-editBasicInfo] 修改学习目标: ' + goal)
   },
 
+  bindNeedHelp(e) {
+    wx.showModal({
+      title: '很抱歉带来了不好的体验',
+      content: `请点击'上报数据'来协助我们为你解决问题，请稍后重新尝试注册，感谢配合！`,
+      confirmText: '上报数据',
+      complete: (res) => {
+        if (res.confirm) {
+          
+        }
+      }
+    })
+  },
+
   saveInfo() {
     logger.info('[student-editBasicInfo] 保存个人信息')
     this.tryUpdateStudentInfo()
@@ -336,6 +350,9 @@ Page({
       }, 1500)
     } catch (error) {
       logger.error(`[student-editBasicInfo] 更新学生基础信息错误: ${error}`)
+      this.setData({
+        showNeedHelp: true,
+      })
       wx.showToast({ title: '更新信息错误', icon: 'error', mask: true })
     }
   },

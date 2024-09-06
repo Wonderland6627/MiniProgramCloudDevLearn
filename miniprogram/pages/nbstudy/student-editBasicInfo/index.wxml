@@ -1,5 +1,8 @@
 <!--pages/nbstudy/student-editBasicInfo/index.wxml-->
 <view class="container">
+  <block wx:if="{{showNeedHelp}}">
+    <view class="need-help" bind:tap="bindNeedHelp">注册遇到问题？</view>
+  </block>
   <button class="avatar-container" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
     <image class="avatar" src="{{studentInfo.avatarUrl}}" />
     <text class="avatar-tips">点击此处修改头像</text>

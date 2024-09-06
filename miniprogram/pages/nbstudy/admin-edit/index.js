@@ -9,11 +9,11 @@ Page({
    */
   data: {
     settings: [
-      {
-        title: "座位设置",
-        icon: "../../../images/icons/seat.svg",
-        onTap: "onSeatCellClick"
-      },
+      // {
+      //   title: "座位设置",
+      //   icon: "../../../images/icons/seat.svg",
+      //   onTap: "onSeatCellClick"
+      // },
       {
         title: "修改套餐",
         icon: "../../../images/icons/package.svg",

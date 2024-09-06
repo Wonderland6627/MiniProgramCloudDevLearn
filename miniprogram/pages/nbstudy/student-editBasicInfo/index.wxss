@@ -71,6 +71,14 @@
   color: #808080;
 }
 
+.need-help {
+  color: #808080;
+  font-size: 20rpx;
+  position: fixed;
+  top: 30rpx;
+  right: 20rpx;
+}
+
 .common-btn {
   background-color: #ff8533;
   color: #ffffff;
