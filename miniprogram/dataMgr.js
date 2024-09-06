@@ -71,10 +71,12 @@ const dataMgr = {
     if (studentInfo.packageStartDate) {
       studentInfo.packageStartDateFormat = timeUtils.timeStamp2DateFormat(studentInfo.packageStartDate)
     }
-    if (studentInfo.packageExpirationDate) {
-      studentInfo.packageExpirationDateFormat = timeUtils.timeStamp2DateFormat(studentInfo.packageExpirationDate)
+    let expirationDate = studentInfo.packageExpirationDate
+    if (expirationDate) {
+      studentInfo.packageExpirationDateFormat = timeUtils.timeStamp2DateFormat(expirationDate)
     }
-    studentInfo.isVIP = new Date(studentInfo.packageExpirationDate) > new Date() && studentInfo.seatName !== '' //套餐没到期、有座位名称 就认为是VIP
+    studentInfo.isVIP = expirationDate && new Date(expirationDate) > new Date() && studentInfo.seatName !== '' //套餐没到期、有座位名称 就认为是VIP
+    studentInfo.isTemp = !expirationDate //如果没有套餐到期日期 就认为是临时用户
     return studentInfo
   },
 

@@ -83,9 +83,13 @@
 }
 
 .packageInfo {
-  color: #888;
+  color: #fca266;
 }
 
 .packageDate {
+  color: #fca266;
+}
+
+.expiredPackageInfo {
   color: #888;
 }

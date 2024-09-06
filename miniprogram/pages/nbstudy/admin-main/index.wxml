@@ -28,6 +28,12 @@
           <view class="packageInfo">{{item.seatName}} - {{constsInfo.durations[item.durationType].label}}</view>
           <view class="packageDate">到期日期: {{item.packageExpirationDateFormat}}</view>
         </block>
+        <block wx:elif="{{item.isTemp}}">
+          <view class="expiredPackageInfo">无套餐信息</view>
+        </block>
+        <block wx:else>
+          <view class="expiredPackageInfo">已到期: {{item.packageExpirationDateFormat}}</view>
+        </block>
       </view>
     </view>
     <view class="extra-space"></view>
