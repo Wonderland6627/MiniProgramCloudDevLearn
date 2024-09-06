@@ -42,14 +42,19 @@ Page({
    */
   onLoad(options) {
     let isNewUser = options.isNewUser
+    let _id = options._id
     let info = getApp().dataMgr.getStudentInfo()
+    logger.info(`[student-editBasicInfo] isNewUser: ${isNewUser} _id: ${_id} 获取studentBasicInfo: ${JSON.stringify(info)}`)
     this.setData({
       isNewUser: isNewUser,
       currentStudentInfo: utils.cloneWithJSON(info),
       studentInfo: getApp().dataMgr.parseStudentInfo(info),
     })
-    logger.info(`[student-editBasicInfo] isNewUser: ${isNewUser} 获取studentBasicInfo: ${JSON.stringify(info)}`)
-
+    if (!this.data.studentInfo._id) {
+      this.setData({
+        'studentInfo._id': _id,
+      })
+    }
     if (!this.data.studentInfo.OPENID) {
       this.setData({
         'studentInfo.OPENID': getApp().getOpenID(),
@@ -315,6 +320,7 @@ Page({
     try { 
       const { modifies } = this.data
       logger.info(`[student-editBasicInfo] 本次修改内容 modifies: ${JSON.stringify(modifies)}`)
+      logger.info(`[student-editBasicInfo] 本次修改后的studentInfo: ${JSON.stringify(studentInfo)}`)
       const _id = studentInfo._id
       await this.updateStudent(_id, modifies)
       logger.info('[student-editBasicInfo] 学生基础信息保存成功')

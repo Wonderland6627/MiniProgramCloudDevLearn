@@ -198,11 +198,11 @@ Page({
       data?.gender ||
       data?.birthday ||
       {})) { //todo: check more stu info
-      logger.info('[login] openid为：' + openid + '的学生基础信息不全，准备补充')
-      this.gotoFillAccount()
+      logger.info(`[login] openid为: ${openid}, _id为: ${data._id} 的学生基础信息不全，准备补充`)
+      this.gotoFillAccount(data._id)
       return
     }
-    logger.info('[login] openid为：' + openid + '的学生基础信息完整')
+    logger.info(`[login] openid为: ${openid}, _id为: ${data._id} 的学生基础信息完整`)
     this.gotoStudentMain()
   },
 
@@ -227,7 +227,7 @@ Page({
     const info = result?.data
     logger.info(`[login] login success: ${JSON.stringify(info)}`)
     getApp().dataMgr.setStudentInfo(info)
-    this.gotoFillAccount()
+    this.gotoFillAccount(info.id)
   },
   
 	gotoCheckBindStatus() {
@@ -236,9 +236,10 @@ Page({
     })
   },
 
-  gotoFillAccount() {
+  gotoFillAccount(_id = '') {
+    logger.info(`[login] goto fill account, _id: ${_id}`)
     wx.navigateTo({
-      url: '/pages/nbstudy/student-editBasicInfo/index?isNewUser=true',
+      url: `/pages/nbstudy/student-editBasicInfo/index?isNewUser=true&_id=${_id}`
     })
   },
 
