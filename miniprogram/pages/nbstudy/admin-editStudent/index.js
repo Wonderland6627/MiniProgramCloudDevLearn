@@ -25,6 +25,8 @@ Page({
       durationType: '时长类型',
       packageStartDate: '起始日期',
       packageExpirationDate: '到期日期',
+
+      comment: '备注',
     },
 
     genderIndex: -1,
@@ -398,6 +400,13 @@ Page({
     this.setData({ 'studentInfo.packageExpirationDate': expirationDateFormatTimeStamp })
     this.modifiesData({ 'packageExpirationDate': expirationDateFormatTimeStamp })
     logger.info('[admin-editStudent] 修改套餐到期日期TimeStamp: ' + expirationDateFormatTimeStamp)
+  },
+
+  bindComment(e) {
+    const comment = e.detail.value
+    this.setData({ 'studentInfo.comment': comment })
+    this.modifiesData({ 'comment': comment })
+    logger.info('[admin-editStudent] 修改备注: ' + comment)
   },
 
   bindCopyTap(e) {

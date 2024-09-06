@@ -103,6 +103,15 @@
   </view>
 
   <view class='edit-container'>
+    <text class="edit-title">其他信息</text>
+    <view class="edit-cell">
+      <image class="icon" src="../../../images/icons/comment.svg"></image>
+      <text class="title">{{titles.comment}}</text>
+      <textarea class='edit-input' bindinput="bindComment" placeholder='请输入备注' value="{{studentInfo.comment}}"></textarea>
+    </view>
+  </view>
+
+  <view class='edit-container'>
     <text class="edit-title">数据信息</text>
     <view class="edit-cell">
       <image class="icon" src="../../../images/icons/id.svg"></image>
