@@ -106,6 +106,11 @@ Page({
 
   sortStudents(list) {
     list.sort((a, b) => {
+      if (a.isVIP && !b.isVIP) {
+        return -1
+      } else if (!a.isVIP && b.isVIP) {
+        return 1
+      }
       const seatTypeA = a.seatType
       const seatTypeB = b.seatType
       if (seatTypeA === '0') {
@@ -125,13 +130,12 @@ Page({
         return -1
       }
       if (seatNameA !== seatNameB) {
-        let [aAlpha, aNum] = [seatNameA.replace(/\d/g, ''), parseInt(seatNameA.replace(/\D/g, ''), 10)];
-        let [bAlpha, bNum] = [seatNameB.replace(/\d/g, ''), parseInt(seatNameB.replace(/\D/g, ''), 10)];
-
+        let [aAlpha, aNum] = [seatNameA.replace(/\d/g, ''), parseInt(seatNameA.replace(/\D/g, ''), 10)]
+        let [bAlpha, bNum] = [seatNameB.replace(/\d/g, ''), parseInt(seatNameB.replace(/\D/g, ''), 10)]
         if (aAlpha !== bAlpha) {
-          return aAlpha.localeCompare(bAlpha);
+          return aAlpha.localeCompare(bAlpha)
         } else {
-          return aNum - bNum;
+          return aNum - bNum
         }
       }
       if (a.durationType !== b.durationType) {
