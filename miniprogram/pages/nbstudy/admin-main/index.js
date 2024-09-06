@@ -125,10 +125,17 @@ Page({
         return -1
       }
       if (seatNameA !== seatNameB) {
-        return seatNameA.localeCompare(seatNameB)
+        let [aAlpha, aNum] = [seatNameA.replace(/\d/g, ''), parseInt(seatNameA.replace(/\D/g, ''), 10)];
+        let [bAlpha, bNum] = [seatNameB.replace(/\d/g, ''), parseInt(seatNameB.replace(/\D/g, ''), 10)];
+
+        if (aAlpha !== bAlpha) {
+          return aAlpha.localeCompare(bAlpha);
+        } else {
+          return aNum - bNum;
+        }
       }
       if (a.durationType !== b.durationType) {
-        return a.durationType - b.durationType
+        return b.durationType - a.durationType
       }
       return a.studentName.localeCompare(b.studentName)
     })
