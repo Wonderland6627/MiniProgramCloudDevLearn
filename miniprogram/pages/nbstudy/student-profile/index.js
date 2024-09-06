@@ -99,9 +99,8 @@ Page({
 
   onViewCardKeyClick(e) {
     const { studentInfo } = this.data
-    const cardKeyID = studentInfo.cardKeyID
-    console.log(cardKeyID)
-    const content = cardKeyID === '' ? '你还没有领取钥匙扣' : cardKeyID
+    console.log(`[student-profile] onViewCardKeyClick`)
+    const content = !studentInfo.cardKeyID ? '你还没有领取钥匙扣' : studentInfo.cardKeyID
     wx.showModal({
       title: '我的钥匙扣',
       content: content,
