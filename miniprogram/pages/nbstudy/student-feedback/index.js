@@ -1,6 +1,7 @@
 // pages/nbstudy/student-feedback/index.js
 
 const logger = require('../../../logger.js')
+const cf = require('../../../commonFuntions.js')
 
 Page({
 
@@ -29,40 +30,8 @@ Page({
   },
 
   onSubmitClick(e) {
-    this.createFeedback()
-  },
-
-  async createFeedback() {
-    const openid = getApp().getOpenID()
-    if (openid === '') {
-      logger.error('[student-feedback] openid为空，检查登录状态')
-      wx.showToast({
-        title: '请检查登录状态',
-        icon: 'error',
-      })
-      return
-    }
-    wx.showLoading({
-      title: '正在提交',
-    })
     const { feedbackContent } = this.data
-    const time = Date.now()
-    await getApp().getModels().feedbacks.create({
-      data: {
-        feedbackOPENID: openid,
-        feedbackTime: time,
-        feedbackContent: feedbackContent
-      }
-    })
-    wx.showToast({
-      title: '提交成功，我们会认真聆听你的反馈～',
-      icon: 'none',
-      duration: 1500,
-      mask: true,
-    })
-    setTimeout(() => {
-      wx.navigateBack()
-    }, 1500);
+    cf.createFeedback(feedbackContent)
   },
 
   /**

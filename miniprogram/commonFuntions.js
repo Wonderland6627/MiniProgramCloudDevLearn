@@ -70,6 +70,37 @@ const commonFuntions = {
     })
   },
 
+  async createFeedback(content) {
+    const openid = getApp().getOpenID()
+    if (openid === '') {
+      logger.error('[commonFunction] openid为空，检查登录状态')
+      wx.showToast({
+        title: '请检查登录状态',
+        icon: 'error',
+      })
+      return
+    }
+    wx.showLoading({
+      title: '正在提交',
+    })
+    const time = Date.now()
+    await getApp().getModels().feedbacks.create({
+      data: {
+        feedbackOPENID: openid,
+        feedbackTime: time,
+        feedbackContent: content,
+      }
+    })
+    wx.showToast({
+      title: '提交成功，我们会认真聆听你的反馈～',
+      icon: 'none',
+      duration: 1500,
+      mask: true,
+    })
+    setTimeout(() => {
+      wx.navigateBack()
+    }, 1500)
+  }
 }
 
 module.exports = commonFuntions

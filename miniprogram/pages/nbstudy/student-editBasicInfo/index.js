@@ -3,6 +3,7 @@
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 const logger = require('../../../logger.js')
+const cf = require('../../../commonFuntions.js')
 
 Page({
 
@@ -270,7 +271,8 @@ Page({
       confirmText: '上报数据',
       complete: (res) => {
         if (res.confirm) {
-          
+          let content = `[student-editBasicInfo] need help, studentInfo: ${JSON.stringify(this.data.studentInfo)}, modifies: ${JSON.stringify(this.data.modifies)}`
+          cf.createFeedback(content)
         }
       }
     })
