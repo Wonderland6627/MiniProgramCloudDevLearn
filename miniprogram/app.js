@@ -54,23 +54,28 @@ App({
       openid = wx.getStorageSync('openid')
       this.globalData.openid = openid
     }
-    logger.info('[app.js] get openid: ' + openid)
+    logger.info(`[app.js] get openid: [${openid}]`)
     return openid
+  },
+
+  needLogin() {
+    let openid = this.getOpenID()
+    return !openid || openid === undefined
   },
 
   logOut(toastStr) {
     logger.info(`[app.js] log out: ${toastStr}`)
     this.setAdmin(false)
     dataMgr.logOut()
-    wx.showToast({
-      title: toastStr,
-      icon: 'loading',
-      mask: true,
-      duration: 1500,
-    })
     setTimeout(() => {
       wx.redirectTo({
         url: '/pages/nbstudy/login/index',
+      })
+      wx.showToast({
+        title: toastStr,
+        icon: 'none',
+        mask: true,
+        duration: 1500,
       })
     }, 1500)
   },

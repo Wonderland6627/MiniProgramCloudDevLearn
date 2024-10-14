@@ -61,6 +61,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    if (getApp().needLogin()) {
+      logger.info('[student-profile] need login')
+      return
+    }
     getApp().dataMgr
       .fetchStudentInfo()
       .then(info => {

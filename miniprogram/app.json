@@ -1,10 +1,8 @@
 {
 	"pages": [
-		"pages/nbstudy/login/index",
 		"pages/nbstudy/student-main/index",
 		"pages/nbstudy/admin-main/index",
 		"pages/nbstudy/student-editBasicInfo/index",
-		"pages/index/index",
 		"pages/nbstudy/admin-login/index",
 		"pages/nbstudy/student-profile/index",
 		"pages/nbstudy/admin-edit/index",
@@ -15,7 +13,9 @@
 		"pages/nbstudy/admin-editStudent/index",
 		"pages/nbstudy/student-checkBindStatus/index",
 		"pages/nbstudy/student-contact-us/index",
-		"pages/nbstudy/student-feedback/index"
+		"pages/nbstudy/student-feedback/index",
+
+		"pages/nbstudy/login/index"
 	],
 	"window": {
 		"backgroundColor": "#F6F6F6",
