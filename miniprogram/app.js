@@ -65,12 +65,14 @@ App({
 
   navigateToLogin(toastStr) {
     logger.info(`[app.js] navigate to login: ${toastStr}`)
+    wx.showLoading({ title: '准备登录' })
     this.setAdmin(false)
     dataMgr.clear()
     setTimeout(() => {
       wx.navigateTo({
         url: '/pages/nbstudy/login/index',
       })
+      wx.hideLoading()
     }, 1500)
   },
 

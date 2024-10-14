@@ -1,7 +1,8 @@
 <!--pages/nbstudy/student-profile/index.wxml-->
 <view class="container">
   <view class="profile">
-    <image class="avatar" src="{{studentInfo.avatarUrl}}" bindtap="onEditBasicInfoCellClick"/>
+    <image wx:if="{{studentInfo && studentInfo.avatarUrl}}" class="avatar" src="{{studentInfo.avatarUrl}}" bindtap="onEditBasicInfoCellClick"/>
+    <image wx:else class="avatar-need-login" src="../../../images/app_icon.png" bindtap="onNeedLoginClick"/>
     <text class="username">{{studentInfo.studentName}}</text>
     <text class="school">{{studentInfo.school}}</text>
     <view class="target-school-container">
@@ -9,10 +10,12 @@
       <text class="target-study-goal">{{studentInfo.studyGoal||'给自己设定个小目标吧!'}}</text>
     </view>
     <view class="stats">
-      <view class="stat">
-        <text class="stat-value">{{joinedDays + 1}}天</text>
-        <text class="stat-label">已加入宁博</text>
-      </view>
+      <block wx:if="{{joinedDays != -1}}">
+        <view class="stat">
+          <text class="stat-value">{{joinedDays + 1}}天</text>
+          <text class="stat-label">已加入宁博</text>
+        </view>
+      </block>
       <!-- <view class="stat">
         <text class="stat-value">0次</text>
         <text class="stat-label">打卡次数</text>

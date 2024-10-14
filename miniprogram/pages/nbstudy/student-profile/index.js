@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    joinedDays: 0,
+    joinedDays: -1,
     startDate: null,
     expirationDate: null,
     studentInfo: {},
@@ -62,7 +62,7 @@ Page({
    */
   onLoad(options) {
     if (getApp().needLogin()) {
-      logger.info('[student-profile] need login')
+      logger.warn('[student-profile] profile onload failed, need login')
       return
     }
     getApp().dataMgr
@@ -116,6 +116,10 @@ Page({
     wx.navigateTo({
       url: '/pages/nbstudy/student-editBasicInfo/index',
     })
+  },
+
+  onNeedLoginClick(e) {
+    getApp().navigateToLogin('profile页点击头像跳登录')
   },
 
   onContactUsCellClick(e) {
@@ -172,6 +176,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    if (getApp().needLogin()) {
+      logger.warn('[student-profile] pull down refresh failed, need login')
+      setTimeout(() => {
+        wx.stopPullDownRefresh()
+      }, 3000)
+      return
+    }
     getApp().dataMgr
       .fetchStudentInfo()
       .then(info => {

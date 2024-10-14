@@ -22,6 +22,12 @@
   margin-bottom: 20rpx;
 }
 
+.avatar-need-login {
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 20rpx;
+}
+
 .username {
   font-size: 40rpx;
   font-weight: bold;
