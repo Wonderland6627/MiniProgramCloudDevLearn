@@ -63,10 +63,21 @@ App({
     return !openid || openid === undefined
   },
 
+  navigateToLogin(toastStr) {
+    logger.info(`[app.js] navigate to login: ${toastStr}`)
+    this.setAdmin(false)
+    dataMgr.clear()
+    setTimeout(() => {
+      wx.navigateTo({
+        url: '/pages/nbstudy/login/index',
+      })
+    }, 1500)
+  },
+
   logOut(toastStr) {
     logger.info(`[app.js] log out: ${toastStr}`)
     this.setAdmin(false)
-    dataMgr.logOut()
+    dataMgr.clear()
     setTimeout(() => {
       wx.redirectTo({
         url: '/pages/nbstudy/login/index',

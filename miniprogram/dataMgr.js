@@ -16,7 +16,11 @@ const dataMgr = {
     logger.info(`[dataMgr] get student info, checkValid: ${checkValid}`)
     if (checkValid) { //有些页面没有studentInfo不允许打开 返回登录页重新获取
       if (utils.isEmpty(this.studentInfo)) {
-        getApp().logOut('数据缺失退出')
+        getApp().navigateToLogin('数据缺失退出')
+        wx.showToast({
+          title: '请先登录',
+          icon: 'error',
+        })
         throw new Error('[dataMgr] get student info null, back to login')
       }
     }
@@ -28,9 +32,9 @@ const dataMgr = {
     return new Promise(async (resolve, reject) => {
       const openid = getApp().getOpenID()
       if (openid === '') {
-        logger.error('无效的 OpenID，无法更新 StudentInfo')
         // todo: back to login
         reject('[dataMgr] fetch student info failed: invalid openid')
+        return
       }
       try {
         const result = await getApp().getModels().students.get({
@@ -80,9 +84,10 @@ const dataMgr = {
     return studentInfo
   },
 
-  logOut() {
-    logger.info('[dataMgr] log out, clear datas');
+  clear() {
+    logger.info('[dataMgr] clear datas');
     this.studentInfo = {}
+    wx.clearStorage()
   },
 }
 
