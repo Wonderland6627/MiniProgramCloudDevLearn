@@ -60,7 +60,24 @@ App({
 
   needLogin() {
     let openid = this.getOpenID()
-    return !openid || openid === undefined
+    let studentInfo = this.dataMgr.studentInfo
+    let needLogin = !openid || openid === undefined 
+      || !studentInfo || !studentInfo.studentName
+    logger.info(`[app.js] check need login: ${needLogin}`)
+    return needLogin
+  },
+
+  showLoginModal(toastStr) {
+    wx.showModal({
+      content: '请在登录后查看此内容',
+      confirmText: '去登录',
+      cancelText: '算了',
+      complete: (res) => {
+        if (res.confirm) {
+          this.navigateToLogin(toastStr)
+        }
+      }
+    })
   },
 
   navigateToLogin(toastStr) {

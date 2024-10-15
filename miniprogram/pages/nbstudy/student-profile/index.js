@@ -98,7 +98,7 @@ Page({
   },
 
   onNeedLoginClick(e) {
-    getApp().navigateToLogin('profile页点击头像 跳转登录')
+    getApp().navigateToLogin('未登录点击头像 跳转登录')
   },
 
   onViewAccessControlClick(e) {
@@ -107,10 +107,7 @@ Page({
 
   onViewCardKeyClick(e) {
     if (getApp().needLogin()) {
-      wx.showToast({
-        title: '无权限查看',
-        icon: 'error',
-      })
+      getApp().showLoginModal('未登录查看钥匙扣 跳转登录')
       return
     }
 
@@ -126,7 +123,7 @@ Page({
 
   onEditBasicInfoCellClick(e) {
     if (getApp().needLogin()) {
-      getApp().navigateToLogin('profile页点击修改个人信息 跳转登录')
+      getApp().showLoginModal('未登录点击修改个人信息 跳转登录')
       return
     }
     wx.navigateTo({
@@ -142,7 +139,7 @@ Page({
 
   onFeedbackCellClick(e) {
     if (getApp().needLogin()) {
-      getApp().navigateToLogin('profile页点击意见反馈 跳转登录')
+      getApp().showLoginModal('未登录点击意见反馈 跳转登录')
       return
     }
     wx.navigateTo({

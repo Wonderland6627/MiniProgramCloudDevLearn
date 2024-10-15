@@ -16,11 +16,7 @@ const dataMgr = {
     logger.info(`[dataMgr] get student info, checkValid: ${checkValid}`)
     if (checkValid) { //有些页面没有studentInfo不允许打开 返回登录页重新获取
       if (utils.isEmpty(this.studentInfo)) {
-        getApp().navigateToLogin('数据缺失退出')
-        wx.showToast({
-          title: '请先登录',
-          icon: 'error',
-        })
+        getApp().showLoginModal('数据缺失退出')
         throw new Error('[dataMgr] get student info null, back to login')
       }
     }

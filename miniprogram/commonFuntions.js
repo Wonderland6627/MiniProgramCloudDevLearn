@@ -6,7 +6,11 @@ const logger = require('./logger.js')
 const commonFuntions = {
 
   showWiFiModal() {
-    if (getApp().needLogin() || !getApp().dataMgr.getStudentInfo().isVIP) {
+    if (getApp().needLogin()) {
+      getApp().showLoginModal('未登录查看Wifi 跳转登录')
+      return
+    }
+    if (!getApp().dataMgr.getStudentInfo().isVIP) {
       wx.showToast({
         title: '无权限查看',
         icon: 'error',
@@ -38,7 +42,11 @@ const commonFuntions = {
   },
 
   async fetchAccessControlPwd(storeID) {
-    if (getApp().needLogin() || !getApp().dataMgr.getStudentInfo().isVIP) {
+    if (getApp().needLogin()) {
+      getApp().showLoginModal('未登录查看门禁密码 跳转登录')
+      return
+    }
+    if (!getApp().dataMgr.getStudentInfo().isVIP) {
       wx.showToast({
         title: '无权限查看',
         icon: 'error',
