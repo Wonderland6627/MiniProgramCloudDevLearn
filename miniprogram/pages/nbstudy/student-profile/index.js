@@ -97,11 +97,23 @@ Page({
     }
   },
 
+  onNeedLoginClick(e) {
+    getApp().navigateToLogin('profile页点击头像 跳转登录')
+  },
+
   onViewAccessControlClick(e) {
     cf.fetchAccessControlPwd(this.data.studentInfo.storeID)
   },
 
   onViewCardKeyClick(e) {
+    if (getApp().needLogin()) {
+      wx.showToast({
+        title: '无权限查看',
+        icon: 'error',
+      })
+      return
+    }
+
     const { studentInfo } = this.data
     console.log(`[student-profile] onViewCardKeyClick`)
     const content = !studentInfo.cardKeyID ? '你还没有领取钥匙扣' : studentInfo.cardKeyID
@@ -113,13 +125,13 @@ Page({
   },
 
   onEditBasicInfoCellClick(e) {
+    if (getApp().needLogin()) {
+      getApp().navigateToLogin('profile页点击修改个人信息 跳转登录')
+      return
+    }
     wx.navigateTo({
       url: '/pages/nbstudy/student-editBasicInfo/index',
     })
-  },
-
-  onNeedLoginClick(e) {
-    getApp().navigateToLogin('profile页点击头像跳登录')
   },
 
   onContactUsCellClick(e) {
@@ -129,6 +141,10 @@ Page({
   },
 
   onFeedbackCellClick(e) {
+    if (getApp().needLogin()) {
+      getApp().navigateToLogin('profile页点击意见反馈 跳转登录')
+      return
+    }
     wx.navigateTo({
       url: '/pages/nbstudy/student-feedback/index',
     })

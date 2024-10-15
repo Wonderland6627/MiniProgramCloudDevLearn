@@ -5,32 +5,40 @@ const logger = require('./logger.js')
 
 const commonFuntions = {
 
-	showWiFiModal() {
-		const wifiName = 'ZXS'
-		const password = '88888888'
-		wx.showModal({
-			title: `WiFi名称: ${wifiName}`,
-			content: `密码: ${password}`,
-			confirmText: '复制密码',
-			complete: (res) => {
-				if (res.confirm) {
-					wx.setClipboardData({
-						data: password,
-						success: () => {
-							wx.showToast({
-								title: '已复制',
-								icon: 'none',
-								duration: 1000,
-							})
-						}
-					})
-				}
-			}
-		})
-	},
+  showWiFiModal() {
+    if (getApp().needLogin() || !getApp().dataMgr.getStudentInfo().isVIP) {
+      wx.showToast({
+        title: '无权限查看',
+        icon: 'error',
+      })
+      return
+    }
 
-	async fetchAccessControlPwd(storeID) {
-    if (!getApp().dataMgr.getStudentInfo().isVIP) {
+    const wifiName = 'ZXS'
+    const password = '88888888'
+    wx.showModal({
+      title: `WiFi名称: ${wifiName}`,
+      content: `密码: ${password}`,
+      confirmText: '复制密码',
+      complete: (res) => {
+        if (res.confirm) {
+          wx.setClipboardData({
+            data: password,
+            success: () => {
+              wx.showToast({
+                title: '已复制',
+                icon: 'none',
+                duration: 1000,
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  async fetchAccessControlPwd(storeID) {
+    if (getApp().needLogin() || !getApp().dataMgr.getStudentInfo().isVIP) {
       wx.showToast({
         title: '无权限查看',
         icon: 'error',
