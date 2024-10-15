@@ -23,8 +23,8 @@
 }
 
 .avatar-need-login {
-  width: 160rpx;
-  height: 160rpx;
+  width: 170rpx;
+  height: 190rpx;
   margin-bottom: 20rpx;
 }
 
