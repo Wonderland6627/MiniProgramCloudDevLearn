@@ -24,7 +24,7 @@ const dataMgr = {
   },
 
   fetchStudentInfo() {
-    logger.info('[dataMgr] start update student info');
+    logger.info('[dataMgr] start fetch student info')
     return new Promise(async (resolve, reject) => {
       const openid = getApp().getOpenID()
       if (openid === '') {
@@ -50,12 +50,12 @@ const dataMgr = {
           return
         }
         let parsedData = this.parseStudentInfo(data)
-        logger.info(`[dataMgr] fetch & update student info success, isVIP: ${parsedData.isVIP}`);
+        logger.info(`[dataMgr] fetch & update student info success, isVIP: ${parsedData.isVIP}`)
         this.studentInfo = parsedData
-        resolve(parsedData);
+        resolve(parsedData)
       } catch (error) {
-        logger.error('[dataMgr] fetch student info with error:', error);
-        reject(error);
+        logger.error('[dataMgr] fetch student info with error:', error)
+        reject(error)
       }
     }) 
   },

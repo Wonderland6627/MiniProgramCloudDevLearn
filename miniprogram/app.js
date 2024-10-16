@@ -5,6 +5,7 @@ const { init } = require('@cloudbase/wx-cloud-client-sdk')
 const client = init(wx.cloud)
 const models = client.models
 const dataMgr = require('./dataMgr')
+const remoteConfig = require('./remoteConfig')
 const logger = require('./logger.js')
 
 App({
@@ -32,6 +33,7 @@ App({
   isAdmin: false,
   eventBus: eventBus,
   dataMgr: dataMgr,
+  remoteConfig: remoteConfig,
 
   setAdmin(newValue) {
     this.isAdmin = newValue
