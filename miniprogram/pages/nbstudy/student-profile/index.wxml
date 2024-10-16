@@ -1,7 +1,7 @@
 <!--pages/nbstudy/student-profile/index.wxml-->
 <view class="container">
   <view class="profile">
-    <image wx:if="{{studentInfo && studentInfo.avatarUrl}}" class="avatar" src="{{studentInfo.avatarUrl}}" bindtap="onEditBasicInfoCellClick"/>
+    <image wx:if="{{studentInfo && studentInfo.avatarUrl}}" class="avatar" src="{{studentInfo.avatarUrl}}"/>
     <image wx:else class="avatar-need-login" src="../../../images/app_icon.png" bindtap="onNeedLoginClick"/>
     <text class="username">{{studentInfo.studentName}}</text>
     <text class="school">{{studentInfo.school}}</text>
@@ -44,7 +44,7 @@
   </view>
 
   <view class="settings">
-    <view class="setting-cell" wx:for="{{settingInfos}}" wx:key="index" bind:tap="{{item.onTap}}">
+    <view class="setting-cell" wx:for="{{settingsCells}}" wx:key="index" bind:tap="{{item.onTap}}">
       <image class="setting-cell-icon" src="{{item.icon}}"></image>
       <text class="setting-cell-text">{{item.title}}</text>
     </view>

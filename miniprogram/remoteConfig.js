@@ -5,10 +5,13 @@ const logger = require('./logger.js')
 const remoteConfig = {
 	fetchCount: 0,
 	config: {
-		isInReview: true,
+		programMode: "private",
 	},
 
 	startFetch() {
+		setTimeout(() => {
+			this.fetchRemoteConfig()
+		}, 1000);
 		setInterval(() => {
 			this.fetchRemoteConfig()
 		}, 60000)

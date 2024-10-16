@@ -22,6 +22,7 @@ App({
         traceUser: true,
       });
     }
+    remoteConfig.startFetch()
   },
 
   globalData: {

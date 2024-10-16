@@ -2,6 +2,8 @@
 
 const cf = require('../../../commonFuntions.js')
 const logger = require('../../../logger.js')
+const consts = require('../../../consts.js')
+const remoteConfig = require('../../../remoteConfig.js')
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 
@@ -33,34 +35,14 @@ Page({
         onTap: "onViewCardKeyClick"
       },
     ],
-    settingInfos: [
-      {
-        title: "修改个人基础信息",
-        icon: "../../../images/icons/profile-active.png",
-        onTap: "onEditBasicInfoCellClick"
-      },
-      {
-        title: "联系我们",
-        icon: "../../../images/icons/contact-us.svg",
-        onTap: "onContactUsCellClick"
-      },
-      {
-        title: "意见反馈",
-        icon: "../../../images/icons/feedback.svg",
-        onTap: "onFeedbackCellClick"
-      },
-      {
-        title: "退出登录",
-        icon: "../../../images/icons/logout.svg",
-        onTap: "onLogoutCellClick"
-      }
-    ]
+    settingsCells: consts.StudentProfileSettingsCells,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setupMode()
     if (getApp().needLogin()) {
       logger.warn('[student-profile] profile onload failed, need login')
       return
@@ -77,6 +59,20 @@ Page({
       .catch(error => {
         logger.error(error)
       })
+  },
+
+  setupMode() {
+    let programMode = remoteConfig.config.programMode
+    logger.info(`[student-profile] program mode: ${programMode}`)
+    let cells = consts.StudentProfileSettingsCells
+    if (programMode == "private") {
+      cells = cells.filter((item) => {
+          return item.onTap !== "onEditBasicInfoCellClick"
+        })
+    }
+    this.setData({
+      settingsCells: cells
+    })
   },
 
   onGetStudentInfo(info) {
@@ -189,6 +185,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    this.setupMode()
     if (getApp().needLogin()) {
       logger.warn('[student-profile] pull down refresh failed, need login')
       setTimeout(() => {
