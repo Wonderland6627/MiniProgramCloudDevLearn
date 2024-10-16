@@ -65,7 +65,7 @@ Page({
     let programMode = remoteConfig.config.programMode
     logger.info(`[student-profile] program mode: ${programMode}`)
     let cells = consts.StudentProfileSettingsCells
-    if (programMode == "private") {
+    if (programMode == 'private') {
       cells = cells.filter((item) => {
           return item.onTap !== "onEditBasicInfoCellClick"
         })

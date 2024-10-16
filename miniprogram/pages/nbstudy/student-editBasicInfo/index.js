@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    programMode: '',
     isNewUser: false,
     showNeedHelp: false,
 
@@ -67,6 +68,14 @@ Page({
         'genderIndex': this.data.studentInfo.gender
       })
     }
+  },
+
+  setupMode() {
+    let programMode = remoteConfig.config.programMode
+    logger.info(`[student-editBasicInfo] program mode: ${programMode}`)
+    this.setData({
+      programMode: programMode
+    })
   },
 
   enableAlertBeforeUnload(enable) {

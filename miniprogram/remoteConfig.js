@@ -5,7 +5,7 @@ const logger = require('./logger.js')
 const remoteConfig = {
 	fetchCount: 0,
 	config: {
-		programMode: "private",
+		programMode: 'private',
 	},
 
 	startFetch() {
