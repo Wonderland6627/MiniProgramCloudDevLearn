@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    longPressCount: 0,
     agree: false,
     js_code: '',
   },
@@ -250,7 +251,11 @@ Page({
   },
 
   onIconLongPress(e) {
-    this.adminLogin()
+    this.data.longPressCount++
+    logger.info(`[login] long press count: ${this.data.longPressCount}`)
+    if (this.data.longPressCount >= 3) {
+      this.adminLogin()
+    }
   },
 
   adminLogin() {
