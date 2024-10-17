@@ -1,5 +1,6 @@
 // pages/nbstudy/student-editBasicInfo/index.js
 
+const remoteConfig = require('../../../remoteConfig.js')
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 const logger = require('../../../logger.js')
@@ -44,6 +45,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setupMode()
     let isNewUser = options.isNewUser
     let _id = options._id
     let info = getApp().dataMgr.getStudentInfo()
@@ -289,57 +291,61 @@ Page({
 
   saveInfo() {
     logger.info('[student-editBasicInfo] 保存个人信息')
-    this.tryUpdateStudentInfo()
+    this.tryUpdateStudentInfo(true)
   },
 
-  async tryUpdateStudentInfo() {
+  async tryUpdateStudentInfo(checkRequired = true) {
     const { studentInfo } = this.data
-    //必填信息 start
-    if (!studentInfo.studentName) {
-      wx.showToast({ title: '请输入学生姓名', icon: 'error' })
-      return
-    }
-    if (!studentInfo.phone || studentInfo.phone.length != 11) {
-      wx.showToast({ title: '请输入手机号', icon: 'error' })
-      return
-    }
-    if (!(this.data.genderIndex == 0 || this.data.genderIndex == 1)) {
-      wx.showToast({ title: '请选择性别', icon: 'error' })
-      return
-    }
-    if (!studentInfo.birthday) {
-      wx.showToast({ title: '请输入生日', icon: 'error' })
-      return
-    }
-    //必填信息 end
-    wx.showLoading({ title: '正在保存', mask: true })
-    const result = await getApp().getModels().students.list({
-      filter: {
-        where: {
-          phone: {
-            $eq: studentInfo.phone
-          },
-        }
-      },
-      select: {
-        _id: true,
-        OPENID: true,
-        studentName: true,
-        phone: true,
-      },
-      getCount: true,
-    })
-    logger.info(`[student-editBasicInfo] 查询手机号是否重复回应: ${JSON.stringify(result)}`)
-    if (result.data.total !== 0) {
-      logger.info(`[student-editBasicInfo] 查询手机号: [${studentInfo.phone}] 所属OPENID&_id: [${result.data.records[0].OPENID} -- ${result.data.records[0]._id}]，当前修改用户OPENID&_id: [${studentInfo.OPENID} -- ${studentInfo._id}]`)
-      if (result.data.records[0]._id !== studentInfo._id) { //查询同样的手机号 且不是当前用户的
-        wx.showToast({ 
-          title: '该手机号已注册，请联系管理员处理！',
-          icon: 'none',
-          mask: true,
-          duration: 2000,
-        })
+    if (checkRequired) {
+      //必填信息 start
+      if (!studentInfo.studentName) {
+        wx.showToast({ title: '请输入学生姓名', icon: 'error' })
         return
+      }
+      if (!studentInfo.phone || studentInfo.phone.length != 11) {
+        wx.showToast({ title: '请输入手机号', icon: 'error' })
+        return
+      }
+      if (!(this.data.genderIndex == 0 || this.data.genderIndex == 1)) {
+        wx.showToast({ title: '请选择性别', icon: 'error' })
+        return
+      }
+      if (!studentInfo.birthday) {
+        wx.showToast({ title: '请输入生日', icon: 'error' })
+        return
+      }
+      //必填信息 end
+    }
+    wx.showLoading({ title: '正在保存', mask: true })
+    if (checkRequired) {
+      const result = await getApp().getModels().students.list({
+        filter: {
+          where: {
+            phone: {
+              $eq: studentInfo.phone
+            },
+          }
+        },
+        select: {
+          _id: true,
+          OPENID: true,
+          studentName: true,
+          phone: true,
+        },
+        getCount: true,
+      })
+      logger.info(`[student-editBasicInfo] 查询手机号是否重复回应: ${JSON.stringify(result)}`)
+      if (result.data.total !== 0) {
+        logger.info(`[student-editBasicInfo] 查询手机号: [${studentInfo.phone}] 所属OPENID&_id: [${result.data.records[0].OPENID} -- ${result.data.records[0]._id}]，当前修改用户OPENID&_id: [${studentInfo.OPENID} -- ${studentInfo._id}]`)
+        if (result.data.records[0]._id !== studentInfo._id) { //查询同样的手机号 且不是当前用户的
+          wx.showToast({
+            title: '该手机号已注册，请联系管理员处理！',
+            icon: 'none',
+            mask: true,
+            duration: 2000,
+          })
+          return
+        }
       }
     }
     try { 
@@ -366,6 +372,16 @@ Page({
       })
       wx.showToast({ title: '更新信息错误', icon: 'error', mask: true })
     }
+  },
+
+  saveInfoPrivately() {
+    logger.info('[student-editBasicInfo] 保存个人信息 privately')
+    if (!this.data.studentInfo.phone) {
+      let phoneGUID = utils.generateGUID()
+      this.setData({ 'studentInfo.phone': phoneGUID })
+      this.modifiesData({ 'phone': phoneGUID })
+    }
+    this.tryUpdateStudentInfo(false)
   },
 
   /**

@@ -8,7 +8,7 @@
     <text class="avatar-tips">点击此处修改头像</text>
   </button>
 
-  <block wx:if="{{programMode == 'private'}}">
+  <block wx:if="{{programMode!='private'}}">
     <view class='edit-container'>
       <text class="edit-title">基础信息</text>
       <view class="edit-cell">
@@ -67,8 +67,6 @@
         <input class='edit-input' bindinput="bindInputName" placeholder='请输入昵称' value="{{studentInfo.studentName}}"></input>
       </view>
     </view>
-    <button class="common-btn" bindtap='saveInfo'>继 续</button>
+    <button class="common-btn" bindtap='saveInfoPrivately'>继 续</button>
   </block>
-
-  
 </view>
