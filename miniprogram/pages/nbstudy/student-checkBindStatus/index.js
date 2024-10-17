@@ -1,5 +1,6 @@
 // pages/nbstudy/student-checkBindStatus/index.js
 
+const remoteConfig = require('../../../remoteConfig.js')
 const utils = require('../../../utils/utils.js')
 const logger = require('../../../logger.js')
 
@@ -9,10 +10,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    programMode: 'private',
     genderArray: [
       '女生', '男生',
     ],
 
+    titleLabel: "请输入手机号查询已有信息",
+    placeholderLabel: "请输入手机号",
 		phone: Number,
     readyForQuery: false,
     
@@ -29,8 +33,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setupMode()
+  },
+  
+  setupMode() {
+    let programMode = remoteConfig.config.programMode
+    logger.info(`[student-checkBindStatus] program mode: ${programMode}`)
+    this.setData({
+      programMode: programMode
+    })
 
-	},
+    if (programMode == 'private') {
+      this.setData({
+        titleLabel: "请输入ID查询已有信息",
+        placeholderLabel: "请输入ID",
+      })
+    }
+  },
 
 	onInputPhone(e) {
     const phone = this.phoneJudge(e.detail.value)
@@ -46,10 +65,15 @@ Page({
   },
 	
  	async	queryMatchingInfo(e) {
+    if (this.data.programMode == 'private') {
+      logger.info('[student-checkBindStatus] programMode private 重新登录')
+      getApp().logOut('查询失败，返回登录页')
+      return
+    }
 		const { phone, queryCount } = this.data
 		if (!phone || phone.length != 11) {
       wx.showToast({
-        title: '请输入手机号',
+        title: '输入有误',
         icon: 'error',
       })
       return
@@ -141,6 +165,7 @@ Page({
         showCancel: false,
         complete: (res) => {
           if (res.confirm) {
+            logger.info('[student-checkBindStatus] 确认绑定信息 重新登录')
             getApp().logOut('重新登录')
           }
         }
@@ -155,6 +180,7 @@ Page({
   },
 
   returnToLogin(e) {
+    logger.info('[student-checkBindStatus] 返回注册新信息 重新登录')
     getApp().logOut('重新登录')
   },
 

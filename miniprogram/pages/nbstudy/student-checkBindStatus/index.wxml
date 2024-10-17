@@ -1,8 +1,8 @@
 <!--pages/nbstudy/student-checkBindStatus/index.wxml-->
 <view class="container">
-  <view class="label">请输入手机号查询已有信息</view>
+  <view class="label">{{titleLabel}}</view>
   <view class="input-container">
-    <input class="input" type="number" placeholder="请输入手机号" maxlength="11" bindinput="onInputPhone"></input>
+    <input class="input" type="number" placeholder="{{placeholderLabel}}" maxlength="11" bindinput="onInputPhone"></input>
   </view>
   <button class="common-btn" bindtap="queryMatchingInfo" disabled="{{!readyForQuery || queryCount > 0}}">
     <text>查询匹配信息</text>
@@ -17,8 +17,7 @@
           <text class="result-label">姓名: {{studentInfo.studentName}}
             性别: {{genderArray[studentInfo.gender]}}
             学校: {{studentInfo.school}}
-            座位:
-            套餐:
+            座位: {{studentInfo.seatName}}
 
 
           </text>
