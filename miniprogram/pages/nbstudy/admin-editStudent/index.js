@@ -1,5 +1,6 @@
 // pages/nbstudy/admin-editStudent/index.js
 
+const remoteConfig = require('../../../remoteConfig.js')
 const utils = require('../../../utils/utils.js')
 const timeUtils = require('../../../utils/timeUtils.js')
 const logger = require('../../../logger.js')
@@ -11,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    programMode: 'private',
     titles: {
       studentName: '姓名',
       phone: '手机号',
@@ -61,9 +63,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setupMode()
     let info = wx.getStorageSync('selectedStudentInfo')
     this.onGetStudentInfo(info)
     this.setUpEnumMap()
+  },
+
+  setupMode() {
+    let programMode = remoteConfig.config.programMode
+    logger.info(`[student-editBasicInfo] program mode: ${programMode}`)
+    this.setData({
+      programMode: programMode
+    })
   },
 
   onGetStudentInfo(info) {
@@ -496,6 +507,16 @@ Page({
       logger.error(`[admin-editStudent] 更新学生基础信息错误: ${error}`)
       wx.showToast({ title: '更新信息错误', icon: 'error', mask: true })
     }
+  },
+
+  saveInfoPrivately() {
+    logger.info('[admin-editBasicInfo] 保存学生信息 privately')
+    if (!this.data.studentInfo.phone) {
+      let phoneGUID = utils.generateGUID()
+      this.setData({ 'studentInfo.phone': phoneGUID })
+      this.modifiesData({ 'phone': phoneGUID })
+    }
+    this.tryUpdateStudentInfo(false)
   },
 
   /**
