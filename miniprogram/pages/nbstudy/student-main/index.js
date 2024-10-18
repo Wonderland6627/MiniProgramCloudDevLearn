@@ -13,6 +13,12 @@ Page({
   data: {
     imageUrls: remoteConfig.config.swiperImagesList,
 
+    storeInfo: {
+      title: "欢迎来到宁博自习室！",
+      location: "鞍山市鞍钢高中正门北走100米-北国知春二期S9门店",
+      openingHours: "周一至周日 07:00-24:00",
+    },
+
     toolInfos: [
       {
         title: "WIFI连接",
@@ -28,18 +34,21 @@ Page({
 
     selectedTabIndex: 0,
     introduces: [
-      { title: "教育理念", content: 
+      { 
+        title: "教育理念", content: 
       `宁静致远 博大精深` ,
-      style: 'text-align: center;'
+        style: 'text-align: center;'
       },
-      { title: "关于我们", content: 
+      { 
+        title: "关于我们", content: 
       `学生沉浸自习 学习氛围浓厚
       老师专职管理 教室明亮整洁
       磁卡密码门锁 安全保驾护航
       中央空调地暖 监控全屋覆盖` ,
-      style: 'text-align: center;'
+        style: 'text-align: center;'
       },
-      { title: "规章制度", content: 
+      { 
+        title: "规章制度", content: 
       `1、本自习室开放时间为7:00-24:00，预定过后，不予退钱。此卡不得转借他人使用。若有换位需求，请到前台处理。
       2、自习室内（包括走廊）不得大声喧哗，禁止立头接耳。
       3、不得抢占座位，一切以小程序预定为主。自习室预定时间结束后做到人走位空，到了结束时间东西未收拾，由管理员自行清理（放到前台），发现个人物品丢失，自习室管理人员概不负责。
@@ -51,7 +60,7 @@ Page({
       9、走路轻缓，避免追赶、吵闹、频繁出入自习室；不得擅自将他人带人自习室。
       10、家长请在门外或前台等候，手机静音，保持安静，禁止擅自进人自习室。
       11、遵守自习室的开放时间，服从执勤人员的管理。若有违反者，座位清空，进自习室黑名单！`,
-      style: 'text-align: left;'
+        style: 'text-align: left;'
      },
     ]
   },
@@ -80,6 +89,19 @@ Page({
     logger.info(`[student-main] refresh swiper image list: ${list}`)
     this.setData({
       imageUrls: list,
+    })
+  },
+
+  onStoreLocationCopyClick(e) {
+    wx.setClipboardData({
+      data: `鞍山市宁博教育咨询共享自习室`,
+      success: () => {
+        wx.showToast({
+          title: '地址已复制',
+          icon: 'none',
+          duration: 1000,
+        })
+      }
     })
   },
 

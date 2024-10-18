@@ -31,6 +31,18 @@
   margin-bottom: 10rpx;
 }
 
+.card-h-layout {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-h-cell-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 10rpx;
+  transform: scaleX(-1);
+}
+
 .tool-items {
   display: flex;
   flex-wrap: wrap;

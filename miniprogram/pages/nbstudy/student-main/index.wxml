@@ -11,10 +11,12 @@
   </swiper>
 
   <view class="card">
-    <view class="card-title">欢迎来到宁博自习室！</view>
-    <!-- <view class="card-title">ABCD</view> -->
-    <view class="card-label">鞍山市鞍钢高中正门北走100米-北国知春二期S9门店</view>
-    <view class="card-label">周一至周日 07:00-24:00</view>
+    <view class="card-title">{{storeInfo.title}}</view>
+    <view class="card-h-layout">
+      <view class="card-label">{{storeInfo.location}}</view>
+      <image class="card-h-cell-icon" src="../../../images/icons/copy.svg" bind:tap="onStoreLocationCopyClick"></image>
+    </view>
+    <view class="card-label">{{storeInfo.openingHours}}</view>
   </view>
 
   <view class="card">
