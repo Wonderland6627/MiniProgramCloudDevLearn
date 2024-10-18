@@ -23,7 +23,12 @@
         <image class="avatar" src="{{item.avatarUrl}}"></image>
       </view>
       <view class="info">
-        <view class="name">{{item.studentName}}</view>
+        <block wx:if="{{programMode!='private'}}">
+          <view class="name">{{item.studentName}}</view>
+        </block>
+        <block wx:else>
+          <view class="name">{{item.nickname}}</view>
+        </block>
         <block wx:if="{{item.isVIP}}">
           <view class="packageInfo">{{item.seatName}} - {{constsInfo.durations[item.durationType].label}}</view>
           <view class="packageDate">到期日期: {{item.packageExpirationDateFormat}}</view>

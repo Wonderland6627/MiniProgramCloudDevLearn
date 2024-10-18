@@ -114,6 +114,10 @@ const StudentProfileSettingsCells = [
   }
 ]
 
+const Nicknames = [
+  "Emily", "Jacob", "Olivia", "Ethan", "Ava", "Michael", "Isabella", "William", "Sophia", "James", "Mia", "Alexander", "Charlotte", "Benjamin", "Amelia", "Matthew", "Harper", "Daniel", "Evelyn", "Christopher",
+]
+
 module.exports = {
   SeatType,
   SeatTypeArray,
@@ -128,4 +132,6 @@ module.exports = {
   DurationTypeLocal2Remote,
 
   StudentProfileSettingsCells,
+
+  Nicknames,
 };

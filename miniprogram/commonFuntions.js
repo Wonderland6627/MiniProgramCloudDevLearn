@@ -1,5 +1,6 @@
 // commonFuntions.js
 
+const consts = require('./consts.js')
 const utils = require('./utils/utils.js')
 const logger = require('./logger.js')
 
@@ -116,6 +117,13 @@ const commonFuntions = {
     setTimeout(() => {
       wx.navigateBack()
     }, 1500)
+  },
+
+  getMapperNickname(key) {
+    const nicknames = consts.Nicknames
+    const hashCode = key.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+    const index = hashCode % nicknames.length
+    return nicknames[index]
   }
 }
 

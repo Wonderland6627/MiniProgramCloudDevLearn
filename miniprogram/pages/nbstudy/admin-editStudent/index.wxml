@@ -133,9 +133,9 @@
       <view class="edit-cell">
         <image class="icon" src="../../../images/icons/name.svg"></image>
         <text class="title">昵称</text>
-        <input class='edit-input' bindinput="bindInputName" placeholder='请输入昵称' value="{{studentInfo.studentName}}"></input>
+        <text class='edit-disable-input'>{{studentInfo.nickname}}</text>
       </view>
     </view>
-    <button class="common-btn" bindtap='saveInfoPrivately'>继 续</button>
+    <button class="common-btn" bindtap='saveInfoPrivately'>返 回</button>
   </block>
 </view>

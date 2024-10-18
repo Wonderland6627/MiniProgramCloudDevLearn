@@ -1,5 +1,6 @@
 // dataMgr.js
 
+const cf = require('./commonFuntions.js')
 const utils = require('./utils/utils.js')
 const timeUtils = require('./utils/timeUtils.js')
 const logger = require('./logger.js')
@@ -77,6 +78,9 @@ const dataMgr = {
     }
     studentInfo.isVIP = expirationDate && new Date(expirationDate) > new Date() && studentInfo.seatName !== '' //套餐没到期、有座位名称 就认为是VIP
     studentInfo.isTemp = !expirationDate //如果没有套餐到期日期 就认为是临时用户
+    if (studentInfo._id) {
+      studentInfo.nickname = cf.getMapperNickname(studentInfo._id)
+    }
     return studentInfo
   },
 

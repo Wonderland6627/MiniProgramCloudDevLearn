@@ -63,6 +63,12 @@
   width: 500rpx;
 }
 
+.edit-disable-input {
+  font-size: 28rpx;
+  width: 500rpx;
+  color: rgb(150, 150, 150);
+}
+
 .edit-picker .picker {
   font-size: 28rpx;
 }

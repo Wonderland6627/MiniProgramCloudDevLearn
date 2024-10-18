@@ -71,7 +71,7 @@ Page({
 
   setupMode() {
     let programMode = remoteConfig.config.programMode
-    logger.info(`[student-editBasicInfo] program mode: ${programMode}`)
+    logger.info(`[admin-editBasicInfo] program mode: ${programMode}`)
     this.setData({
       programMode: programMode
     })
@@ -511,12 +511,7 @@ Page({
 
   saveInfoPrivately() {
     logger.info('[admin-editBasicInfo] 保存学生信息 privately')
-    if (!this.data.studentInfo.phone) {
-      let phoneGUID = utils.generateGUID()
-      this.setData({ 'studentInfo.phone': phoneGUID })
-      this.modifiesData({ 'phone': phoneGUID })
-    }
-    this.tryUpdateStudentInfo(false)
+    wx.navigateBack()
   },
 
   /**

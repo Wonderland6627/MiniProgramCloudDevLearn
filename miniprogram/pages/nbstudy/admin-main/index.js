@@ -1,5 +1,6 @@
 // pages/nbstudy/admin-main/index.js
 
+const remoteConfig = require('../../../remoteConfig.js')
 const logger = require('../../../logger.js')
 const consts = require('../../../consts.js')
 const utils = require('../../../utils/utils.js')
@@ -11,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    programMode: 'private',
     selectedTabIndex: 0,
     tabs: [
       { title: '所有学生', filter: student => true },
@@ -35,7 +37,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setupMode()
     this.fetchStudents()
+  },
+
+  setupMode() {
+    let programMode = remoteConfig.config.programMode
+    logger.info(`[admin-main] program mode: ${programMode}`)
+    this.setData({
+      programMode: programMode
+    })
   },
 
   fetchStudents() {
