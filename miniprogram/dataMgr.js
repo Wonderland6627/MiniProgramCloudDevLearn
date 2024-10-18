@@ -1,6 +1,6 @@
 // dataMgr.js
 
-const cf = require('./commonFuntions.js')
+const cf = require('./commonFunctions.js')
 const utils = require('./utils/utils.js')
 const timeUtils = require('./utils/timeUtils.js')
 const logger = require('./logger.js')

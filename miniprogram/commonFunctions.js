@@ -1,10 +1,10 @@
-// commonFuntions.js
+// commonFunctions.js
 
 const consts = require('./consts.js')
 const utils = require('./utils/utils.js')
 const logger = require('./logger.js')
 
-const commonFuntions = {
+const commonFunctions = {
 
   showWiFiModal() {
     if (getApp().needLogin()) {
@@ -127,4 +127,4 @@ const commonFuntions = {
   }
 }
 
-module.exports = commonFuntions
+module.exports = commonFunctions

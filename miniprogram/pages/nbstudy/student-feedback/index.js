@@ -1,7 +1,7 @@
 // pages/nbstudy/student-feedback/index.js
 
 const logger = require('../../../logger.js')
-const cf = require('../../../commonFuntions.js')
+const cf = require('../../../commonFunctions.js')
 
 Page({
 

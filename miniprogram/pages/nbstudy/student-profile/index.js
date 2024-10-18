@@ -1,6 +1,6 @@
 // pages/nbstudy/student-profile/index.js
 
-const cf = require('../../../commonFuntions.js')
+const cf = require('../../../commonFunctions.js')
 const logger = require('../../../logger.js')
 const consts = require('../../../consts.js')
 const remoteConfig = require('../../../remoteConfig.js')

@@ -1,7 +1,7 @@
 // pages/nbstudy/student-main/index.js
 
 const remoteConfig = require('../../../remoteConfig.js')
-const cf = require('../../../commonFuntions.js');
+const cf = require('../../../commonFunctions.js');
 const logger = require('../../../logger.js');
 
 Page({
