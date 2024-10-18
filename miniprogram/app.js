@@ -4,6 +4,7 @@ const eventBus = require('eventBus.js')
 const { init } = require('@cloudbase/wx-cloud-client-sdk')
 const client = init(wx.cloud)
 const models = client.models
+const updateManager = wx.getUpdateManager()
 const dataMgr = require('./dataMgr')
 const remoteConfig = require('./remoteConfig')
 const logger = require('./logger.js')
@@ -23,6 +24,31 @@ App({
       });
     }
     remoteConfig.startFetch()
+  },
+
+  onShow: function () {
+    logger.info(`[app.js] app on show, check version update`)
+    updateManager.onCheckForUpdate(function (res) {
+      logger.info(`[app.js] check version update, hasUpdate: ${res.hasUpdate}`)
+      if (!res.hasUpdate) {
+        return
+      }
+      updateManager.onUpdateReady(function() {
+        wx.showModal({
+          title: '更新提示',
+          content: '新版本已经准备好，是否重启应用？',
+          success: function (res) {
+            if (res.confirm) {
+              logger.info(`[app.js] 有版本更新，用户点击了更新`)
+              updateManager.applyUpdate()
+            }
+            if (res.cancel) {
+              logger.info(`[app.js] 有版本更新，用户点击了取消`)
+            }
+          }
+        })
+      })
+    })
   },
 
   globalData: {
