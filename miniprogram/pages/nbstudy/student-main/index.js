@@ -1,6 +1,8 @@
 // pages/nbstudy/student-main/index.js
 
-const cf = require('../../../commonFuntions.js')
+const remoteConfig = require('../../../remoteConfig.js')
+const cf = require('../../../commonFuntions.js');
+const logger = require('../../../logger.js');
 
 Page({
 
@@ -9,11 +11,7 @@ Page({
    */
   //此页尽量不要用到studentInfo
   data: {
-    imageUrls: [
-      'https://wx3.sinaimg.cn/mw690/b3e366e1gy1hr8fashq9qj20tw0tstbc.jpg',
-      'https://ww1.sinaimg.cn/mw690/0070NSSfgy1hrmykbkxnij335s35snp8.jpg',
-      'https://img0.baidu.com/it/u=454995986,3330485591&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=375'
-    ],
+    imageUrls: remoteConfig.config.swiperImagesList,
 
     toolInfos: [
       {
@@ -69,7 +67,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+    setTimeout(() => {
+      this.refreshSwiperImagesList()
+    }, 3000)
+  },
+
+  refreshSwiperImagesList() {
+    if (remoteConfig.config.programMode == 'private') {
+      return
+    }
+    let list = remoteConfig.config.swiperImagesList
+    logger.info(`[student-main] refresh swiper image list: ${list}`)
+    this.setData({
+      imageUrls: list,
+    })
   },
 
   onViewWiFiClick(e) {
