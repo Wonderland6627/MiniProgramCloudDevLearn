@@ -22,7 +22,7 @@ Page({
       consts.DurationType.Month,
       consts.DurationType.DoubleMonth,
       consts.DurationType.Season,
-      consts.DurationType.halfYear,
+      consts.DurationType.HalfYear,
       consts.DurationType.Year,
     ],
 
@@ -71,7 +71,7 @@ Page({
         seatType: true,
         durationType: true,
         price: true,
-        discount: true,
+        // discount: true,
         giftDayCount: true,
       },
       pageSize: 24, //VIP、B、C * 8种时长
