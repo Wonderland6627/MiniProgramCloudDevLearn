@@ -19,7 +19,7 @@ App({
         //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
         //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
         //   如不填则使用默认环境（第一个创建的环境）
-        env: 'cloud1-1gv3jdz41b34d301',
+        env: 'cloud1-8gewsvyn8efe62b8',
         traceUser: true,
       });
     }
@@ -54,7 +54,7 @@ App({
   globalData: {
     openid: '',
     pendingOPENID: 'UNKNOWN', //OPENID为 'UNKNOWN' 的表数据视为待绑定数据
-    defaultAvatarUrl: 'https://636c-cloud1-1gv3jdz41b34d301-1327447321.tcb.qcloud.la/nbstudy/default_avatar.png?sign=750b4fecbff49b9e2bbeb62e2436a44f&t=1722594682',
+    defaultAvatarUrl: 'https://636c-cloud1-8gewsvyn8efe62b8-1327447321.tcb.qcloud.la/nbstudy/default_avatar.png?sign=53a45a33e86b7d84e4a8338e7e7f295c&t=1750561315',
   },
 
   isAdmin: false,

@@ -1,6 +1,6 @@
 const envList = [
   {
-    envId: 'cloud1-1gv3jdz41b34d301',
+    envId: 'cloud1-8gewsvyn8efe62b8',
   }
 ];
 const isMac = false;

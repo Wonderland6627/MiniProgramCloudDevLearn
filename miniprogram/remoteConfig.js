@@ -7,9 +7,9 @@ const remoteConfig = {
 	config: { //local default config
 		programMode: 'private',
 		swiperImagesList: [
-			'https://636c-cloud1-1gv3jdz41b34d301-1327447321.tcb.qcloud.la/nbstudy/swiper_images/default/default_swiper_image_0.jpg?sign=b54c432c8e789905205f9ce55ef54d5f&t=1729231540',
-      'https://636c-cloud1-1gv3jdz41b34d301-1327447321.tcb.qcloud.la/nbstudy/swiper_images/default/default_swiper_image_1.jpg?sign=a332cdf6cfc313d9b6dad4d770a8d559&t=1729231530',
-      'https://636c-cloud1-1gv3jdz41b34d301-1327447321.tcb.qcloud.la/nbstudy/swiper_images/default/default_swiper_image_2.jpg?sign=2e8907a0c0cbe12293fd0b6f9664ddbb&t=1729231472'
+			"https://636c-cloud1-8gewsvyn8efe62b8-1327447321.tcb.qcloud.la/nbstudy/swiper_images/default/default_swiper_image_0.jpg?sign=6113607f0ae007858c7387a71eab47ea&t=1750645097",
+			"https://636c-cloud1-8gewsvyn8efe62b8-1327447321.tcb.qcloud.la/nbstudy/swiper_images/default/default_swiper_image_1.jpg?sign=66f1316f932b14b9abce88c2fe1cc468&t=1750645106",
+			"https://636c-cloud1-8gewsvyn8efe62b8-1327447321.tcb.qcloud.la/nbstudy/swiper_images/default/default_swiper_image_2.jpg?sign=e6ce41cfe54e2514e77670bb5e329bb5&t=1750645114"
 		]
 	},
 
