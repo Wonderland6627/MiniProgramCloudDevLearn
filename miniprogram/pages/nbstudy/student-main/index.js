@@ -25,11 +25,6 @@ Page({
         icon: "../../../images/icons/wifi.svg",
         onTap: "onViewWiFiClick"
       },
-      {
-        title: "工具箱",
-        icon: "../../../images/icons/tools.svg",
-        onTap: "onToolsClick"
-      },
     ],
 
     selectedTabIndex: 0,
@@ -77,18 +72,37 @@ Page({
    */
   onLoad(options) {
     setTimeout(() => {
+      if (remoteConfig.config.programMode == 'private') {
+        return
+      }
       this.refreshSwiperImagesList()
+      this.refreshToolInfosList()
     }, 3000)
   },
 
   refreshSwiperImagesList() {
-    if (remoteConfig.config.programMode == 'private') {
-      return
-    }
     let list = remoteConfig.config.swiperImagesList
     logger.info(`[student-main] refresh swiper image list: ${list}`)
     this.setData({
       imageUrls: list,
+    })
+  },
+
+  refreshToolInfosList() {
+    var newInfos = [
+      {
+        title: "WIFI连接",
+        icon: "../../../images/icons/wifi.svg",
+        onTap: "onViewWiFiClick"
+      },
+      {
+        title: "工具箱",
+        icon: "../../../images/icons/tools.svg",
+        onTap: "onToolsClick"
+      },
+    ]
+    this.setData({
+      toolInfos: newInfos,
     })
   },
 
