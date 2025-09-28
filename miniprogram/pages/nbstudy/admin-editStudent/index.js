@@ -437,6 +437,65 @@ Page({
     })
   },
 
+  // 检查学生信息是否重复（基于姓名+手机号组合）
+  async checkStudentDuplicate(studentInfo) {
+    const { studentName, phone, _id } = studentInfo
+    
+    // 如果姓名或手机号为空，跳过重复检查
+    if (!studentName || !phone) {
+      logger.info(`[admin-editStudent] 姓名或手机号为空，跳过重复检查 - 姓名: ${studentName}, 手机号: ${phone}`)
+      return { hasDuplicate: false }
+    }
+    
+    try {
+      // 查询相同姓名+手机号组合的记录
+      const result = await getApp().getModels().students.list({
+        filter: {
+          where: {
+            $and: [
+              { studentName: { $eq: studentName } },
+              { phone: { $eq: phone } }
+            ]
+          }
+        },
+        select: {
+          _id: true,
+          OPENID: true,
+          studentName: true,
+          phone: true,
+        },
+        getCount: true,
+      })
+      
+      logger.info(`[admin-editStudent] 查询姓名+手机号组合重复检查回应: ${JSON.stringify(result)}`)
+      
+      if (result.data.total > 0) {
+        const duplicateRecord = result.data.records[0]
+        logger.info(`[admin-editStudent] 查询到重复记录 - 姓名: [${studentName}] 手机号: [${phone}] 所属OPENID&_id: [${duplicateRecord.OPENID} -- ${duplicateRecord._id}]，当前修改用户OPENID&_id: [${studentInfo.OPENID} -- ${studentInfo._id}]`)
+        
+        // 如果是同一条记录（自己），不算重复
+        if (duplicateRecord._id === _id) {
+          return { hasDuplicate: false }
+        }
+        
+        // 发现重复记录
+        return { 
+          hasDuplicate: true, 
+          message: `姓名"${studentName}"和手机号"${phone}"的组合已存在，请联系管理员处理！` 
+        }
+      }
+      
+      return { hasDuplicate: false }
+    } catch (error) {
+      logger.error(`[admin-editStudent] 检查学生重复信息错误: ${error}`)
+      // 发生错误时，为了安全起见，阻止保存
+      return { 
+        hasDuplicate: true, 
+        message: '检查重复信息时发生错误，请稍后重试' 
+      }
+    }
+  },
+
   saveInfo() {
     logger.info('[admin-editStudent] 保存个人信息')
     this.tryUpdateStudentInfo()
@@ -445,52 +504,35 @@ Page({
   async tryUpdateStudentInfo() {
     const { studentInfo } = this.data
     //必填信息 start
-    if (!studentInfo.studentName) {
-      wx.showToast({ title: '请输入学生姓名', icon: 'error' })
-      return
-    }
-    if (!studentInfo.phone || studentInfo.phone.length != 11) {
-      wx.showToast({ title: '请输入手机号', icon: 'error' })
-      return
-    }
-    if (!(this.data.genderIndex == 0 || this.data.genderIndex == 1)) {
-      wx.showToast({ title: '请选择性别', icon: 'error' })
-      return
-    }
-    if (!studentInfo.birthday) {
-      wx.showToast({ title: '请输入生日', icon: 'error' })
-      return
-    }
+    // if (!studentInfo.studentName) {
+    //   wx.showToast({ title: '请输入学生姓名', icon: 'error' })
+    //   return
+    // }
+    // if (!studentInfo.phone || studentInfo.phone.length != 11) {
+    //   wx.showToast({ title: '请输入手机号', icon: 'error' })
+    //   return
+    // }
+    // if (!(this.data.genderIndex == 0 || this.data.genderIndex == 1)) {
+    //   wx.showToast({ title: '请选择性别', icon: 'error' })
+    //   return
+    // }
+    // if (!studentInfo.birthday) {
+    //   wx.showToast({ title: '请输入生日', icon: 'error' })
+    //   return
+    // }
     //必填信息 end
     wx.showLoading({ title: '正在保存', mask: true })
-    const result = await getApp().getModels().students.list({
-      filter: {
-        where: {
-          phone: {
-            $eq: studentInfo.phone
-          },
-        }
-      },
-      select: {
-        _id: true,
-        OPENID: true,
-        studentName: true,
-        phone: true,
-      },
-      getCount: true,
-    })
-    logger.info(`[admin-editStudent] 查询手机号是否重复回应: ${JSON.stringify(result)}`)
-    if (result.data.total !== 0) {
-      logger.info(`[admin-editStudent] 查询手机号: [${studentInfo.phone}] 所属OPENID&_id: [${result.data.records[0].OPENID} -- ${result.data.records[0]._id}]，当前修改用户OPENID&_id: [${studentInfo.OPENID} -- ${studentInfo._id}]`)
-      if (result.data.records[0]._id !== studentInfo._id) { //查询同样的手机号 且不是当前用户的
-        wx.showToast({ 
-          title: '该手机号已注册，请联系管理员处理！',
-          icon: 'none',
-          mask: true,
-          duration: 2000,
-        })
-        return
-      }
+    
+    // 检查姓名+手机号组合是否重复
+    const duplicateCheckResult = await this.checkStudentDuplicate(studentInfo)
+    if (duplicateCheckResult.hasDuplicate) {
+      wx.showToast({ 
+        title: duplicateCheckResult.message,
+        icon: 'none',
+        mask: true,
+        duration: 2000,
+      })
+      return
     }
     try { 
       const { modifies } = this.data
