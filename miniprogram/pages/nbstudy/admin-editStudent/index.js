@@ -54,7 +54,7 @@ Page({
     ],
     packageSelectRange: [
       "2024-01-01",
-      "2025-01-01",
+      timeUtils.timeStamp2DateFormat(Date.now()), // 套餐起始日期的最晚范围为当天
       "2099-01-01",
     ]
   },
