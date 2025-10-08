@@ -257,6 +257,19 @@ Page({
   },
 
   /**
+   * 右下角加号按钮点击事件
+   */
+  onAddButtonTap() {
+    logger.info('[admin-main] 点击右下角加号按钮，准备添加新学生')
+    // 清除可能存在的选中学生信息
+    wx.removeStorageSync('selectedStudentInfo')
+    // 跳转到编辑页面，传递新增模式标识
+    wx.navigateTo({
+      url: '/pages/nbstudy/admin-editStudent/index?mode=create'
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {

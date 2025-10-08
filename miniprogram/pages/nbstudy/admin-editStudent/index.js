@@ -64,9 +64,16 @@ Page({
    */
   onLoad(options) {
     this.setupMode()
-    let info = wx.getStorageSync('selectedStudentInfo')
-    this.onGetStudentInfo(info)
     this.setUpEnumMap()
+    
+    // 检查是否为新增模式
+    if (options.mode === 'create') {
+      logger.info('[admin-editStudent] 进入新增学生模式')
+      this.initNewStudent()
+    } else {
+      let info = wx.getStorageSync('selectedStudentInfo')
+      this.onGetStudentInfo(info)
+    }
   },
 
   setupMode() {
@@ -75,6 +82,67 @@ Page({
     this.setData({
       programMode: programMode
     })
+  },
+
+  /**
+   * 初始化新学生数据
+   */
+  initNewStudent() {
+    const defaultAvatarUrl = getApp().globalData.defaultAvatarUrl
+    const newStudentInfo = {
+      _id: '', // 新增时为空
+      OPENID: 'UNKNOWN', // 新增时设为UNKNOWN，等待绑定
+      studentName: '',
+      phone: '',
+      gender: '',
+      birthday: '',
+      birthdayFormat: '',
+      school: '',
+      studyGoal: '',
+      seatName: '',
+      seatType: '0', // 默认座位类型
+      durationType: '0', // 默认时长类型
+      packageStartDate: '',
+      packageStartDateFormat: '',
+      packageExpirationDate: '',
+      packageExpirationDateFormat: '',
+      comment: '',
+      avatarUrl: defaultAvatarUrl,
+      nickname: '',
+      isVIP: false,
+      isTemp: true,
+    }
+    
+    // 初始化所有字段到modifies中，这样新增时所有字段都会被保存
+    const initialModifies = {
+      OPENID: 'UNKNOWN',
+      studentName: '',
+      phone: '',
+      gender: '',
+      birthday: '',
+      school: '',
+      studyGoal: '',
+      seatName: '',
+      seatType: '0',
+      durationType: '0',
+      packageStartDate: '',
+      packageExpirationDate: '',
+      comment: '',
+      avatarUrl: defaultAvatarUrl,
+      nickname: '',
+    }
+    
+    this.setData({
+      studentInfo: newStudentInfo,
+      currentStudentInfo: utils.cloneWithJSON(newStudentInfo),
+      modifies: initialModifies,
+      isCreateMode: true,
+      genderIndex: -1,
+      seatTypeIndex: 0, // 设置默认选中
+      durationTypeIndex: 0, // 设置默认选中
+    })
+    
+    logger.info('[admin-editStudent] 新学生数据初始化完成')
   },
 
   onGetStudentInfo(info) {
@@ -229,6 +297,28 @@ Page({
         }
       }).then(res => {
         logger.info(`[admin-editStudent] 更新学生基础信息回应: ${JSON.stringify(res)}`);
+        if (res.result.code !== 0) {
+          reject(JSON.stringify(res))
+          return
+        }
+        resolve(res)
+      }).catch(reject);
+    })
+  },
+
+  createStudent(modifies) {
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'quickstartFunctions',
+        data: {
+          type: 'createStudent',
+          data: { 
+            OPENID: 'UNKNOWN', // 新增学生时OPENID设为UNKNOWN
+            modifies 
+          },
+        }
+      }).then(res => {
+        logger.info(`[admin-editStudent] 创建学生信息回应: ${JSON.stringify(res)}`);
         if (res.result.code !== 0) {
           reject(JSON.stringify(res))
           return
@@ -498,7 +588,59 @@ Page({
 
   saveInfo() {
     logger.info('[admin-editStudent] 保存个人信息')
-    this.tryUpdateStudentInfo()
+    if (this.data.isCreateMode) {
+      this.tryCreateStudentInfo()
+    } else {
+      this.tryUpdateStudentInfo()
+    }
+  },
+
+  async tryCreateStudentInfo() {
+    const { studentInfo } = this.data
+    
+    // 必填信息验证
+    if (!studentInfo.studentName) {
+      wx.showToast({ title: '请输入学生姓名', icon: 'error' })
+      return
+    }
+    if (!studentInfo.phone || studentInfo.phone.length != 11) {
+      wx.showToast({ title: '请输入正确的手机号', icon: 'error' })
+      return
+    }
+    if (!(this.data.genderIndex == 0 || this.data.genderIndex == 1)) {
+      wx.showToast({ title: '请选择性别', icon: 'error' })
+      return
+    }
+    
+    wx.showLoading({ title: '正在创建', mask: true })
+    
+    // 检查姓名+手机号组合是否重复
+    const duplicateCheckResult = await this.checkStudentDuplicate(studentInfo)
+    if (duplicateCheckResult.hasDuplicate) {
+      wx.showToast({ 
+        title: duplicateCheckResult.message,
+        icon: 'none',
+        mask: true,
+        duration: 2000,
+      })
+      return
+    }
+    
+    try {
+      const { modifies } = this.data
+      logger.info(`[admin-editStudent] 创建学生信息: ${JSON.stringify(modifies)}`)
+      
+      await this.createStudent(modifies)
+      logger.info('[admin-editStudent] 学生信息创建成功')
+      wx.showToast({ title: '创建成功', icon: 'success', mask: true, duration: 1500 })
+      
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1500)
+    } catch (error) {
+      logger.error(`[admin-editStudent] 创建学生信息错误: ${error}`)
+      wx.showToast({ title: '创建失败', icon: 'error', mask: true })
+    }
   },
 
   async tryUpdateStudentInfo() {

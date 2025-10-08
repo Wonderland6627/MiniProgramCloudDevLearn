@@ -44,3 +44,8 @@
     <view class="extra-space"></view>
   </scroll-view>
 </view>
+
+<!-- 右下角浮动加号按钮 -->
+<view class="floating-add-button" bindtap="onAddButtonTap">
+  <text class="add-icon">+</text>
+</view>

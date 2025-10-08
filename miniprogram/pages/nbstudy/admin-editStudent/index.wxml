@@ -125,7 +125,7 @@
         <view class='edit-readonly' bindtap="bindCopyTap">{{studentInfo.OPENID}}</view>
       </view>
     </view>
-    <button class="common-btn" bindtap='saveInfo'>保 存</button>
+    <button class="common-btn" bindtap='saveInfo'>{{isCreateMode ? '创 建' : '保 存'}}</button>
   </block>
   <block wx:else>
     <view class='edit-container'>
