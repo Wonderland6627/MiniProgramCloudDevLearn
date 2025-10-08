@@ -124,9 +124,9 @@ Page({
 
   sortStudents(list) {
     list.sort((a, b) => {
-      if (a.isVIP && !b.isVIP) {
+      if (a.isValidPackage && !b.isValidPackage) {
         return -1
-      } else if (!a.isVIP && b.isVIP) {
+      } else if (!a.isValidPackage && b.isValidPackage) {
         return 1
       }
       const seatTypeA = a.seatType

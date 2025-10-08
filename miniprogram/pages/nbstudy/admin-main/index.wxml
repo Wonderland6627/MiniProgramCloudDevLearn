@@ -33,7 +33,7 @@
         <block wx:else>
           <view class="name">{{item.nickname}}</view>
         </block>
-        <block wx:if="{{item.isVIP}}">
+        <block wx:if="{{item.isValidPackage}}">
           <view class="packageInfo">{{item.seatName}} - {{constsInfo.durations[item.durationType].label}}</view>
           <view class="packageDate">到期日期: {{item.packageExpirationDateFormat}}</view>
         </block>

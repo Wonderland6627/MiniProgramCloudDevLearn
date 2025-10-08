@@ -51,7 +51,7 @@ const dataMgr = {
           return
         }
         let parsedData = this.parseStudentInfo(data)
-        logger.info(`[dataMgr] fetch & update student info success, isVIP: ${parsedData.isVIP}`)
+        logger.info(`[dataMgr] fetch & update student info success, isValidPackage: ${parsedData.isValidPackage}`)
         this.studentInfo = parsedData
         resolve(parsedData)
       } catch (error) {
@@ -76,7 +76,7 @@ const dataMgr = {
     if (expirationDate) {
       studentInfo.packageExpirationDateFormat = timeUtils.timeStamp2DateFormat(expirationDate)
     }
-    studentInfo.isVIP = expirationDate && new Date(expirationDate) > new Date() && studentInfo.seatName !== '' //套餐没到期、有座位名称 就认为是VIP
+    studentInfo.isValidPackage = expirationDate && new Date(expirationDate) > new Date() && studentInfo.seatName !== '' //套餐没到期、有座位名称 就认为是有效套餐用户
     studentInfo.isTemp = !expirationDate //如果没有套餐到期日期 就认为是临时用户
     if (studentInfo._id) {
       studentInfo.nickname = cf.getMapperNickname(studentInfo._id)

@@ -109,7 +109,7 @@ Page({
       comment: '',
       avatarUrl: defaultAvatarUrl,
       nickname: '',
-      isVIP: false,
+      isValidPackage: false,
       isTemp: true,
     }
     
