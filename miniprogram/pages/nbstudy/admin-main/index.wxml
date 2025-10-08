@@ -6,6 +6,10 @@
   </view>
 </view>
 <view class="mid-container">
+  <view class="sort-button" bindtap="onSortButtonTap">
+    <text class="sort-icon">⇅</text>
+    <text class="sort-text">{{currentSortType.label}}</text>
+  </view>
   <view class="number-text">学生数量: {{selectedTabStudents.length}}/{{allStudents.length}}</view>
 </view>
 <view class="scroll-container">

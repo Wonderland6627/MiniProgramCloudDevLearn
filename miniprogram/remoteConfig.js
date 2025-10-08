@@ -36,6 +36,7 @@ const remoteConfig = {
 				getCount: true,
 			})
 			const resultJSON = JSON.stringify(result)
+			logger.info(`[remoteConfig] ${resultJSON}`)
 			this.config = result.data.records[0].configJson
 			logger.info(`[remoteConfig] fetch & update remote config success, remote json: ${resultJSON}, local: ${JSON.stringify(this.config)}`)
 		} catch (error) {

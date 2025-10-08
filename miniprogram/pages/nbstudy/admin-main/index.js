@@ -31,6 +31,13 @@ Page({
     },
     selectedTabStudents: [],
     allStudents: [],
+    
+    // 排序相关
+    sortTypes: [
+      { key: 'default', label: '默认排序' },
+      { key: 'expiry', label: '按到期时间' }
+    ],
+    currentSortType: { key: 'default', label: '默认排序' },
   },
 
   /**
@@ -225,16 +232,90 @@ Page({
     this.setData({
       selectedTabIndex: index,
     })
-    logger.info(`[adming-main] 切换学生列表tab: [${index}, ${tab.title}]`)
+    logger.info(`[admin-main] 切换学生列表tab: [${index}, ${tab.title}]`)
     this.onSwitchTabChanged(index)
   },
 
   onSwitchTabChanged(index) {
     this.scrollToTop()
     const tab = this.data.tabs[index]
-    const filtedList = this.data.allStudents.filter(tab.filter)
+    const filteredList = this.data.allStudents.filter(tab.filter)
+    const sortedList = this.applySorting(filteredList)
     this.setData({
-      selectedTabStudents: filtedList,
+      selectedTabStudents: sortedList,
+    })
+  },
+
+  /**
+   * 排序按钮点击事件
+   */
+  onSortButtonTap() {
+    const currentIndex = this.data.sortTypes.findIndex(type => type.key === this.data.currentSortType.key)
+    const nextIndex = (currentIndex + 1) % this.data.sortTypes.length
+    const nextSortType = this.data.sortTypes[nextIndex]
+    
+    logger.info(`[admin-main] 切换排序方式: ${this.data.currentSortType.label} -> ${nextSortType.label}`)
+    
+    this.setData({
+      currentSortType: nextSortType
+    })
+    
+    // 重新应用排序
+    this.onSwitchTabChanged(this.data.selectedTabIndex)
+  },
+
+  /**
+   * 应用排序
+   */
+  applySorting(list) {
+    const sortType = this.data.currentSortType.key
+    
+    switch (sortType) {
+      case 'expiry':
+        return this.sortByExpiry(list)
+      default:
+        return this.sortStudents(list) // 使用原有的默认排序
+    }
+  },
+
+  /**
+   * 按到期时间排序
+   * 到期时间越接近的排在越前面，没有套餐信息或已过期的排在后面
+   */
+  sortByExpiry(list) {
+    return [...list].sort((a, b) => {
+      const now = new Date()
+      
+      // 处理学生a的到期时间
+      let expiryA = null
+      if (a.packageExpirationDate) {
+        expiryA = new Date(a.packageExpirationDate)
+      }
+      
+      // 处理学生b的到期时间
+      let expiryB = null
+      if (b.packageExpirationDate) {
+        expiryB = new Date(b.packageExpirationDate)
+      }
+      
+      // 没有套餐信息的情况
+      if (!expiryA && !expiryB) return 0
+      if (!expiryA) return 1  // a没有套餐信息，排在后面
+      if (!expiryB) return -1 // b没有套餐信息，排在后面
+      
+      // 已过期的情况
+      const isExpiredA = expiryA < now
+      const isExpiredB = expiryB < now
+      
+      if (isExpiredA && isExpiredB) {
+        // 都已过期，按过期时间倒序（过期时间越近的排在前面）
+        return expiryB - expiryA
+      }
+      if (isExpiredA) return 1  // a已过期，排在后面
+      if (isExpiredB) return -1 // b已过期，排在后面
+      
+      // 都未过期，按到期时间升序（到期时间越近的排在前面）
+      return expiryA - expiryB
     })
   },
 
