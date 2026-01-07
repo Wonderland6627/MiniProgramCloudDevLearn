@@ -21,7 +21,12 @@ App({
         //   如不填则使用默认环境（第一个创建的环境）
         env: 'cloud1-8gewsvyn8efe62b8',
         traceUser: true,
-      });
+      })
+      .then(() => {
+        logger.info(`云环境初始化成功 ${666}`)
+      }).catch(err => {
+        logger.error(`云环境初始化失败 ${err}`)
+      })
     }
     remoteConfig.startFetch()
   },
@@ -57,7 +62,7 @@ App({
     defaultAvatarUrl: 'https://636c-cloud1-8gewsvyn8efe62b8-1327447321.tcb.qcloud.la/nbstudy/default_avatar.png?sign=80280ad3d4f23ae7121fa8bb9ca59734&t=1750645656',
   },
 
-  isAdmin: false,
+  isAdmin: true,
   eventBus: eventBus,
   dataMgr: dataMgr,
   remoteConfig: remoteConfig,

@@ -66,7 +66,7 @@ const DurationTypeInfoMap = [
   { type: DurationType.HalfMonth, label: '半月卡', duration: 15 },
   { type: DurationType.Month, label: '月卡', duration: 31 },
   { type: DurationType.DoubleMonth, label: '双月卡', duration: 61 },
-  { type: DurationType.Season, label: '季度卡', duration: 91 },
+  { type: DurationType.Season, label: '季卡', duration: 91 },
   { type: DurationType.HalfYear, label: '半年卡', duration: 181 },
   { type: DurationType.Year, label: '年卡', duration: 365 },
 ]

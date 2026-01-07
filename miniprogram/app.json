@@ -1,7 +1,8 @@
 {
 	"pages": [
-		"pages/nbstudy/student-main/index",
 		"pages/nbstudy/admin-main/index",
+
+		"pages/nbstudy/student-main/index",
 		"pages/nbstudy/student-editBasicInfo/index",
 		"pages/nbstudy/admin-login/index",
 		"pages/nbstudy/student-profile/index",
