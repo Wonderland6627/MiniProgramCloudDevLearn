@@ -113,11 +113,53 @@
   color: #888;
 }
 
-/* 右下角浮动加号按钮样式 */
-.floating-add-button {
+.card-info {
+  color: #ff8533;
+  font-size: 26rpx;
+  margin-top: 8rpx;
+}
+
+/* 右下角浮动按钮组样式 */
+.floating-buttons {
   position: fixed;
   bottom: 240rpx;
   right: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 9999;
+}
+
+.floating-button {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.2);
+  margin-bottom: 20rpx;
+  transition: all 0.3s ease;
+}
+
+.floating-button:active {
+  transform: scale(0.95);
+}
+
+.attendance-button {
+  background-color: #4CAF50;
+}
+
+.attendance-button:active {
+  background-color: #45a049;
+}
+
+.button-icon {
+  font-size: 50rpx;
+  line-height: 1;
+}
+
+.floating-add-button {
   width: 120rpx;
   height: 120rpx;
   background-color: #ff8533;
@@ -126,7 +168,6 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 8rpx 20rpx rgba(255, 133, 51, 0.4);
-  z-index: 9999;
   transition: all 0.3s ease;
 }
 

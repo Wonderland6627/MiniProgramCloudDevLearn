@@ -1,0 +1,313 @@
+/* pages/nbstudy/admin-attendance-calendar/index.wxss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #F6F6F6;
+}
+
+.date-selector-container {
+  background-color: #fff;
+  padding: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #f0f0f0;
+  border-radius: 8rpx;
+}
+
+.date-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+.date-value {
+  flex: 1;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.date-arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.statistics-container {
+  background-color: #fff;
+  padding: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.statistics-text {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.scroll-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scroll-ui {
+  flex: 1;
+  width: 100%;
+}
+
+.extra-space {
+  height: 200rpx;
+}
+
+.attendance-cell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.avatar-container {
+  width: 100rpx;
+  height: 100rpx;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-right: 20rpx;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 32rpx;
+  margin-bottom: 8rpx;
+  color: #333;
+}
+
+.card-info {
+  font-size: 26rpx;
+  color: #ff8533;
+}
+
+.delete-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff4444;
+  border-radius: 50%;
+  margin-left: 20rpx;
+}
+
+.delete-icon {
+  color: #fff;
+  font-size: 40rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.empty-tip {
+  padding: 100rpx 0;
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.add-button {
+  position: fixed;
+  bottom: 30rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600rpx;
+  height: 88rpx;
+  background-color: #ff8533;
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 20rpx rgba(255, 133, 51, 0.4);
+  z-index: 100;
+}
+
+.add-button:active {
+  opacity: 0.8;
+}
+
+.add-icon {
+  color: white;
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-right: 10rpx;
+}
+
+.add-text {
+  color: white;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+/* 学生选择弹窗样式 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-mask.show {
+  display: flex;
+}
+
+.modal-content {
+  width: 90%;
+  max-height: 80%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 50rpx;
+  color: #999;
+  line-height: 1;
+}
+
+.search-container {
+  padding: 20rpx 30rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.search-input {
+  width: 100%;
+  height: 70rpx;
+  padding: 0 20rpx;
+  background-color: #f0f0f0;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.student-list {
+  flex: 1;
+  max-height: 600rpx;
+  overflow-y: auto;
+}
+
+.student-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.student-item.selected {
+  background-color: #fff5e6;
+}
+
+.avatar-container-small {
+  width: 80rpx;
+  height: 80rpx;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-right: 20rpx;
+  overflow: hidden;
+}
+
+.avatar-small {
+  width: 100%;
+  height: 100%;
+}
+
+.student-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.student-name {
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.student-card-info {
+  font-size: 24rpx;
+  color: #ff8533;
+}
+
+.check-icon {
+  font-size: 40rpx;
+  color: #ff8533;
+  font-weight: bold;
+}
+
+.modal-footer {
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-top: 1px solid #eee;
+}
+
+.cancel-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background-color: #f0f0f0;
+  color: #666;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+  font-size: 30rpx;
+}
+
+.confirm-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background-color: #ff8533;
+  color: #fff;
+  border-radius: 8rpx;
+  font-size: 30rpx;
+}
+

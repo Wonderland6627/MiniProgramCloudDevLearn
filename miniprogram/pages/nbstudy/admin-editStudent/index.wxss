@@ -92,3 +92,75 @@
 .common-btn:active {
   opacity: 0.8;
 }
+
+/* 签到记录样式 */
+.attendance-statistics {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 30rpx 20rpx;
+  background-color: #fff5e6;
+  margin: 0 20rpx 20rpx 20rpx;
+  border-radius: 8rpx;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.stat-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #ff8533;
+}
+
+.attendance-list-container {
+  padding: 20rpx;
+}
+
+.attendance-list-title {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+}
+
+.attendance-records {
+  display: flex;
+  flex-direction: column;
+}
+
+.attendance-record-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.attendance-date {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.attendance-weekday {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.empty-attendance {
+  padding: 60rpx 0;
+  text-align: center;
+  color: #999;
+  font-size: 26rpx;
+}

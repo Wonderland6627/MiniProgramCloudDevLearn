@@ -43,13 +43,21 @@
         <block wx:else>
           <view class="expiredPackageInfo">已到期: {{item.packageExpirationDateFormat}}</view>
         </block>
+        <block wx:if="{{item.durationType === '0'}}">
+          <view class="card-info">次卡剩余: {{item.cardRemainingCount || 0}}次</view>
+        </block>
       </view>
     </view>
     <view class="extra-space"></view>
   </scroll-view>
 </view>
 
-<!-- 右下角浮动加号按钮 -->
-<view class="floating-add-button" bindtap="onAddButtonTap">
-  <text class="add-icon">+</text>
+<!-- 右下角浮动按钮组 -->
+<view class="floating-buttons">
+  <view class="floating-button attendance-button" bindtap="onAttendanceButtonTap">
+    <text class="button-icon">📅</text>
+  </view>
+  <view class="floating-add-button" bindtap="onAddButtonTap">
+    <text class="add-icon">+</text>
+  </view>
 </view>

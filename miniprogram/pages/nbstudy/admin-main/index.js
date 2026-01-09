@@ -351,6 +351,16 @@ Page({
   },
 
   /**
+   * 签到管理按钮点击事件
+   */
+  onAttendanceButtonTap() {
+    logger.info('[admin-main] 点击签到管理按钮，跳转到日历签到管理页')
+    wx.navigateTo({
+      url: '/pages/nbstudy/admin-attendance-calendar/index'
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {

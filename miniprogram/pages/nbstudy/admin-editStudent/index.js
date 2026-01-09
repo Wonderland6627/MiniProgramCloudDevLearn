@@ -30,6 +30,8 @@ Page({
 
       comment: '备注',
     },
+    attendanceRecords: [], // 签到记录列表
+    attendanceTotalDays: 0, // 累计签到天数
 
     genderIndex: -1,
     genderArray: [
@@ -176,6 +178,9 @@ Page({
         'durationTypeIndex': this.data.studentInfo.durationType
       })
     }
+    
+    // 获取签到记录
+    this.fetchAttendanceRecords()
   },
 
   setUpEnumMap() {
@@ -738,6 +743,80 @@ Page({
    */
   onReachBottom() {
 
+  },
+
+  /**
+   * 获取签到记录
+   */
+  fetchAttendanceRecords() {
+    const studentId = this.data.studentInfo._id
+    if (!studentId) {
+      logger.warn('[admin-editStudent] 学生ID为空，无法获取签到记录')
+      return
+    }
+    
+    logger.info(`[admin-editStudent] 获取学生签到记录: ${studentId}`)
+    
+    // TODO: 实际应该调用云函数 getAttendanceByStudent
+    // wx.cloud.callFunction({
+    //   name: 'quickstartFunctions',
+    //   data: {
+    //     type: 'getAttendanceByStudent',
+    //     data: {
+    //       studentId: studentId,
+    //       pageSize: 10,
+    //       pageNum: 1
+    //     }
+    //   }
+    // }).then(res => {
+    //   if (res.result.code === 0) {
+    //     const records = res.result.data.records || []
+    //     const totalDays = res.result.data.totalDays || 0
+    //     this.processAttendanceRecords(records, totalDays)
+    //   }
+    // })
+    
+    // 模拟数据
+    const mockRecords = [
+      {
+        _id: 'att1',
+        attendanceDate: '2024-01-15',
+        attendanceTimestamp: Date.now() - 86400000 * 2
+      },
+      {
+        _id: 'att2',
+        attendanceDate: '2024-01-14',
+        attendanceTimestamp: Date.now() - 86400000 * 3
+      },
+      {
+        _id: 'att3',
+        attendanceDate: '2024-01-13',
+        attendanceTimestamp: Date.now() - 86400000 * 4
+      }
+    ]
+    
+    this.processAttendanceRecords(mockRecords, 15)
+  },
+
+  /**
+   * 处理签到记录数据
+   */
+  processAttendanceRecords(records, totalDays) {
+    const weekday = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+    
+    const processedRecords = records.map(record => {
+      const date = timeUtils.dateFormatStr2Date(record.attendanceDate)
+      const weekdayText = weekday[date.getDay()]
+      return {
+        ...record,
+        weekdayText: weekdayText
+      }
+    })
+    
+    this.setData({
+      attendanceRecords: processedRecords,
+      attendanceTotalDays: totalDays
+    })
   },
 
   /**
